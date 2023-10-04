@@ -1,7 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=League+Spartan:wght@700&display=swap');
 
-
 body {
   background: #f9f9f9;
   height: 100%;
@@ -386,8 +385,6 @@ select:focus {
     display: block;
     margin: 0 20px 10px 20px; }
 
-
-
 #sidebar {
   font-size: 1.9rem;
   position: fixed;
@@ -490,7 +487,7 @@ select:focus {
 }
 
 #hbs {
-  background-color: #f0f0f0; /* Set your desired background color */
+  background-color: red !important; /* Set your desired background color */
 }
 
 
@@ -528,6 +525,11 @@ select:focus {
   width: 45%;
 }
 
+
+.custom-width {  
+  width: 40%;
+}
+
 #tcon {
   max-width: 100% !important;
 }
@@ -561,6 +563,15 @@ select:focus {
   
 }
 
+#landingPage {
+  background-image: url("../images/image\ 1\(1\).png");
+  background-position: center bottom; /* Center the image */
+  background-size: 100% 90%; /* Set to 90% of the container's width and height */
+  background-repeat: no-repeat;
+}
+.inp {
+  color: red !important;
+}
 .rowt {
   justify-content: center;
 }
