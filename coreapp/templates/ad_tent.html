@@ -1,0 +1,13 @@
+{% extends "admins.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    {% block content %}
+    <a href="{% url 'creacc' %}"><i class="fa fa-th-large" aria-hidden="true"></i> Dashboard</a>
+    {% endblock %}
+</body>
+</html>

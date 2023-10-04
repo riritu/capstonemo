@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>360 Video</title>
+    <meta name="description" content="360 Video — A-Frame">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@4.x.x/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
+</head>
+<body>
+    <a-scene>
+        <a-assets>
+            
+            <audio id="click-sound" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg" crossorigin="anonymous"></audio>      
+            <!-- Images. -->
+            <img id="city" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg" crossorigin="anonymous">
+            <img id="city-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-city.jpg" crossorigin="anonymous">
+            <img id="cubes" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/cubes.jpg" crossorigin="anonymous">
+            <img id="cubes-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" crossorigin="anonymous">
+            <img id="sechelt" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg" crossorigin="anonymous">
+            <img id="sechelt-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg" crossorigin="anonymous">
+            <script id="plane" type="text/html">
+                <a-entity class="link"
+                  geometry="primitive: plane; height: 1; width: 1"
+                  material="shader: flat; src: ${thumb}"
+                  sound="on: click; src: #click-sound"></a-entity>
+              </script>
+        </a-assets>
+        
+        <!-- Pass image sources to the template. -->
+        <a-entity template="src: #plane" data-thumb="#city-thumb"></a-entity>
+        <a-entity template="src: #plane" data-thumb="#cubes-thumb"></a-entity>
+        <a-entity template="src: #plane" data-thumb="#sechelt-thumb"></a-entity>
+        <!-- 360-degree image. -->
+        <a-sky id="image-360" radius="10" src="#city"></a-sky>
+      
+        <!-- Link template we will build. -->
+        <a-entity cursor raycaster="objects: [data-raycastable]" class="link"
+            geometry="primitive: plane; height: 1; width: 1"
+            material="shader: flat; src: #cubes-thumb"
+            sound="on: click; src: #click-sound"></a-entity>
+                
+        <!-- Camera + Cursor. -->
+        <a-camera>
+          <a-cursor
+            id="cursor"
+            animation__click="property: scale; from: 0.1 0.1 0.1; to: 1 1 1; easing: easeInCubic; dur: 150; startEvents: click"
+            animation__clickreset="property: scale; to: 0.1 0.1 0.1; dur: 1; startEvents: animationcomplete__click"
+            animation__fusing="property: scale; from: 1 1 1; to: 0.1 0.1 0.1; easing: easeInCubic; dur: 150; startEvents: fusing"></a-cursor>
+        </a-camera>
+    </a-scene>
+</body>
+<script>
+    document.body.addEventListener('click', () => {
+    // Create or resume the AudioContext here
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    // Your audio playback logic here
+});
+
+</script>
+</html>
