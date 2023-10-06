@@ -10,5 +10,4 @@ urlpatterns = [
     path('ad_tent/', views.ad_tent, name='ad_tent'),
     path('tnt_hom/', views.tnt_hom, name='tnt_hom'),
     path('homepage/', views.homepage, name='homepage'),
-
 ]
