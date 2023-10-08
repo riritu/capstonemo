@@ -83,3 +83,16 @@ def tnt_hom(request):
 def homepage(request):  
     return render(request, 'homepage.html')
 
+def contact(request):  
+    return render(request, 'contact.html')
+
+def vtour(request):  
+    return render(request, 'vtour.html')
+
+def amnts(request):  
+    return render(request, 'amnts.html')
+
+def book(request):  
+    return render(request, 'booking.html')
+
+

@@ -1,0 +1,81 @@
+{% block content %}
+<div class="row" id="cont">
+    <div class="col" id="con2">
+    <form action="">
+        <form method="POST">
+            {% csrf_token %}
+            <h1 class="">CONTACT US</h1>
+            <div class="mb-2">
+              <input type="text" class="form-control" placeholder="Name" id="" >
+            </div>
+            <div class="mb-2">
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+            </div>
+            <div class="mb-2">
+              <input type="tel" class="form-control" id="" placeholder="Phone Number" >
+            </div>
+            <div class="mb-2">
+              <select class="form-select" id="inputGroupSelect01" >
+                <option value="" {% if form.unit_type.value is None %}selected{% endif %}>Unit</option>
+                <option value="Unit1" {% if form.unit_type.value == 'Unit1' %}selected{% endif %}>Unit1</option>
+                <option value="Unit 2" {% if form.unit_type.value == 'Unit 2' %}selected{% endif %}>Unit 2</option>
+                <option value="Unit 3" {% if form.unit_type.value == 'Unit 3' %}selected{% endif %}>Unit 3</option>
+                <option value="Unit 4" {% if form.unit_type.value == 'Unit 4' %}selected{% endif %}>Unit 4</option>
+              </select>
+            </div>       
+            <div class="mb-2">
+                <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+            </div>
+            <div class="mb-2">
+                <input type="date" class="form-control" id="" placeholder="Move-in-date" >
+            </div>
+            <div class="latest-message">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if forloop.last %}
+                            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+              </div>         
+            <button type="submit" class="bntcon">Submit</button>
+          </form>
+    </form>
+    </div>
+    <div class="col" id="con2">
+      <div class="card">
+        <ul>
+            <li>
+                Contact <br>
+                Information
+            </li>
+            <li>
+                Prime Heights House Units
+            </li>
+            <li>
+                Q35G+69R, Batangas
+            </li>
+            <hr>
+            <li>
+                (901) 499 -0973  
+            </li>
+            <hr>
+            <li>
+                HOURS  
+            </li>
+            <li>
+                Monday - Friday    8:00 am - 5:00 pm  
+            </li>
+            <li>
+                Saturday    10:00 am - 2:00 pm
+                Sunday Closed
+            </li>
+            <li>
+                Sunday Closed
+            </li>
+        </ul>
+      </div>
+    </div>
+</div>
+{% endblock %}
+

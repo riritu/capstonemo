@@ -10,4 +10,11 @@ urlpatterns = [
     path('ad_tent/', views.ad_tent, name='ad_tent'),
     path('tnt_hom/', views.tnt_hom, name='tnt_hom'),
     path('homepage/', views.homepage, name='homepage'),
+    path('contact/', views.contact, name='contact'),
+    path('vtour/', views.vtour, name='vtour'),
+    path('amnts/', views.amnts, name='amnts'),
+    path('book/', views.book, name='book'),
+
+
+
 ]
