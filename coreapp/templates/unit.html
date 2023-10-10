@@ -1,53 +1,28 @@
 {% extends "admins.html" %}
 {% load static %}
+
     {% block content %}
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <title>Video</title>
-        <meta name="description" content="Video - A-Frame">
-        <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-        <script src="{% static 'coreapp/js/play-on-click.js' %}"></script>
-        <script src="{% static 'coreapp/js/hide-on-play.js' %}"></script>
-        <link rel="stylesheet" href="">
-
-      </head>
-        <a-scene>
-          <a-assets>
-            <video id="videoBunny" preload="auto"
-                   src="{% static 'coreapp/images/temp_video_1696227456192.mp4' %}"
-                   width="160" height="90" autoplay loop="true"
-                   crossOrigin="anonymous" muted></video>
-        
-          </a-assets>
-    
-          <a-sky id="image-360" radius="10" src="#sechelt"
-        animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
-        animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-sky>
-
-      <!-- Image links. -->
-      <a-entity id="links" layout="type: line; margin: 1.5" position="0 3 -4">
-        <!-- Add a link to navigate to Scene 2 -->
-        <a-entity class="link"
-          geometry="primitive: plane; height: 1; width: 1"
-          material="shader: flat; src: #cubes-thumb"
-          event-set__mouseenter="scale: 1.2 1.2 1"
-          event-set__mouseleave="scale: 1 1 1"
-          event-set__click="_target: #image-360; _delay: 300; src: #cubes; material.color: #FFF"
-          proxy-event="event: click; to: #scene2; as: look-controls"
-          sound="on: click; src: #click-sound"></a-entity>
-      </a-entity>
-      <!-- Camera + cursor. -->
-        <a-cursor
-          id="cursor"
-          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
-          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
-          fuse="true"
-          raycaster="objects: .link"
-        ></a-cursor>
-        </a-scene>
-    {% endblock %}
-
-
-
+    <div class="tntcon">
+        <div class="tntlist">All Property <span>Sort by <i class="fa fa-caret-down" aria-hidden="true"></i></span></div>
+        <hr>
+        <table class="tnt">
+            <div class="action-button">
+                <a href="{% url 'creacc' %}" class="add-button">
+                    <img src="{% static 'coreapp/images/add-to-queue 1.png' %}" alt="" class= "adtimg"> Add Account
+                </a>
+            </div>
+            <tr>
+                <th><div class="rounded-content">Name</div></th>
+                <th>Contact</th>   
+                <th>Unit Type</th>
+            </tr>
+            {% for item in Tenants %}
+            <tr>
+                <td><div class="rounded-content">{{ item.tent_name }}</div></td>
+                <td>{{ item.tent_pnum }}</td>   
+                <td><div class="rounded-content">{{ item.unit_type }}</div></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -14,7 +14,5 @@ urlpatterns = [
     path('vtour/', views.vtour, name='vtour'),
     path('amnts/', views.amnts, name='amnts'),
     path('book/', views.book, name='book'),
-
-
-
+    path('comp/', views.comp, name='comp'),
 ]

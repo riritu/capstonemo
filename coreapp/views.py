@@ -3,8 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import Tenantform 
+from .forms import Requestform
 from django.views.decorators.csrf import csrf_protect
 from .models import Tenants  # Import your Tenant model
+from .models import Books  # Import your Tenant model
 from django.db import IntegrityError
 from django.core.exceptions import MultipleObjectsReturned
  # Import your custom form
@@ -75,7 +77,13 @@ def ad_hom(request):
     return render(request, 'ad_hom.html')
 
 def ad_tent(request):  
-    return render(request, 'ad_tent.html')
+    queryset = Tenants.objects.all()
+    
+    # Pass the queryset to the template context
+    context = {
+        'Tenants': queryset
+    }
+    return render(request, 'ad_tent.html', context)
 
 def tnt_hom(request):  
     return render(request, 'tnt_hom.html')
@@ -93,6 +101,33 @@ def amnts(request):
     return render(request, 'amnts.html')
 
 def book(request):  
-    return render(request, 'booking.html')
+    if request.method == 'POST':
+        form = Requestform(request.POST)
+        if form.is_valid():
+            # Extract the values from the form fields
+            nem = form.cleaned_data['name']
+            emel= form.cleaned_data['emel']
+            unit = form.cleaned_data['unit']
+            pnum = form.cleaned_data['pnum']
+            date = form.cleaned_data['date']
+            try:
+                # Create a new Tenantaccs instance
+                book = Books.objects.create(
+                    name = nem,
+                    emel = emel,  # Assign the uname as the username
+                    unit= unit,
+                    pnum = pnum,
+                    date = date,
+                )
+                messages.success(request, "Account created successfully.")
+            except IntegrityError:
+                # Handle the case where a duplicate username is detected
+                messages.error(request, "A user with this username already exists.")
+    else:
+        form = Requestform()
+    return render(request, 'booking.html', {'form': form})
+
+def comp(request):  
+    return render(request, 'comp.html')
 
 

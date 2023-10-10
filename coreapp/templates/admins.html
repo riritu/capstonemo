@@ -16,9 +16,9 @@
 			<div class="column column-30" id="navc">
 				<div class="user-section">
 					<a href="#">
-						<img src="http://via.placeholder.com/50x50" alt="profile photo" class="circle float-left profile-photo" width="50" height="auto">
+						<img src="{% static 'coreapp/images/Ellipse 1.png' %}" alt="profile photo" class="circle float-left profile-photo" width="50" height="auto">
 						<div class="username">
-							<h4>Jane Donovan</h4>
+							<h4>Mhe Ann</h4>
 							<p>Administrator</p>
 						</div>
 					</a>
@@ -29,13 +29,13 @@
 	<div class="row">
 		<div id="sidebar" class="column">
 			<img src="{% static 'coreapp/images/Ellipse 2-1.png' %}" alt=""> 
-			<ul>
-				<li><a href="{% url 'ad_hom' %}"><i class="fa fa-th-large" aria-hidden="true"></i> Dashboard</a></li>
-				<li><a href=""><i class="fa fa-home" aria-hidden="true"></i> Request</a></li>
-				<li><a href="{% url 'unit' %}"><i class="fa fa-users" aria-hidden="true"></i> Property</a></li>
-				<li><a href="{% url 'creacc' %}"><i class="fa fa-users" aria-hidden="true"></i> Request</a></li>
-				<li><a href=""><i class="fa fa-exclamation-circle" ></i> Complaints</a></li>
-				<li><a href="#forms"><i class="fa fa-book" aria-hidden="true"></i> Reports</a></li>
+			<ul class="inline-list">
+				<li><a href="{% url 'ad_hom' %}"><img src="{% static 'coreapp/images/image 6.png' %}" alt="" class="sideimg"> Dashboard</a></li>
+				<li><a href=""><img src="{% static 'coreapp/images/image 7.png' %}" alt="" class="sideimg"> Request</a></li>
+				<li><a href=""><img src="{% static 'coreapp/images/image 8.png' %}" alt="" class="sideimg"></i> Property</a></li>
+				<li><a href="{% url 'ad_tent' %}"><img src="{% static 'coreapp/images/image 9.png' %}" alt="" class="sideimg"></i> Tenant</a></li>
+				<li><a href="{% url 'comp' %}"><img src="{% static 'coreapp/images/image 22.png' %}" alt="" class="sideimg"> Complaints</a></li>
+				<li><a href="#forms"><img src="{% static 'coreapp/images/image 19.png' %}" alt="" class="sideimg"></i> Reports</a></li>
 			</ul>
 		</div>
 		<section id="main-content" class="column column-offset-20">

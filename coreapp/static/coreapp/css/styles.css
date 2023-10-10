@@ -477,12 +477,92 @@ select:focus {
     height: 39vw;
     width: 41vw;
     background-color: #555;
-    border-radius: 50%;
   } */
 /* Mobile */
 #main-contentc {
   background-color: #ffffff;
   height: 100%;
+}
+
+.tntcon {
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* Stack the child elements vertically */
+  justify-content: space-between; /
+}
+
+.tntcon hr {
+  border: 1px solid #3A383D;
+  margin: auto;
+  width: 70%;
+  margin-bottom: 2% ;
+}
+
+.tntlist  {
+  margin: auto;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+
+} 
+
+.tntlist span:nth-child(1) {
+  margin-right: 8px; /* Adjust the value to fit your design */  
+
+} 
+
+.action-button {
+  display: flex !important;
+  text-align: center;
+  align-items: center;
+  margin-right: 15%;
+  justify-content: flex-end;
+  margin-bottom: 10px; 
+
+}
+
+
+
+.add-button {
+  color: #3A383D;;
+}
+
+.add-button:hover {
+  color: #95C967;;
+}
+
+.adtimg {
+  width: 13%;
+}
+
+.adtimg:hover {
+  width: 13%;
+}
+
+.rounded-content {
+  margin-left: 10px;
+}
+
+.tnt {
+  font-family: 'Inter', sans-serif;
+  border-spacing:0 5px;
+  table-layout: fixed;
+  width: 70%;
+  height: 10%;
+  margin: auto;
+  border: 1px solid #ffff;
+  border-radius: 12px;
+  color: #3A383D; 
+}
+
+tr {
+  padding-left: 2%;
+  border: 1px solid black;
+  background-color: #ffff;
+}
+
+th {
+  background-color: #95C967;
 }
 
 .crs {
@@ -494,7 +574,6 @@ select:focus {
 #hbs {
   background-color: red !important;
 }
-
 
 /* Center content vertically and horizontally within #main-contentc */
 #main-contenth {
@@ -530,20 +609,9 @@ select:focus {
   width: 45%;
 }
 
-
 .custom-width {  
   width: 40%;
 }
-
-#tcon {
-  max-width: 100% !important;
-}
-
-#user-card {
-  height: 95% !important;
-  padding: 10% !important; 
-}
-
 
 
 .formh input:focus {
@@ -637,14 +705,9 @@ select:focus {
   border-radius: 0 ;
   }
 
-#cont input select{
-  width: 90%;
-  background-color: white;
-
-}
-
-#cont textarea {
+#cont input , #cont select ,#cont textarea{
   width: 82%;
+  background-color: white;
 }
 
 #con2 li:nth-child(6),
@@ -786,7 +849,6 @@ select:focus {
   max-height: fit-content;
 }
 
-
 hr {
   border-top: 2px solid black;
   margin: 0;
@@ -798,7 +860,6 @@ hr {
  }
 
 /* CSS code */
-
 .formh button {
   font-weight: bolder;
   background-color: #301b09 !important;
@@ -916,8 +977,65 @@ hr {
   color: #301B09 !important;
 }
 
+#thome .col {
+  font-family: 'Inter', sans-serif;
+  flex: 1;
+  align-items: center;  
+  justify-content: center;
+}
+
+.inline-list li a {
+  display: flex !important;
+  text-align: center;
+  align-items: center;
+}
 
 
+.sideimg {
+  margin-right: 6% ;
+  width: 20%;
+}
+
+#formbook input, #formbook select {
+  border: 1px solid black !important;
+  border-radius: 1.4rem; 
+  width: 45%;
+}
+
+#formbook .segmented-control-button {
+  font-size: 12px; 
+  font-weight: bold;
+  background-color: #F2F2F2 !important;
+  color: black !important;
+  flex: 1;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin: auto 0;
+  transition: background-color 0.3s ease; /* Add transition for smooth color change */
+}
+
+.boksub {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.4rem;
+  font-weight: bold;
+  filter: drop-shadow(-2px 9px 10px rgba(0, 0, 0, 0.25)); 
+}
+
+#formbook .segmented-control-button.active {
+  background-color: #266A06 !important;
+  color: #fff !important; 
+}
+
+.segmented-control {
+  display: flex;
+  text-align: center;
+  margin-bottom: 3% !important; 
+  margin: auto;
+  width: 45%;
+  border: 1px solid #F2F2F2;
+  border-radius: 1.4rem; 
+  background-color: #F2F2F2;
+}
 
 @media (max-width: 640px) {
 
