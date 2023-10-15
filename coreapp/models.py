@@ -31,11 +31,11 @@ class Booked(models.Model):
 
 class Payment(models.Model):
     name = models.CharField(max_length=255)
-    amount = models.CharField(max_length=255)
-    ref = models.CharField(max_length=255)
+    amount = models.IntegerField()
+    ref = models.IntegerField()
     mop = models.CharField(max_length=255)  
     unit = models.CharField(max_length=255)
-    date = models.CharField(max_length=255, default='date')
+    date = models.DateField(max_length=255, default='date')
     tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)  # Foreign key relationship
 
 class Tenants(AbstractUser):
@@ -43,14 +43,10 @@ class Tenants(AbstractUser):
     tent_uname = models.CharField(max_length=255)
     unit_type = models.CharField(max_length=255)
     tent_pnum = models.IntegerField()
-    tent_emel = models.CharField(max_length=255, validators=[EmailValidator()], default='custom@example.com')
+    tent_emel = models.EmailField(max_length=255, validators=[EmailValidator()], default='custom@example.com')
     tent_pword = models.CharField(max_length=255)
 
     # Add related_name attributes to fields causing clashes
-    
-    def check_password(self, raw_password):
-        # Validate the password using Django's built-in function
-        return check_password(raw_password, self.password)
     
     def save(self, *args, **kwargs):
         # Hash the password before saving, but only if it's a new instance

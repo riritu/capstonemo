@@ -29,8 +29,11 @@
                         {% endfor %}
                     {% endif %}
                   </div>	
+                <div class="mt-4 mb-2" id="inpo">
+                    <input type="text" placeholder="Name" class="form-control" name="{{ form.name.name }}" value="{{ username }}" readonly>
+                </div>
                 <div class="mb-2" id="inpo">
-                    <input type="text" placeholder="Name" class="form-control" name="{{ form.name.name }}" value="{{ username }}" required>
+                    <input type="hidden" placeholder="Name" class="form-control" name="{{ form.tenant.name }}"  value="{{ tenant_id }}" required>
                 </div>
                 <div class="mb-2">
                     <select class="form-select" id="inputGroupSelect01" name= "{{ form.unit.name }}" required>
@@ -57,7 +60,7 @@
                 <div class="mb-2">
                     <input
                     placeholder="Date"
-                    type="date" name= "{{ form.date.name }}"
+                    type="text" name= "{{ form.date.name }}"
                     onfocus="(this.type='date')"
                     onblur="(this.type='text')"
                     required>				

@@ -9,17 +9,17 @@ from django.views.decorators.csrf import csrf_protect
 from .models import Tenants  # Import your Tenant model
 from .models import Booked  # Import your Tenant model
 from .models import Payment  # Import your Tenant model
-
+from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.core.exceptions import MultipleObjectsReturned
-from django.http import HttpResponse
 
  # Import your custom form
-
+ 
 def home(request):
     if request.method == 'POST':
         uname = request.POST.get('username')
         pword = request.POST.get('pass')
+
         # Attempt to authenticate as a regular user
         try:
             tenant = Tenants.objects.get(username=uname)
@@ -107,7 +107,7 @@ def book(request):
     if request.method == 'POST':
         form = Requestform(request.POST)
         if form.is_valid():
-            # Extract the values from the form fields
+            #   Extract the values from the form fields
             nem = form.cleaned_data['name']
             emel= form.cleaned_data['emel']
             unit = form.cleaned_data['unit']
@@ -136,12 +136,32 @@ def comp(request):
 
 def req(request):  
     queryset = Booked.objects.all()
-    
+
     # Pass the queryset to the template context
     reqy = {
         'Booked': queryset
     }
+    # Sending an email
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'approve':
+            # Send email logic
+            subject = 'Booking Approved'
+            message = 'Your booking has been approved.'
+            from_email = 'admin@example.com'
+            recipient_list = ['recipient@example.com']
+
+            send_mail(subject, message, from_email, recipient_list)
+
+            # Other approval logic here
+
+        elif action == 'decline':
+            messages.error(request, "Invalid Input.")
+
+
     return render(request, 'ad_req.html', reqy)
+
 
 def nav(request):  
     return render(request, 'navbar.html')
@@ -151,8 +171,8 @@ def pay(request):
 
 def pay(request):
     username = request.GET.get('username', '')
-    # Pass the username to the template context
-    context = {'username': username}
+    tenant = Tenants.objects.get(username=username)
+    context = {'username': username, 'tenant_id': tenant.id}
     if request.method == 'POST':
         form = Paymentform(request.POST)
         if form.is_valid():
@@ -163,6 +183,7 @@ def pay(request):
             ref = form.cleaned_data['ref']
             mop = form.cleaned_data['mop']
             amount = form.cleaned_data['amount']
+            tenant_id = form.cleaned_data['tenant']
             try:
                 book = Payment.objects.create(
                     name=name,
@@ -171,8 +192,10 @@ def pay(request):
                     ref=ref,
                     mop=mop,
                     amount=amount,
-                )
+                    tenant=tenant_id  # Use tenant.id as the foreign key
+                                                    )
                 messages.success(request, "Payment Submitted.")
+
             except IntegrityError:
                 messages.error(request, "Invalid Input.")
         else:
@@ -183,3 +206,4 @@ def pay(request):
 
     # Pass both context and form separately
     return render(request, 'payment.html', {'form': form, **context})
+ 

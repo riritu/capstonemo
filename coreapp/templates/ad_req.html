@@ -33,6 +33,9 @@
         </div>
     </div>
     <div id="myModal" class="modal">
+        <form action="{% url 'req' %}" method="POST">
+        {% csrf_token %}
+
         <div class="modal-content">
             <span class="close"></span>
             <div class="modal-row" id="mdt">
@@ -60,13 +63,13 @@
                 <div class="value" id="date"></div>
             </div>
             <div class="modal-row">
-                <button>DECLINE</button>
-                <button>APPROVE</button>
+                <button type="submit" name="action" value="decline">DECLINE</button>
+                <button type="submit" name="action" value="approve">APPROVE</button>
             </div>
+                 
+        </form>
         </div>
     </div>
-    
-
     <script>
         var modal = document.getElementById("myModal");
         var modalContent = document.querySelector(".modal-content");
