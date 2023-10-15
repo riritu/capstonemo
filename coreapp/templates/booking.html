@@ -1,48 +1,67 @@
-	{% block content %}
-      <div class="row">
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'coreapp/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'coreapp/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'coreapp/css/milligram.min.css' %}"> 
+    <link rel="stylesheet" href="{% static 'coreapp/css/styles.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse 2-1.png' %}">
+	<title>Document</title>
+</head>
+<body>	
+	<div class="row">
         <div id="rowd" class="columnd">
             <h1 class="mt-6">your new place to stay</h1>
             <div class="formh" id="formbook">
-				<form method="POST" action="{% url 'booking' %}">
-
-                {% csrf_token %}
-                <div class="latest-message">.
-                  {% if messages %}
-                      {% for message in messages %}
-                          {% if forloop.last %}
-                              <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-                          {% endif %}
-                      {% endfor %}
-                  {% endif %}
-                </div>
+				<form method="POST" action="{% url 'book' %}">
+					{% csrf_token %}
 				<div class="segmented-control">
 					<button class="segmented-control-button" id="option1Btn">Short-Term</button>
 					<button class="segmented-control-button" id="option2Btn">6-Months</button>
 				  </div>		  
 				  <div class="mb-2">
-					<input type="text" placeholder="Name" class="form-control" id="" name="username">
+					<input type="text" placeholder="Name" class="form-control" id="" name= "{{ form.name.name }}" required>
 				  </div>
                 <div class="mb-2">
-                  <input type="email" placeholder="Email" class="form-control" id="" name="pass">
+                  <input type="email" placeholder="Email" class="form-control" id="" name= "{{ form.emel.name }}" required>
                 </div>	
 				<div class="mb-2">
-					<input type="tel" placeholder="Phone Number" class="form-control" id="" name="pass">
+					<input type="tel" placeholder="Phone Number" class="form-control" id="" name= "{{ form.pnum.name }}" required>
 				</div>
 				<div class="mb-2">
-					<select class="form-select" id="inputGroupSelect01" >
-					  <option value="" {% if form.unit_type.value is None %}selected{% endif %}>Unit</option>
-					  <option value="Unit1" {% if form.unit_type.value == 'Unit1' %}selected{% endif %}>Unit1</option>
-					  <option value="Unit 2" {% if form.unit_type.value == 'Unit 2' %}selected{% endif %}>Unit 2</option>
-					  <option value="Unit 3" {% if form.unit_type.value == 'Unit 3' %}selected{% endif %}>Unit 3</option>
-					  <option value="Unit 4" {% if form.unit_type.value == 'Unit 4' %}selected{% endif %}>Unit 4</option>
+					<select class="form-select" id="inputGroupSelect01" name= "{{ form.unit.name }}" required>
+					  <option value="" {% if form.unit.value is None %}selected{% endif %}>Unit</option>
+					  <option value="Unit1" {% if form.unit.value == 'Unit1' %}selected{% endif %}>Unit1</option>
+					  <option value="Unit 2" {% if form.unit.value == 'Unit 2' %}selected{% endif %}>Unit 2</option>
+					  <option value="Unit 3" {% if form.unit.value == 'Unit 3' %}selected{% endif %}>Unit 3</option>
+					  <option value="Unit 4" {% if form.unit.value == 'Unit 4' %}selected{% endif %}>Unit 4</option>
 					</select>
-				  </div>  
+				</div>
+				<div class="mb-2">
+					<select class="form-select" id="inputGroupSelect01" name= "{{ form.bookt.name }}" required>
+					  <option value="" {% if form.bookt.value is None %}selected{% endif %}>Unit</option>
+					  <option value="Unit1" {% if form.bookt.value == 'Unit1' %}selected{% endif %}>Unit1</option>
+					  <option value="Unit 4" {% if form.bookt.value == 'Unit 4' %}selected{% endif %}>Unit 4</option>
+					</select>
+				  </div>    
 				<div class="mb-4">
-				<input type="date" placeholder="Choose Date" class="form-control" id="" name="pass">
+				<input type="date" placeholder="Choose Date" class="form-control" id="" name= "{{ form.date.name }}" required>
 				</div>
                 <button type="submit" class="boksub">SUBMIT</button>
 			</form>
-
+			<div class="latest-message">.
+				{% if messages %}
+					{% for message in messages %}
+						{% if forloop.last %}
+							<p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			  </div>		
             </div>
         </div>
         <div class="columnd" id="lhs">
@@ -52,33 +71,7 @@
           </div>     
         </div>  
       </div>  
-	  <script>
-		// Get all buttons and content divs
-		var buttons = document.querySelectorAll('.segmented-control-button');
-
-		buttons.forEach(function(button) {
-		button.addEventListener('click', function() {
-			// Remove 'active' class from all buttons
-			buttons.forEach(function(btn) {
-			btn.classList.remove('active');
-			});
-
-			// Add 'active' class to the clicked button
-			button.classList.add('active');
-
-			// Apply custom styles for the active button
-			buttons.forEach(function(btn) {
-			if (btn.classList.contains('active')) {
-				btn.style.backgroundColor = '#007bff';
-				btn.style.color = '#fff';
-			} else {
-				btn.style.backgroundColor = ''; // Reset background color for inactive buttons
-				btn.style.color = ''; // Reset text color for inactive buttons
-			}
-			});
-		});
-		});
-	  </script>
-	  {% endblock %}
+</body>
+</html>
 
 

@@ -373,15 +373,15 @@ select:focus {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#f02563" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>'); }
 
 .navbar {
-  margin-left: 19.47%;
-  margin-right: 0 !important  ;
+  margin-left: 20%;
+  margin-right: 0 !important;
   position: fixed;
   z-index: 1;
   width: 81%;
-  background: #fff;
+  background: white;
   height: 80px;
   padding: 20px 0;
-  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05); }
+ }
   .navbar a.site-title {
     color: #222;
     color: #35cebe;
@@ -391,11 +391,11 @@ select:focus {
     margin: 0 20px 10px 20px; }
 
 #sidebar {
+  background-color: #f6f6f6;
   font-size: 1.9rem;
   position: fixed;
   z-index: 0;
   width: 20% !important;
-  background: #fff;
   padding: 10px 6% !important;
   box-shadow: 3px 0px 8px rgba(0, 0, 0, 0.05);
   margin-top: 0px;
@@ -423,6 +423,7 @@ select:focus {
         background-color: #f9f9f9; }
 
 #main-content {
+  background: #FFF;
   width: 80% !important;
   padding: 20px 3.5rem !important;
   margin-top: 95px;
@@ -455,7 +456,7 @@ select:focus {
 
 .user-section {
   margin-top: -8px;
-  margin-right: 40px; }
+  margin-right: 60px; }
   .user-section a {
     float: right; }
   .user-section img {
@@ -494,13 +495,24 @@ select:focus {
 .tntcon hr {
   border: 1px solid #3A383D;
   margin: auto;
-  width: 70%;
+  width: 90%;
   margin-bottom: 2% ;
 }
 
+.tntli a {
+  color: black !important;
+}
+
+.tntli a:hover {
+color: #301b09 !important;
+}
+
 .tntlist  {
+  font-size: larger;
+  font-weight: bold;
+  color: #301b09;
   margin: auto;
-  width: 70%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
 
@@ -521,8 +533,36 @@ select:focus {
 
 }
 
+/* Clear floats after every 4 columns to start a new row */
+#reqli {
+  text-align: center;
 
+}
 
+#reqcol {
+  float: left;
+  width: 17% !important; /* Set the width to 25% for 4 columns in a row */
+}
+
+/* Clear floats after every 4 columns to start a new row */
+#reqli {
+  content: "";
+  display: table;
+  clear: both;
+  margin-left: 6.5%;
+  margin-top: 2%;
+}
+
+.reqimg {
+  background-color: white;
+}
+
+#reqcard {
+  text-align: center;
+  border: 1px solid #266A06;
+  border-radius: 5px;
+
+}
 .add-button {
   color: #3A383D;;
 }
@@ -847,6 +887,7 @@ th {
   max-width: 100%;
   width: 100%;
   max-height: fit-content;
+  
 }
 
 hr {
@@ -1026,7 +1067,13 @@ hr {
   color: #fff !important; 
 }
 
+
+#fom {
+  padding-top: 2%;
+}
+
 .segmented-control {
+  margin-top: 2% !important;
   display: flex;
   text-align: center;
   margin-bottom: 3% !important; 
@@ -1035,6 +1082,235 @@ hr {
   border: 1px solid #F2F2F2;
   border-radius: 1.4rem; 
   background-color: #F2F2F2;
+}
+
+#thome {
+  display: flex;
+}
+
+.tntbod {
+  min-height: 100%;
+  min-width: 100%;
+  background-color: white;
+}
+
+#pay {
+  background-color: #F6F6F6;
+}
+
+#thome {
+  height: 100%;
+}
+
+.tentu {
+  height: 100%;
+  padding: 10% 10%;
+  margin: auto;
+  background-color: #F6F6F6;
+}
+
+.tntimg {
+  margin-right: 25%;
+  width: 70%;
+}
+
+#thcol:nth-child(1) {
+  padding: 5%;
+  min-height: 100% !important;
+}
+
+#thcol:nth-child(2) {
+  padding: 5%;
+  margin: auto;
+  min-width: 60%;
+}
+
+.tntli {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 15%;
+}
+
+.user {
+  width: 30%;
+  border-radius: 50%;
+  padding: 5%;
+  background-color: #D9D9D9;
+}
+
+.prof {
+  text-align: center;
+  margin-bottom: 10% !important;
+}
+
+.tntli li {
+  display: flex !important;
+  text-align: center;
+  align-items: center;
+  list-style: none;
+  margin-top: 8%;
+}
+
+#dash {
+  margin-right: 20px;
+  display: flex;
+  align-items: center; 
+  width: 70%;
+  border-radius: 2%;
+  border: 1px solid #266A06;
+}
+
+#dashcon {
+  display: flex;
+}
+
+
+.dtext {
+  margin-left: 20px; /* Adjust the margin as needed */
+}
+
+.modal-content {
+  width: 27% !important;
+  background-color: white;
+  font-family: 'Poppins', sans-serif;
+  color: #585555 ;
+}
+
+
+.modal-row {
+  margin-top: 1%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.modal-row:nth-child(10) {
+  margin-bottom: 5% !important;
+}
+
+#mdt {
+  margin-top: 4%;
+}
+
+#myModal hr {
+  margin-bottom: 5% !important;
+}
+.label {
+  flex: 1;
+  text-align: left;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.value {
+  flex: 1;
+  text-align: right;
+}
+
+.large-card .rounded-content{
+  font-size: larger;
+  font-weight: bold;
+}
+
+.large-card span:nth-child(2){
+  margin-left: 4%;
+}
+
+#myBtn {
+  margin-top: 2%;
+  background-color: #301B09 ;
+  border: none ;
+  font-weight: bold;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
+
+}
+
+#myModal button {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border: none ;
+}
+
+#myModal button:nth-child(2) {
+  background-color:#301B09 ;
+}
+#myModal button:nth-child(1) {
+  background-color:white ;
+  color: black;
+}
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  border-radius: 4px;
+  border: 1px solid black ;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#inpo {
+  margin-top: 13% !important;
+}
+
+.formp {
+  width: 55%;
+  margin: 0 auto; 
+  background-color: #ffff;
+  height: 68%;
+  box-shadow: 25px 25px 75px -2px rgba(0, 0, 0, 0.14); 
+}
+
+.formp input, .formp select {
+  width: 70% !important;
+}
+
+
+.formp button {
+  font-family: 'Istok Web', sans-serif;
+  width: 30%; /* Use a percentage width */
+  height: 3%; /* Use a percentage height */
+  max-width: 240px; 
+  border: 0.9rem solid #301B09 !important;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    background: 
+    var(--_g) calc(var(--_p,0%) - 100%) 0%,
+    var(--_g) calc(200% - var(--_p,0%)) 0%,
+    var(--_g) calc(var(--_p,0%) - 100%) 100%,
+    var(--_g) calc(200% - var(--_p,0%)) 100%;
+  color: black;
+  font-size: 2rem;
+  font-weight:  bold;
+  border-radius: 0 ;
 }
 
 @media (max-width: 640px) {

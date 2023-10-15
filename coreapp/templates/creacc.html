@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'coreapp/css/milligram.min.css' %}"> 
     <link rel="stylesheet" href="{% static 'coreapp/css/styles.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse 2-1.png' %}">
     <title>TRI-LC</title>
 </head>
 <body style="overflow: hidden;">
@@ -18,7 +19,7 @@
         <img src="{% static 'coreapp/images/account.png' %}" alt="" class="crs" >
       </div>
       <div id="rowc" class="col text-center">
-        <form method="POST">
+        <form method="POST" action="{% url 'creacc' %}">
           {% csrf_token %}
           <h1 class="mt-5">Create Account</h1>
           <div class="latest-message">.

@@ -1,4 +1,5 @@
 {% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,14 +11,11 @@
     <link rel="stylesheet" href="{% static 'coreapp/css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'coreapp/css/milligram.min.css' %}"> 
     <link rel="stylesheet" href="{% static 'coreapp/css/styles.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse 2-1.png' %}">
-
 </head>
-  <body style="background-color: #fff;">
-    <div class="landingPages" id="landingPage">
-      {% include "navbar.html" %}
-      <img src="{% static 'coreapp/images/rectangle 22(1).png' %}" alt="" class="ltext">
-      <a href="{% url 'vtour' %}" class="trunit">UNIT TOUR</a>
-    </div>
-  </body>
-</html>
+<div class="lnav">   
+    <a>TRI-LC ENTERPRISES</a>
+    <a href="{% url 'home' %}">LOGIN</a>
+    <a href="{% url 'contact' %}">CONTACTS</a>
+    <a href="{% url 'amnts' %}">AMENITIES</a>
+</div>
+{% endblock %}

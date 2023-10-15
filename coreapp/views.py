@@ -4,11 +4,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import Tenantform 
 from .forms import Requestform
+from .forms import Paymentform
 from django.views.decorators.csrf import csrf_protect
 from .models import Tenants  # Import your Tenant model
-from .models import Books  # Import your Tenant model
+from .models import Booked  # Import your Tenant model
+from .models import Payment  # Import your Tenant model
+
 from django.db import IntegrityError
 from django.core.exceptions import MultipleObjectsReturned
+from django.http import HttpResponse
+
  # Import your custom form
 
 def home(request):
@@ -41,8 +46,6 @@ def unit(request):
 def admins(request):  
     return render(request, 'admins.html')
 
-
-
 def creacc(request):
     if request.method == 'POST':
         form = Tenantform(request.POST)
@@ -65,10 +68,10 @@ def creacc(request):
                     tent_emel=tent_emel,
                     password=tent_pword
                 )
-                messages.success(request, "Account created successfully.")
+                messages.success(request, "Booking submitted.")
             except IntegrityError:
                 # Handle the case where a duplicate username is detected
-                messages.error(request, "A user with this username already exists.")
+                messages.error(request, "Invalid Input.")
     else:
         form = Tenantform()
     return render(request, 'creacc.html', {'form': form})
@@ -110,24 +113,73 @@ def book(request):
             unit = form.cleaned_data['unit']
             pnum = form.cleaned_data['pnum']
             date = form.cleaned_data['date']
+            bookt = form.cleaned_data['bookt']
             try:
-                # Create a new Tenantaccs instance
-                book = Books.objects.create(
+                book = Booked.objects.create(
                     name = nem,
-                    emel = emel,  # Assign the uname as the username
+                    emel = emel,
                     unit= unit,
                     pnum = pnum,
                     date = date,
+                    bookt = bookt
                 )
-                messages.success(request, "Account created successfully.")
+                messages.success(request, "Booking Submit.")
             except IntegrityError:
-                # Handle the case where a duplicate username is detected
-                messages.error(request, "A user with this username already exists.")
+                messages.error(request, "Invalid Input.")
     else:
         form = Requestform()
-    return render(request, 'booking.html', {'form': form})
+    return render(request, 'homepage.html', {'form': form})
 
 def comp(request):  
     return render(request, 'comp.html')
 
 
+def req(request):  
+    queryset = Booked.objects.all()
+    
+    # Pass the queryset to the template context
+    reqy = {
+        'Booked': queryset
+    }
+    return render(request, 'ad_req.html', reqy)
+
+def nav(request):  
+    return render(request, 'navbar.html')
+
+def pay(request):  
+    return render(request, 'payment.html')
+
+def pay(request):
+    username = request.GET.get('username', '')
+    # Pass the username to the template context
+    context = {'username': username}
+    if request.method == 'POST':
+        form = Paymentform(request.POST)
+        if form.is_valid():
+            # Extract the values from the form fields
+            name = form.cleaned_data['name']
+            date = form.cleaned_data['date']
+            unit = form.cleaned_data['unit']
+            ref = form.cleaned_data['ref']
+            mop = form.cleaned_data['mop']
+            amount = form.cleaned_data['amount']
+            try:
+                book = Payment.objects.create(
+                    name=name,
+                    date=date,
+                    unit=unit,
+                    ref=ref,
+                    mop=mop,
+                    amount=amount,
+                )
+                messages.success(request, "Payment Submitted.")
+            except IntegrityError:
+                messages.error(request, "Invalid Input.")
+        else:
+            # Form is not valid, return the form back to the template with errors
+            messages.error(request, "Invalid Form Data.")
+    else:
+        form = Paymentform()
+
+    # Pass both context and form separately
+    return render(request, 'payment.html', {'form': form, **context})

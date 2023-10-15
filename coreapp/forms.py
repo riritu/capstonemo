@@ -1,6 +1,7 @@
 from django import forms
 from .models import Tenants
-from .models import Books
+from .models import Booked
+from .models import Payment
 
 class Tenantform(forms.ModelForm):
     class Meta:
@@ -10,5 +11,10 @@ class Tenantform(forms.ModelForm):
 
 class Requestform(forms.ModelForm):
     class Meta:
-        model = Books
-        fields = ['name', 'unit', 'pnum', 'date', 'emel']
+        model = Booked
+        fields = ['name', 'unit', 'pnum', 'date', 'emel', 'bookt']
+
+class Paymentform(forms.ModelForm):
+    class Meta:
+        model = Payment
+        fields = ['name', 'unit', 'mop', 'date', 'amount', 'ref']

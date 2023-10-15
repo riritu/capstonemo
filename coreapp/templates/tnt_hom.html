@@ -10,13 +10,33 @@
     <link rel="stylesheet" href="{% static 'coreapp/css/milligram.min.css' %}"> 
     <link rel="stylesheet" href="{% static 'coreapp/css/styles.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse 2-1.png' %}">
     <title>TRI-LC</title>
 </head>
-<body>
-  <div class="thome">
-    <div class="thcol"></div>
-    <div class="thcol"></div>
+<body class="tntbod">
+  <div  class="row" id="thome">
+    <div class="col" id="thcol">
+      <div class="tentu">
+        <div class="prof">
+          <img src="{% static 'coreapp/images/prof.png' %}" alt="" class="user">
+        <h4>{{ username }}</h4>
+        </div>
+        <ul class ="tntli">
+          <li><span><img src="{% static 'coreapp/images/image 20.png' %}" alt="" class="tntimg"></span><a href="{% url 'pay' %}?username={{ username }}"> PAYMENTS</a></li>
+          <li><span><img src="{% static 'coreapp/images/isyu.png' %}" alt="" class="tntimg"></span><a href=""> ISSUES</a></li>
+        </ul>
+      </div>   
   </div>
-    
+    <div class="col" id="thcol">
+      <h4>PENDING PAYMENTS</h4>
+      <div class="large-card" id="pay">
+        <p class="text-large">This is a big 'ole hero unit, you can use this for calling extra attention to featured content or information.dasdsadasdsadas</p>
+      </div>
+      <h4>SUCCESFUL PAYMENT</h4>
+      <div class="large-card" id="pay">
+        <p class="text-large">This is a big 'ole hero unit, you can use this for calling extra attention to featured content or information.dasdsadasdsadas</p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

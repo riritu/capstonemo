@@ -9,8 +9,9 @@
 	<link rel="stylesheet" href="{% static 'coreapp/css/normalize.css' %}">
 	<link rel="stylesheet" href="{% static 'coreapp/css/milligram.min.css' %}"> 
 	<link rel="stylesheet" href="{% static 'coreapp/css/styles.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse 2-1.png' %}">
 </head>
-<body>
+<body style="background-color: white !important;">
 	<div class="navbar">
 		<div class="row">	
 			<div class="column column-30" id="navc">
@@ -31,7 +32,7 @@
 			<img src="{% static 'coreapp/images/Ellipse 2-1.png' %}" alt=""> 
 			<ul class="inline-list">
 				<li><a href="{% url 'ad_hom' %}"><img src="{% static 'coreapp/images/image 6.png' %}" alt="" class="sideimg"> Dashboard</a></li>
-				<li><a href=""><img src="{% static 'coreapp/images/image 7.png' %}" alt="" class="sideimg"> Request</a></li>
+				<li><a href="{% url 'req' %}"><img src="{% static 'coreapp/images/image 7.png' %}" alt="" class="sideimg"> Request</a></li>
 				<li><a href=""><img src="{% static 'coreapp/images/image 8.png' %}" alt="" class="sideimg"></i> Property</a></li>
 				<li><a href="{% url 'ad_tent' %}"><img src="{% static 'coreapp/images/image 9.png' %}" alt="" class="sideimg"></i> Tenant</a></li>
 				<li><a href="{% url 'comp' %}"><img src="{% static 'coreapp/images/image 22.png' %}" alt="" class="sideimg"> Complaints</a></li>
