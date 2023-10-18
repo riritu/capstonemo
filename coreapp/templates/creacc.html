@@ -19,10 +19,8 @@
         <img src="{% static 'coreapp/images/account.png' %}" alt="" class="crs" >
       </div>
       <div id="rowc" class="col text-center">
-        <form method="POST" action="{% url 'creacc' %}">
-          {% csrf_token %}
-          <h1 class="mt-5">Create Account</h1>
-          <div class="latest-message">.
+        <h1 class="mt-5">Create Account</h1>
+          <div class="latest-message">
             {% if messages %}
                 {% for message in messages %}
                     {% if forloop.last %}
@@ -31,6 +29,8 @@
                 {% endfor %}
             {% endif %}
           </div>
+        <form method="POST" action="{% url 'creacc' %}">
+          {% csrf_token %}
           <div class="mb-3">
             <input type="text" class="form-control" placeholder="Full Name" id="" name= "{{ form.tent_name.name }}">
           </div>
@@ -49,11 +49,11 @@
           </div>
           <div class="mb-3">
             <select class="form-select" id="inputGroupSelect01" name="{{ form.unit_type.name }}">
-              <option value="" {% if form.unit_type.value is None %}selected{% endif %}>Unit</option>
-              <option value="Unit1" {% if form.unit_type.value == 'Unit1' %}selected{% endif %}>Unit1</option>
-              <option value="Unit 2" {% if form.unit_type.value == 'Unit 2' %}selected{% endif %}>Unit 2</option>
-              <option value="Unit 3" {% if form.unit_type.value == 'Unit 3' %}selected{% endif %}>Unit 3</option>
-              <option value="Unit 4" {% if form.unit_type.value == 'Unit 4' %}selected{% endif %}>Unit 4</option>
+              <option value="" {% if form.unit_type.value is None %}selected{% endif %}>Model</option>
+              <option value="Model 1" {% if form.unit_type.value == 'Model 1' %}selected{% endif %}>Model 1</option>
+              <option value="Model 2" {% if form.unit_type.value == 'Model 2' %}selected{% endif %}>Model 2</option>
+              <option value="Model 3" {% if form.unit_type.value == 'Model 3' %}selected{% endif %}>Model 3</option>
+              <option value="Model 4" {% if form.unit_type.value == 'Model 4' %}selected{% endif %}>Model 4</option>
             </select>
           </div>                
           <button type="submit" class="btn btn-primary">Submit</button>

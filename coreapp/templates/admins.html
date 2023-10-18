@@ -16,8 +16,8 @@
 		<div class="row">	
 			<div class="column column-30" id="navc">
 				<div class="user-section">
-					<a href="#">
-						<img src="{% static 'coreapp/images/Ellipse 1.png' %}" alt="profile photo" class="circle float-left profile-photo" width="50" height="auto">
+					<a href="#" onclick="confirmLogout()">
+					<img src="{% static 'coreapp/images/Ellipse 1.png' %}" alt="profile photo" class="circle float-left profile-photo" width="50" height="auto">
 						<div class="username">
 							<h4>Mhe Ann</h4>
 							<p>Administrator</p>
@@ -33,10 +33,10 @@
 			<ul class="inline-list">
 				<li><a href="{% url 'ad_hom' %}"><img src="{% static 'coreapp/images/image 6.png' %}" alt="" class="sideimg"> Dashboard</a></li>
 				<li><a href="{% url 'req' %}"><img src="{% static 'coreapp/images/image 7.png' %}" alt="" class="sideimg"> Request</a></li>
-				<li><a href=""><img src="{% static 'coreapp/images/image 8.png' %}" alt="" class="sideimg"></i> Property</a></li>
+				<li><a href="{% url 'prop' %}"><img src="{% static 'coreapp/images/image 8.png' %}" alt="" class="sideimg"></i> Property</a></li>
 				<li><a href="{% url 'ad_tent' %}"><img src="{% static 'coreapp/images/image 9.png' %}" alt="" class="sideimg"></i> Tenant</a></li>
 				<li><a href="{% url 'comp' %}"><img src="{% static 'coreapp/images/image 22.png' %}" alt="" class="sideimg"> Complaints</a></li>
-				<li><a href="#forms"><img src="{% static 'coreapp/images/image 19.png' %}" alt="" class="sideimg"></i> Reports</a></li>
+				<li><a href="{% url 'rep' %}"><img src="{% static 'coreapp/images/image 19.png' %}" alt="" class="sideimg"></i> Reports</a></li>
 			</ul>
 		</div>
 		<section id="main-content" class="column column-offset-20">
@@ -45,5 +45,13 @@
 		</section>
 	</div>	
 </body>
+<script>
+	function confirmLogout() {
+    var logoutConfirmed = confirm("Are you sure you want to log out?");
+    if (logoutConfirmed) {
+        window.location.href = "{% url 'logout' %}";
+    }
+}
+</script>
 </html> 
    

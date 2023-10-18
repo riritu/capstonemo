@@ -5,19 +5,27 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
 
-
-
 class Admin(models.Model):
     uname = models.CharField(max_length=255)
     pword = models.CharField(max_length=255)
     def __str__(self):
         return self.uname
     
+    
+class Issues(models.Model):
+    name = models.CharField(max_length=255)
+    issue = models.CharField(max_length=255)
+    solution = models.CharField(max_length=255)
+
 class Units(models.Model):
     unit_type = models.CharField(max_length=255)
-    unt_price = models.FloatField(max_length=255)
-    num_unit = models.IntegerField()
+    unit_blt = models.CharField(max_length=255, default='location')
+    unt_price = models.FloatField()
+    unt_availability = models.BooleanField(default=True) 
 
+    def availability_display(self):
+        return "Vacant" if self.unt_availability else "Occupied"
+    
     def __str__(self):
         return self.unit_type
 
@@ -25,7 +33,7 @@ class Booked(models.Model):
     bookt = models.CharField(max_length=255,default='duration')
     name = models.CharField(max_length=255)
     unit = models.CharField(max_length=255)
-    pnum = models.IntegerField()
+    pnum = models.CharField(max_length=20)  
     date = models.DateField(max_length=255)
     emel = models.CharField(max_length=255, validators=[EmailValidator()], default='custom@example.com')    
 
@@ -42,7 +50,7 @@ class Tenants(AbstractUser):
     tent_name = models.CharField(max_length=255)
     tent_uname = models.CharField(max_length=255)
     unit_type = models.CharField(max_length=255)
-    tent_pnum = models.IntegerField()
+    tent_pnum = models.CharField(max_length=20)  
     tent_emel = models.EmailField(max_length=255, validators=[EmailValidator()], default='custom@example.com')
     tent_pword = models.CharField(max_length=255)
 

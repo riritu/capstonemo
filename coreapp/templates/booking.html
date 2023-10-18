@@ -17,12 +17,17 @@
         <div id="rowd" class="columnd">
             <h1 class="mt-6">your new place to stay</h1>
             <div class="formh" id="formbook">
+				{% if form.errors %}
+				<div class="form__errors">
+					{% for field, errors in form.errors.items %}
+					{% for error in errors %}
+						<p class="error">{{ error }}</p>
+					{% endfor %}
+					{% endfor %}
+				</div>
+				{% endif %}
 				<form method="POST" action="{% url 'book' %}">
 					{% csrf_token %}
-				<div class="segmented-control">
-					<button class="segmented-control-button" id="option1Btn">Short-Term</button>
-					<button class="segmented-control-button" id="option2Btn">6-Months</button>
-				  </div>		  
 				  <div class="mb-2">
 					<input type="text" placeholder="Name" class="form-control" id="" name= "{{ form.name.name }}" required>
 				  </div>
@@ -34,18 +39,18 @@
 				</div>
 				<div class="mb-2">
 					<select class="form-select" id="inputGroupSelect01" name= "{{ form.unit.name }}" required>
-					  <option value="" {% if form.unit.value is None %}selected{% endif %}>Unit</option>
-					  <option value="Unit1" {% if form.unit.value == 'Unit1' %}selected{% endif %}>Unit1</option>
-					  <option value="Unit 2" {% if form.unit.value == 'Unit 2' %}selected{% endif %}>Unit 2</option>
-					  <option value="Unit 3" {% if form.unit.value == 'Unit 3' %}selected{% endif %}>Unit 3</option>
-					  <option value="Unit 4" {% if form.unit.value == 'Unit 4' %}selected{% endif %}>Unit 4</option>
+					  <option value="" {% if form.unit.value is None %}selected{% endif %}>Model</option>
+					  <option value="Model 1" {% if form.unit.value == 'Model 1' %}selected{% endif %}>Model 1</option>
+					  <option value="Model 2" {% if form.unit.value == 'Model 2' %}selected{% endif %}>Model 2</option>
+					  <option value="Model 3" {% if form.unit.value == 'Model 3' %}selected{% endif %}>Model 3</option>
+					  <option value="Model 4" {% if form.unit.value == 'Model 4' %}selected{% endif %}>Model 4</option>
 					</select>
 				</div>
 				<div class="mb-2">
 					<select class="form-select" id="inputGroupSelect01" name= "{{ form.bookt.name }}" required>
-					  <option value="" {% if form.bookt.value is None %}selected{% endif %}>Unit</option>
-					  <option value="Unit1" {% if form.bookt.value == 'Unit1' %}selected{% endif %}>Unit1</option>
-					  <option value="Unit 4" {% if form.bookt.value == 'Unit 4' %}selected{% endif %}>Unit 4</option>
+					  <option value="" {% if form.bookt.value is None %}selected{% endif %}>Book Duration</option>
+					  <option value="6 Months" {% if form.bookt.value == '6 Months' %}selected{% endif %}>6 Months</option>
+					  <option value="Short-Term" {% if form.bookt.value == 'Short-Term' %}selected{% endif %}>Short-Term</option>
 					</select>
 				  </div>    
 				<div class="mb-4">

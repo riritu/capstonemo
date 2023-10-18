@@ -1,36 +1,295 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TRI-LC</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'coreapp/css/font-awesome.min.css' %}">
-  <link rel="stylesheet" href="{% static 'coreapp/css/normalize.css' %}">
-  <link rel="stylesheet" href="{% static 'coreapp/css/milligram.min.css' %}"> 
-  <link rel="stylesheet" href="{% static 'coreapp/css/styles.css' %}">
-  <link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse 2-1.png' %}">
-</head>
-<body>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>360&deg; Image Gallery</title>
+    <meta name="description" content="360&deg; Image Gallery - A-Frame">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'coreapp/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'coreapp/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'coreapp/css/milligram.min.css' %}"> 
+    <link rel="stylesheet" href="{% static 'coreapp/css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse 2-1.png' %}">
+  
+    <style>
+       .aframe-container {
+            display: none; /* Center the container horizontally */
+        }
+      </style>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
+    <script id="link" type="text/html">
+      <a-entity class="link"
+        geometry="primitive: plane; height: 1; width: 1"
+        material="shader: flat; src: ${thumb}"
+        event-set__mouseenter="scale: 1.2 1.2 1"
+        event-set__mouseleave="scale: 1 1 1"
+        event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
+        proxy-event="event: click; to: #image-360; as: fade"
+        sound="on: click; src: #click-sound"></a-entity>
+    </script>
+  </head>
+  <body>
+
+    <div class="unb" id="unit">
+      <div class="bnav">   
+        <div class="bleft">
+          <img src="{% static 'coreapp/images/Ellipse 2-1.png' %}" alt="" class= "bimg">
+          <a href="{% url 'homepage' %}">TRI-LC ENTERPRISES</a>
+        </div>
+        <div class="bright">
+          <a href="{% url 'home' %}">LOGIN</a>
+          <a href="{% url 'contact' %}">CONTACTS</a>
+          <a href="{% url 'amnts' %}">AMENITIES</a>
+        </div>
+      </div>
+      <div class="tooltip" id="play-button-tooltip">To navigate through the Virtual Tour, please  <br> click the numbers "1, 2, 3, 4, 5, 6, 7, 8, 9."</div>
+      <h1 class="primt">PRIME SHOWROOM</h1>
+          <div class="untpic">
+            <div class="unt" id="untp1">
+              <i class="fa fa-play toggle-button" data-index="0" aria-hidden="true"></i>
+          </div>
+          <div class="unt" id="untp2">
+              <i class="fa fa-play toggle-button" data-index="1" aria-hidden="true"></i>
+          </div>
+          <div class="unt" id="untp3">
+              <i class="fa fa-play toggle-button" data-index="2" aria-hidden="true"></i>
+          </div>
+          <div class="unt" id="untp4">
+              <i class="fa fa-play toggle-button" data-index="3" aria-hidden="true"></i>
+          </div>
+        </div>
+        
+        {% include 'footer.html' %} 
+    </div>
+    <div class="aframe-container">
+        <a-scene>
+            <a-assets>
+                <img id="img0" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133241_541.jpg' %}">
+                <img id="img1" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133309_813.jpg' %}">
+                <img id="img2" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133334_364.jpg' %}">
+                <img id="img3" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133404_210.jpg' %}">
+                <img id="img4" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133431_983.jpg' %}">                
+                <img id="img5" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133453_969.jpg' %}">
+                <img id="img6" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133516_358.jpg' %}">
+                <img id="img7" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133541_511.jpg' %}">
+                <img id="img8" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133624_108.jpg' %}">
+                <img id="img9" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133804_467.jpg' %}">
+            </a-assets>
+            <a-sky id="room0" radius="10" src="#img0" visible="true"></a-sky>
+            <a-sky id="room1" radius="10" src="#img1" visible="false"></a-sky>
+            <a-sky id="room2" radius="10" src="#img2" visible="false"></a-sky>
+            <a-sky id="room3" radius="10" src="#img3" visible="false"></a-sky>
+            <a-sky id="room4" radius="10" src="#img4" visible="false"></a-sky>
+            <a-sky id="room5" radius="10" src="#img5" visible="false"></a-sky>
+            <a-sky id="room6" radius="10" src="#img6" visible="false"></a-sky>
+            <a-sky id="room7" radius="10" src="#img7" visible="false"></a-sky>
+            <a-sky id="room8" radius="10" src="#img8" visible="false"></a-sky>
+            <a-sky id="room9" radius="10" src="#img9" visible="false"></a-sky>  
+            <a-entity camera look-controls wasd-controls>
+                <a-cursor>
+                </a-cursor> 
+            </a-entity>
+        </a-scene>
+    </div>
+    <div class="aframe-container">
+      <a-scene class="scene2">
+        <a-assets>
+            <img id="model2-img0" crossorigin="anonymous" src="{% static 'coreapp/images/Model 2/IMG_20231004_133857_401.jpg' %}">
+            <img id="model2-img1" crossorigin="anonymous" src="{% static 'coreapp/images/Model 2/IMG_20231004_133931_476.jpg' %}">
+            <img id="model2-img2" crossorigin="anonymous" src="{% static 'coreapp/images/Model 2/IMG_20231004_134005_579.jpg' %}">
+            <img id="model2-img3" crossorigin="anonymous" src="{% static 'coreapp/images/Model 2/IMG_20231004_134021_234.jpg' %}">
+            <img id="model2-img4" crossorigin="anonymous" src="{% static 'coreapp/images/Model 2/IMG_20231004_134038_454.jpg' %}">
+            <img id="model2-img5" crossorigin="anonymous" src="{% static 'coreapp/images/Model 2/IMG_20231004_134051_773.jpg' %}">
+            <img id="model2-img6" crossorigin="anonymous" src="{% static 'coreapp/images/Model 2/IMG_20231004_134109_674.jpg' %}">
+            <img id="model2-img7" crossorigin="anonymous" src="{% static 'coreapp/images/Model 2/IMG_20231004_134122_721.jpg' %}">
+            <img id="model2-img8" crossorigin="anonymous" src="{% static 'coreapp/images/Model 2/IMG_20231004_134139_612.jpg' %}">
+        </a-assets>
     
+        <a-sky id="model2-room0" radius="10" src="#model2-img0" visible="true"></a-sky>
+        <a-sky id="model2-room1" radius="10" src="#model2-img1" visible="false"></a-sky>
+        <a-sky id="model2-room2" radius="10" src="#model2-img2" visible="false"></a-sky>
+        <a-sky id="model2-room3" radius="10" src="#model2-img3" visible="false"></a-sky>
+        <a-sky id="model2-room4" radius="10" src="#model2-img4" visible="false"></a-sky>
+        <a-sky id="model2-room5" radius="10" src="#model2-img5" visible="false"></a-sky>
+        <a-sky id="model2-room6" radius="10" src="#model2-img6" visible="false"></a-sky>
+        <a-sky id="model2-room7" radius="10" src="#model2-img7" visible="false"></a-sky>
+        <a-sky id="model2-room8" radius="10" src="#model2-img8" visible="false"></a-sky>
+
+        <a-link href="{% url 'book' %}" position="0 1 -5">
+            <a-box width="2" height="1" color="blue">
+                <a-text value="Click me to go to another page!" align="center" position="0 0.1 0"></a-text>
+            </a-box>
+        </a-link>
+        
+        
+
+        <a-entity camera look-controls wasd-controls>
+            <a-cursor></a-cursor> 
+        </a-entity>
+    </a-scene>
+    </div>
+    <div class="aframe-container">
+      <a-scene class="scene3">
+        <a-assets>
+            <img id="model3-img0" crossorigin="anonymous" src="{% static 'coreapp/images/Model 3/IMG_20231004_134200_770.jpg' %}">
+            <img id="model3-img1" crossorigin="anonymous" src="{% static 'coreapp/images/Model 3/IMG_20231004_134235_762.jpg' %}">
+            <img id="model3-img2" crossorigin="anonymous" src="{% static 'coreapp/images/Model 3/IMG_20231004_134251_192.jpg' %}">
+            <img id="model3-img3" crossorigin="anonymous" src="{% static 'coreapp/images/Model 3/IMG_20231004_134303_673.jpg' %}">
+            <img id="model3-img4" crossorigin="anonymous" src="{% static 'coreapp/images/Model 3/IMG_20231004_134323_275.jpg' %}">
+            <img id="model3-img5" crossorigin="anonymous" src="{% static 'coreapp/images/Model 3/IMG_20231004_134343_569.jpg' %}">
+            <img id="model3-img6" crossorigin="anonymous" src="{% static 'coreapp/images/Model 3/IMG_20231004_134414_250.jpg' %}">
+            <img id="model3-img7" crossorigin="anonymous" src="{% static 'coreapp/images/Model 3/IMG_20231004_134429_374.jpg' %}">
+            <img id="model3-img8" crossorigin="anonymous" src="{% static 'coreapp/images/Model 3/IMG_20231004_134453_377.jpg' %}">
+        </a-assets>
+    
+        <a-sky id="model3-room0" radius="10" src="#model3-img0" visible="true"></a-sky>
+        <a-sky id="model3-room1" radius="10" src="#model3-img1" visible="false"></a-sky>
+        <a-sky id="model3-room2" radius="10" src="#model3-img2" visible="false"></a-sky>
+        <a-sky id="model3-room3" radius="10" src="#model3-img3" visible="false"></a-sky>
+        <a-sky id="model3-room4" radius="10" src="#model3-img4" visible="false"></a-sky>
+        <a-sky id="model3-room5" radius="10" src="#model3-img5" visible="false"></a-sky>
+        <a-sky id="model3-room6" radius="10" src="#model3-img6" visible="false"></a-sky>
+        <a-sky id="model3-room7" radius="10" src="#model3-img7" visible="false"></a-sky>
+        <a-sky id="model3-room8" radius="10" src="#model3-img8" visible="false"></a-sky>
+        <a-entity camera look-controls wasd-controls>
+            <a-cursor></a-cursor> 
+        </a-entity>
+    </a-scene>
+    </div>
+    <div class="aframe-container">
+      <a-scene class="scene3">
+        <a-assets>
+            <img id="model4-img0" crossorigin="anonymous" src="{% static 'coreapp/images/Model 4/IMG_20231004_134522_381.jpg' %}">
+            <img id="model4-img1" crossorigin="anonymous" src="{% static 'coreapp/images/Model 4/IMG_20231004_134537_984.jpg' %}">
+            <img id="model4-img2" crossorigin="anonymous" src="{% static 'coreapp/images/Model 4/IMG_20231004_134622_685.jpg' %}">
+            <img id="model4-img3" crossorigin="anonymous" src="{% static 'coreapp/images/Model 4/IMG_20231004_134638_678.jpg' %}">
+            <img id="model4-img4" crossorigin="anonymous" src="{% static 'coreapp/images/Model 4/IMG_20231004_134651_099.jpg' %}">
+            <img id="model4-img5" crossorigin="anonymous" src="{% static 'coreapp/images/Model 4/IMG_20231004_134707_379.jpg' %}">
+            <img id="model4-img6" crossorigin="anonymous" src="{% static 'coreapp/images/Model 4/IMG_20231004_134718_674.jpg' %}">
+            <img id="model4-img7" crossorigin="anonymous" src="{% static 'coreapp/images/Model 4/IMG_20231004_134730_881.jpg' %}">
+            <img id="model4-img8" crossorigin="anonymous" src="{% static 'coreapp/images/Model 4/IMG_20231004_135416_002.jpg' %}">
+        </a-assets>
+    
+        <a-sky id="model4-room0" radius="10" src="#model4-img0" visible="true"></a-sky>
+        <a-sky id="model4-room1" radius="10" src="#model4-img1" visible="false"></a-sky>
+        <a-sky id="model4-room2" radius="10" src="#model4-img2" visible="false"></a-sky>
+        <a-sky id="model4-room3" radius="10" src="#model4-img3" visible="false"></a-sky>
+        <a-sky id="model4-room4" radius="10" src="#model4-img4" visible="false"></a-sky>
+        <a-sky id="model4-room5" radius="10" src="#model4-img5" visible="false"></a-sky>
+        <a-sky id="model4-room6" radius="10" src="#model4-img6" visible="false"></a-sky>
+        <a-sky id="model4-room7" radius="10" src="#model4-img7" visible="false"></a-sky>
+        <a-sky id="model4-room8" radius="10" src="#model4-img8" visible="false"></a-sky>
+        <a-entity camera look-controls wasd-controls>
+            <a-cursor></a-cursor> 
+        </a-entity>
+    </a-scene>
+    </div>
+      
+    
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var toggleButtons = document.querySelectorAll('.toggle-button');
+    var aframeContainers = document.querySelectorAll('.aframe-container');
+    var playButton = document.querySelector('.unt'); // Corrected query selector
+    var tooltip = document.getElementById('play-button-tooltip');
+
+    playButton.addEventListener('mouseover', function(event) {
+        const rect = playButton.getBoundingClientRect();
+        tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
+        tooltip.style.left = rect.left + 'px';
+        tooltip.style.display = 'block'; // Display the tooltip
+    });
+
+    playButton.addEventListener('mouseout', function(event) {
+        tooltip.style.display = 'none'; // Hide the tooltip
+    });
+    var rooms1 = [];
+    for (var i = 0; i < 10; i++) {
+        rooms1.push(document.getElementById('room' + i));
+    }
+
+    // Select all your a-sky elements for the second A-Frame scene
+    var rooms2 = [];
+    for (var i = 0; i < 9; i++) {
+        rooms2.push(document.getElementById('model2-room' + i));
+    }
+    
+    var rooms3 = [];
+    for (var i = 0; i < 9; i++) {
+        rooms3.push(document.getElementById('model3-room' + i));
+    }
+
+    var rooms4 = [];
+    for (var i = 0; i < 9; i++) {
+        rooms4.push(document.getElementById('model4-room' + i));
+    }
+
+
+    function handleRoomClick(rooms, prefix) {
+        rooms.forEach(function(room, index) {
+            room.addEventListener('click', function() {
+                console.log(prefix + ' Room ' + index + ' clicked');
+            });
+        });
+    }
+
+    // Function to handle keyboard navigation for A-Frame scenes
+    function handleKeyboardNavigation(rooms, prefix) {
+    window.addEventListener('keydown', function(event) {
+        // Check if the pressed key is a number between 1 and 0
+        var numberKey = parseInt(event.key);
+        if ((numberKey >= 1 && numberKey <= 9) || numberKey === 0) {
+            // Extract the room number from the pressed number key
+            var roomNumber = numberKey === 0 ? 9 : numberKey - 1; // Handle key '0' as the 10th room
+
+            // Show the clicked room and hide others
+            rooms.forEach(function(room, index) {
+                room.setAttribute('visible', index === roomNumber);
+            });
+
+            // Modify your variables or properties here based on the room number
+            console.log(prefix + ' Room ' + (roomNumber + 1) + ' selected');
+        }
+    });
+}
+    toggleButtons.forEach(function(button, index) {
+        button.addEventListener('click', function() {
+            aframeContainers.forEach(function(container) {
+                container.style.display = 'none';
+            });
+            aframeContainers[index].style.display = 'block';
+
+            // Set visibility of corresponding A-Frame scene based on the index
+            var scenes = document.querySelectorAll('a-scene');
+            scenes.forEach(function(scene, sceneIndex) {
+                scene.setAttribute('visible', index === sceneIndex);
+            });
+        });
+    });
+
+    // Handle click events and keyboard navigation for the first A-Frame scene
+    handleRoomClick(rooms1, 'Room 1');
+    handleKeyboardNavigation(rooms1, 'Room 1');
+
+    // Handle click events and keyboard navigation for the second A-Frame scene
+    handleRoomClick(rooms2, 'Model 2 Room ');
+    handleKeyboardNavigation(rooms2, 'Model 2 Room ');
+
+    handleRoomClick(rooms3, 'Model 3 Room ');
+    handleKeyboardNavigation(rooms3, 'Model 3 Room ');
+
+    handleRoomClick(rooms4, 'Model 4 Room ');
+    handleKeyboardNavigation(rooms4, 'Model 4 Room ');
+});
+
+  </script>
+  
 </body>
 </html>
-<div class="unb" id="unit">
-    <h1 class="primt">PRIME SHOWROOM</h1>
-    <div class="untpic">
-        <div class="unt">
-            <i class="fa fa-play" aria-hidden="true"></i>
-        </div>
-        <div class="unt">
-            <i class="fa fa-play" aria-hidden="true"></i>
-        </div>
-        <div class="unt">
-            <i class="fa fa-play" aria-hidden="true"></i>
-        </div>
-        <div class="unt">
-            <i class="fa fa-play" aria-hidden="true"></i>
-        </div>
-    </div>
-</div>
+
 

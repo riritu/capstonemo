@@ -15,22 +15,30 @@
 <body>
   <div class="row" id="cont">
     <div class="col" id="con2">
-    <form action="">
-        <form method="POST">
+      <div class="latest-message">
+        {% if messages %}
+            {% for message in messages %}
+                {% if forloop.last %}
+                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+      </div>         
+      <form method="POST" action="{% url 'contact' %}">
             {% csrf_token %}
             <h1 class="">CONTACT US</h1>
             <div class="mb-2">
-              <input type="text" class="form-control" placeholder="Name" id="" >
+              <input type="text" class="form-control" placeholder="Name" id="" name="name" required>
             </div>
             <div class="mb-2">
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+              <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Email" required> 
             </div>
             <div class="mb-2">
-              <input type="tel" class="form-control" id="" placeholder="Phone Number" >
+              <input type="tel" class="form-control" id="" placeholder="Phone Number" name="phone" required>
             </div>
             <div class="mb-2">
-              <select class="form-select" id="inputGroupSelect01" >
-                <option value="" {% if form.unit_type.value is None %}selected{% endif %}>Unit</option>
+              <select class="form-select" id="inputGroupSelect01" name="unit" required>
+                <option value="none">Unit</option>
                 <option value="Unit1" {% if form.unit_type.value == 'Unit1' %}selected{% endif %}>Unit1</option>
                 <option value="Unit 2" {% if form.unit_type.value == 'Unit 2' %}selected{% endif %}>Unit 2</option>
                 <option value="Unit 3" {% if form.unit_type.value == 'Unit 3' %}selected{% endif %}>Unit 3</option>
@@ -38,22 +46,15 @@
               </select>
             </div>       
             <div class="mb-2">
-                <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+                <textarea id="comment" name="comment" rows="4" cols="50" required></textarea>
             </div>
             <div class="mb-2">
-                <input type="date" class="form-control" id="" placeholder="Move-in-date" >
+                <input type="date" class="form-control" id="" name="date" placeholder="Move-in-date" required>
             </div>
-            <div class="latest-message">
-                {% if messages %}
-                    {% for message in messages %}
-                        {% if forloop.last %}
-                            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-              </div>         
+          
             <button type="submit" class="bntcon">Submit</button>
           </form>
+          
     </form>
     </div>
     <div class="col" id="con2">

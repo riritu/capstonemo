@@ -37,18 +37,17 @@
                 </div>
                 <div class="mb-2">
                     <select class="form-select" id="inputGroupSelect01" name= "{{ form.unit.name }}" required>
-                        <option value="" {% if form.unit.value is None %}selected{% endif %}>House Unit</option>
-                        <option value="Unit1" {% if form.unit.value == 'Unit1' %}selected{% endif %}>Unit1</option>
-                        <option value="Unit 2" {% if form.unit.value == 'Unit 2' %}selected{% endif %}>Unit 2</option>
-                        <option value="Unit 3" {% if form.unit.value == 'Unit 3' %}selected{% endif %}>Unit 3</option>
-                        <option value="Unit 4" {% if form.unit.value == 'Unit 4' %}selected{% endif %}>Unit 4</option>
+                        <option value="" {% if form.unit.value is None %}selected{% endif %}>Model</option>
+                        <option value="Model 1" {% if form.unit.value == 'Model 1' %}selected{% endif %}>Model 1</option>
+                        <option value="Model 2" {% if form.unit.value == 'Model 2' %}selected{% endif %}>Model 2</option>
+                        <option value="Model 3" {% if form.unit.value == 'Model 3' %}selected{% endif %}>Model 3</option>
+                        <option value="Model 4" {% if form.unit.value == 'Model 4' %}selected{% endif %}>Model 4</option>
                     </select>
                 </div>
                 <div class="mb-2">
                     <input type="number" name= "{{ form.ref.name }}" id="" placeholder="Reference Number" required>
                 </div>
-                <div class="mb-2">
-                    <select class="form-select" id="inputGroupSelect01" name= "{{ form.mop.name }}" required>
+                <div class="mb-2"> <select class="form-select" id="inputGroupSelect01" name= "{{ form.mop.name }}" required>
                         <option value="Mode of Payment" {% if form.mop.value is None %}selected{% endif %}>Mode of Payment</option>
                         <option value="Gcash" {% if form.mop.value == 'Gcash' %}selected{% endif %}>Gcash</option>
                         <option value="Bank Transfer" {% if form.mop.value == 'Bank Transfer' %}selected{% endif %}>Bank Transfer</option>
@@ -67,13 +66,12 @@
                 </div>
                 <button type="submit" class="boksub">SUBMIT</button>
 			</form>
-          	
             </div>
         </div>
         <div class="columnd" id="lhs">
           <div class="hnav">
             <a href="{% url 'tnt_hom' %}">HOME</a>
-            <a href="{% url 'admins' %}">ISSUES</a>
+            <a href="{% url 'tnt_hom' %}">ISSUES</a>
           </div>     
         </div>  
       </div>  

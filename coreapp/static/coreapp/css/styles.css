@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Donegal+One&family=Inter&family=Istok+Web&family=League+Spartan:wght@700&display=swap');
 
 body {
-  background: #f9f9f9;
+  background: #fff;
   height: 100%;
   width: 100%;
   overflow-x: hidden;
@@ -554,10 +554,12 @@ color: #301b09 !important;
 }
 
 .reqimg {
+  max-width: 30%;
   background-color: white;
 }
 
 #reqcard {
+  background: #F2F2F2 !important;
   text-align: center;
   border: 1px solid #266A06;
   border-radius: 5px;
@@ -598,7 +600,7 @@ color: #301b09 !important;
 tr {
   padding-left: 2%;
   border: 1px solid black;
-  background-color: #ffff;
+  background-color: #f6f6f6;
 }
 
 th {
@@ -638,10 +640,16 @@ th {
   max-height: fit-content;
 }
 
+
 .formh label {
   position: relative;
   right: 2px;
 }
+
+.formh{
+  padding-top: 3%;
+}
+
 
 .formh input {
   border: 1px solid black !important;
@@ -775,6 +783,43 @@ th {
   font-size: 3rem;
 }
 
+.bnav {
+  font-family: 'Donegal One', serif;
+  font-size: 3rem;
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.bnav .bright {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 2rem;
+  text-align: right; /* Align content to the right within .bright */
+}
+
+.bnav .bleft {
+  display: flex;
+  align-items: center;
+}
+
+.bnav a {
+  text-decoration: none;
+  color: black;
+  padding: 8px 16px; /* Add padding to the links */
+}
+
+
+.bnav .bimg {
+  margin-right: 2%;
+  margin-left: 2%;
+  width: 14%;
+}
+
+
 .unb {
   background-color: #FFF !important;
   min-height: 100vh;
@@ -783,7 +828,7 @@ th {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 20vh; /* Adjust the top padding as needed */
+  padding-top: 15vh; /* Adjust the top padding as needed */
 }
 
 .untpic {
@@ -794,9 +839,58 @@ th {
 }
 
 .unt {
-  padding: 5%;
-  border: 2px solid black;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover; /* Set to cover the entire container */
+  background-repeat: no-repeat;
+  min-width: 25vw;
+  min-height: 30vh;
+  border-radius: 5px;
+  mix-blend-mode: multiply;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.30);
+}
+
+footer {
+  position: absolute;
+  padding: 12px;
+  bottom: 0;
+  width: 100%;
+  height: 10%;
+  background-color: #F2F2F2;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align items to the right */
+  justify-content: space-around; 
+}
+
+footer div {
+  margin-right: 2%;
+}
+
+
+
+.fa-play {
+  font-size: 24px; /* Set the font size to 24 pixels */
+  color: white; /* Change the color to red */
+}
+
+#untp1 {
+  background-image: url("../images/Model\ 1/IMG_20231004_133241_541.jpg");
+}
+
+#untp2 {
+  background-image: url("../images/Model\ 2/IMG_20231004_133857_401.jpg");
+}
+
+#untp3 {
+  background-image: url("../images/Model\ 3/IMG_20231004_134200_770.jpg");
+
+}
+#untp4 {
+  background-image: url("../images/Model\ 4/IMG_20231004_135416_002.jpg");
+
 }
 
 .rowt {
@@ -1136,6 +1230,7 @@ hr {
   width: 30%;
   border-radius: 50%;
   padding: 5%;
+  margin-bottom: 2%;
   background-color: #D9D9D9;
 }
 
@@ -1153,16 +1248,17 @@ hr {
 }
 
 #dash {
-  margin-right: 20px;
+  background-color: #F2F2F2;
   display: flex;
   align-items: center; 
-  width: 70%;
+  width: 70%; 
   border-radius: 2%;
-  border: 1px solid #266A06;
+  border: 2px solid #266A06;
 }
 
 #dashcon {
   display: flex;
+  justify-content: end;
 }
 
 
@@ -1223,7 +1319,6 @@ hr {
   border: none ;
   font-weight: bold;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
-
 }
 
 #myModal button {
@@ -1291,6 +1386,21 @@ hr {
   width: 70% !important;
 }
 
+.compsub {
+  font-weight: light;
+  font-size: large;
+  font-style: italic; 
+  color: rgba(48, 27, 9, 0.45); 
+}
+
+.chr {
+  border: 1px solid rgba(48, 27, 9, 0.45);
+}
+
+.comptel {
+  font-size: larger;
+  font-weight: bold;
+}
 
 .formp button {
   font-family: 'Istok Web', sans-serif;
@@ -1308,6 +1418,202 @@ hr {
   font-size: 2rem;
   font-weight:  bold;
   border-radius: 0 ;
+}
+
+.dashrow {
+  display: flex;
+  text-align: center;
+  justify-content: start;
+  width: 100%;
+}
+
+.dashcol {
+  width: 38%;
+}
+
+
+#reqdash {
+  width: 44% !important;
+}
+
+
+
+.proimg {
+  width: 26%;
+}
+
+
+.colnem {
+  color: #301B09;
+  font-weight: bold;
+}
+
+.reqcards {
+  padding: 5% !important;
+}
+
+#peso {
+  font-size: 20px !important;
+}  
+
+
+.dtopt {
+  font-size: 38px;
+  color: #266A06;
+  font-weight: bold;
+}
+
+
+.a-canvas.a-grab-cursor {
+  width: 20% !important;
+  height: 20% !important;
+}
+
+#reps {
+  border-radius: 20px; 
+  text-align: center;
+  padding: 1.4% !important;
+  margin: auto;
+  background-color: #F6F6F6;
+  margin-bottom: 1%;
+  width: 80%;
+}
+
+#reps p {
+  margin-bottom: 0;
+}
+
+#meModal .modal-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3%;
+  margin-top: 3%;
+}
+
+#meModal #mdt{
+  margin-top: 5%;
+}
+
+#meModal .latest-message{
+  font-weight: bold;
+  text-align: center;
+}
+
+
+#meModal input, #meModal select{
+  margin-bottom: 0;
+}
+
+#meModal div:nth-child(1){
+  font-weight: bold;
+}
+
+#meModal button {
+  margin-top: 4% !important;
+  margin: auto;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border: none ;
+}
+
+
+#meModal button {
+  background-color:#301B09;
+  color: white;
+}
+
+
+
+#meModal button:hover {
+  background-color:white;
+  color: #000;
+}
+
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 20px;
+  margin-bottom: 90px;
+
+  width: 70%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: 1.3rem;
+  color: black;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 5px;
+  }
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1.7rem;
+  color: #9b9b9b;
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1.7rem;
+  color: black;
+  font-weight:700;    
+}
+
+.form__field:focus {
+  padding-bottom: 6px;  
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #4DED30, #95F985, #B7FFBF);
+  border-image-slice: 1;
+}
+
+.form__field{
+  &:required,&:invalid { box-shadow:none; }
+}
+
+#payContent {
+  margin-bottom: 0 !important;
+}
+.comps {
+  background-color: #301B09 ;
+  border: none;
+}
+
+
+
+.tooltip {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.primt:hover + .tooltip {
+  display: block;
 }
 
 @media (max-width: 640px) {
