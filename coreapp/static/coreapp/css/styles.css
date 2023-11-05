@@ -869,7 +869,13 @@ footer div {
   margin-right: 2%;
 }
 
+footer a {
+  color: black !important;
+}
 
+footer a:hover {
+  color: #abc36c !important ;
+}
 
 .fa-play {
   font-size: 24px; /* Set the font size to 24 pixels */
@@ -1286,7 +1292,7 @@ hr {
 }
 
 #mdt {
-  margin-top: 4%;
+  margin-top: 14% !important;
 }
 
 #myModal hr {

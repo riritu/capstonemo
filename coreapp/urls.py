@@ -20,7 +20,7 @@ urlpatterns = [
     path('pay/', views.pay, name='pay'),
     path('prop/', views.prop, name='prop'),
     path('rep/', views.rep, name='rep'),
-    path('foot/', views.foot, name='foot'),
+    path('foot/', views.foot, name='    foot'),
     path('delete-unit/<int:unit_id>/', views.delete_unit, name='delete_unit'),
     path('logout/', views.user_logout, name='logout'),
 

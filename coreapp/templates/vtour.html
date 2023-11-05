@@ -51,10 +51,10 @@
       <h1 class="primt">PRIME SHOWROOM</h1>
           <div class="untpic">
             <div class="unt" id="untp1">
-              <i class="fa fa-play toggle-button" data-index="0" aria-hidden="true"></i>
-          </div>
+              <i class="fa fa-play toggle-button" data-index="0" data-model="Model 1" aria-hidden="true"></i>
+            </div>
           <div class="unt" id="untp2">
-              <i class="fa fa-play toggle-button" data-index="1" aria-hidden="true"></i>
+            <i class="fa fa-play toggle-button" data-index="1" data-model="Model 2" aria-hidden="true"></i>
           </div>
           <div class="unt" id="untp3">
               <i class="fa fa-play toggle-button" data-index="2" aria-hidden="true"></i>
@@ -89,10 +89,12 @@
             <a-sky id="room6" radius="10" src="#img6" visible="false"></a-sky>
             <a-sky id="room7" radius="10" src="#img7" visible="false"></a-sky>
             <a-sky id="room8" radius="10" src="#img8" visible="false"></a-sky>
-            <a-sky id="room9" radius="10" src="#img9" visible="false"></a-sky>  
+            <a-sky id="room9" radius="10" src="#img9" visible="false"></a-sky> 
+            <a-entity link-to-book="targetUrl: {% url 'book' %}">
+                <a-entity geometry="primitive: plane; height: 1; width: 1" material="shader: flat; src: #your-image-source"></a-entity>
+            </a-entity>
             <a-entity camera look-controls wasd-controls>
-                <a-cursor>
-                </a-cursor> 
+                
             </a-entity>
         </a-scene>
     </div>
@@ -109,7 +111,6 @@
             <img id="model2-img7" crossorigin="anonymous" src="{% static 'coreapp/images/Model 2/IMG_20231004_134122_721.jpg' %}">
             <img id="model2-img8" crossorigin="anonymous" src="{% static 'coreapp/images/Model 2/IMG_20231004_134139_612.jpg' %}">
         </a-assets>
-    
         <a-sky id="model2-room0" radius="10" src="#model2-img0" visible="true"></a-sky>
         <a-sky id="model2-room1" radius="10" src="#model2-img1" visible="false"></a-sky>
         <a-sky id="model2-room2" radius="10" src="#model2-img2" visible="false"></a-sky>
@@ -120,16 +121,7 @@
         <a-sky id="model2-room7" radius="10" src="#model2-img7" visible="false"></a-sky>
         <a-sky id="model2-room8" radius="10" src="#model2-img8" visible="false"></a-sky>
 
-        <a-link href="{% url 'book' %}" position="0 1 -5">
-            <a-box width="2" height="1" color="blue">
-                <a-text value="Click me to go to another page!" align="center" position="0 0.1 0"></a-text>
-            </a-box>
-        </a-link>
-        
-        
-
         <a-entity camera look-controls wasd-controls>
-            <a-cursor></a-cursor> 
         </a-entity>
     </a-scene>
     </div>
@@ -157,7 +149,6 @@
         <a-sky id="model3-room7" radius="10" src="#model3-img7" visible="false"></a-sky>
         <a-sky id="model3-room8" radius="10" src="#model3-img8" visible="false"></a-sky>
         <a-entity camera look-controls wasd-controls>
-            <a-cursor></a-cursor> 
         </a-entity>
     </a-scene>
     </div>
@@ -185,7 +176,6 @@
         <a-sky id="model4-room7" radius="10" src="#model4-img7" visible="false"></a-sky>
         <a-sky id="model4-room8" radius="10" src="#model4-img8" visible="false"></a-sky>
         <a-entity camera look-controls wasd-controls>
-            <a-cursor></a-cursor> 
         </a-entity>
     </a-scene>
     </div>

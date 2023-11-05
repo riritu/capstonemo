@@ -47,15 +47,15 @@
           <div class="mb-3">
             <input type="tel" class="form-control" id="" placeholder="Phone Number" name="{{ form.tent_pnum.name }}">
           </div>
-          <div class="mb-3">
-            <select class="form-select" id="inputGroupSelect01" name="{{ form.unit_type.name }}">
-              <option value="" {% if form.unit_type.value is None %}selected{% endif %}>Model</option>
-              <option value="Model 1" {% if form.unit_type.value == 'Model 1' %}selected{% endif %}>Model 1</option>
-              <option value="Model 2" {% if form.unit_type.value == 'Model 2' %}selected{% endif %}>Model 2</option>
-              <option value="Model 3" {% if form.unit_type.value == 'Model 3' %}selected{% endif %}>Model 3</option>
-              <option value="Model 4" {% if form.unit_type.value == 'Model 4' %}selected{% endif %}>Model 4</option>
+          <div class="form-group">
+            <select name="{{ form.unit_type.name }}" id="{{ form.unit_type.id_for_label }}" class="form-control">
+                {% for unit in form.unit_type.field.queryset %}
+                    {% if unit.unt_availability %}
+                        <option value="{{ unit.id }}">{{ unit.unit_type }} {{ unit.unit_blt }}</option>
+                    {% endif %}
+                {% endfor %}
             </select>
-          </div>                
+          </div>      
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
