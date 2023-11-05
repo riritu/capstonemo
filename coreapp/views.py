@@ -15,8 +15,9 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.http import JsonResponse
 import locale
-
- # Import your custom form
+from django.core.serializers import serialize
+from django.http import JsonResponse
+import json
 
 
 def user_logout(request):
@@ -46,7 +47,6 @@ def home(request):
         if tenant is not None and tenant.check_password(pword):
             login(request, tenant, backend='coreapp.backend.TenantBackend')
             return redirect(f'/tnt_hom/?username={uname}', )  # Include the username in the URL   return redirect('tnt_hom', username=uname)  
-            return render(request, 'tnt_hom.html', {'username': uname})   # Pass the  
         user = authenticate(request, username=uname, password=pword)
         if user is not None:
             login(request, user)
@@ -59,70 +59,84 @@ def unit(request):
     return render(request, 'unit.html')
 
 
+
 def creacc(request):
-    messages.clear()
     if request.method == 'POST':
         form = Tenantform(request.POST)
         if form.is_valid():
             tent_name = form.cleaned_data['tent_name']
-            uname = form.cleaned_data['tent_uname'] 
+            uname = form.cleaned_data['tent_uname']
             unit_type = form.cleaned_data['unit_type']
             tent_pnum = form.cleaned_data['tent_pnum']
             tent_emel = form.cleaned_data['tent_emel']
             tent_pword = form.cleaned_data['tent_pword']
-            
-            try:
-                tenant = Tenants.objects.create(
-                    tent_name=tent_name,
-                    username=uname,  
-                    unit_type=unit_type,
-                    tent_pnum=tent_pnum,
-                    tent_emel=tent_emel,
-                    password=tent_pword
-                )
-                messages.success(request, "Account Created.")
-            except IntegrityError:
-                messages.error(request, "Invalid Input.")
+        try:
+            tenant = Tenants.objects.create(
+                tent_name=tent_name,
+                username=uname,
+                unit_type=unit_type,
+                tent_pnum=tent_pnum,
+                tent_emel=tent_emel,
+                assigned_unit=assigned_unit,
+                password=tent_pword
+            )
+            messages.success(request, "Account Created.")
+            return redirect('creacc')  # Redirect after successful submission
+        except IntegrityError as e:
+            messages.error(request, f"Error creating account: {e}")
     else:
         form = Tenantform()
     return render(request, 'creacc.html', {'form': form})
 
-
 def ad_hom(request):  
     locale.setlocale(locale.LC_ALL, 'en_PH.UTF-8')
-    book = Booked.objects.all().order_by('date')
+    book = Booked.objects.filter(approval_status='pending').order_by('date')
     tent = Tenants.objects.all().order_by('tent_name')
     prop = Units.objects.all()
 
     total_profit = calculate_total_profit()
-    formatted_total_profit = locale.currency(total_profit, grouping=True)
+    if total_profit is not None:
+        formatted_total_profit = locale.currency(total_profit, grouping=True)
+    else:
+        formatted_total_profit = '0'  # or any default value you want to set
+
     num_tenants = tent.count()
+    num_unit = prop.count()
 
     reqs = {
         'total_profit': formatted_total_profit,
         'Booked': book,
         'Tenants': tent,
         'Prop': prop,
-        'NumTenants': num_tenants  # Add the count of tenants to the context dictionary
+        'NumTenants': num_tenants,
+        'NumUnits': num_unit
     }
-
     return render(request, 'ad_hom.html', reqs)
 
 def calculate_total_profit():
     total_profit = Payment.objects.aggregate(Sum('amount'))['amount__sum']
+    if total_profit is not None:
+        total_profit = abs(total_profit)
     return total_profit
 
-def ad_tent(request):  
+
+
+
+def ad_tent(request):
+    # Query the Tenants model to get all tenants
     queryset = Tenants.objects.all()
 
-    context = {
-        'Tenants': queryset
-    }
+    # Check if it's an AJAX request
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        # Serialize the queryset to JSON data and return JSON response
+        tenants_data = serialize('json', queryset)
+        parsed_data = json.loads(tenants_data)
+        return JsonResponse(parsed_data, safe=False)
 
-    return render(request, 'ad_tent.html', context)
+    # If it's a regular GET request, render the HTML template
+    return render(request, 'ad_tent.html', {'Tenants': queryset})
 
-
-def homepage(request):  
+def homepage(request):      
     return render(request, 'homepage.html')
 
 def contact(request):  
@@ -181,26 +195,33 @@ def comp(request):
 
 
 def req(request):  
-    book = Booked.objects.all().order_by('name')
-    queryset = Booked.objects.all()
-
+    book = Booked.objects.filter(approval_status='pending').order_by('date')
     reqy = {
         'Booked': book
     }
     if request.method == 'POST':
         action = request.POST.get('action')
-
+        custom_id_value = request.POST.get('custom_id')
+        emel = request.POST.get('emel')
         if action == 'approve':
+            booking = Booked.objects.get(pk=custom_id_value)
+            booking.approval_status = 'approved'
+            booking.save()
+
             subject = 'Booking Approved'
             message = 'Your booking has been approved.'
             from_email = 'admin@example.com'
-            recipient_list = ['recipient@example.com']
-
+            recipient_list = [emel]
             send_mail(subject, message, from_email, recipient_list)
 
-
         elif action == 'decline':
+            booking = Booked.objects.get(pk=custom_id_value)
+            booking.approval_status = 'declined'
+            booking.save()
+
             messages.error(request, "Invalid Input.")
+
+        
     return render(request, 'ad_req.html', reqy)
 
 
@@ -255,70 +276,74 @@ def prop(request):
         if form.is_valid():
             untp = form.cleaned_data['unit_type']
             blt = form.cleaned_data['unit_blt'] 
-            avail = form.cleaned_data['unt_availability']
             prc = form.cleaned_data['unt_price']
 
             try:
                 units = Units.objects.create(
                     unit_type=untp,
                     unit_blt=blt,  
-                    unt_availability=avail,
                     unt_price=prc
                 )
                 messages.success(request, "Unit Created.")
-                print('dsad')
+                return redirect('prop')  # Redirect to the property page after form submission
             except IntegrityError:
                 messages.error(request, "Invalid Input.")
-                print('sdsad')
         else:
             messages.error(request, "Invalid Form Data.")
-            print('dasda')
-
     else:
         form = Tenantform()
+
     return render(request, 'property.html', {'form': form, **context})
 
 def rep(request):  
     if request.method == 'GET':
-        start_year = int(request.GET.get('start_year', datetime.now().year))
-        start_month = int(request.GET.get('start_month', datetime.now().month))
-        end_year = int(request.GET.get('end_year', datetime.now().year))
-        end_month = int(request.GET.get('end_month', datetime.now().month))
+        try:
+            start_year = int(request.GET.get('start_year', datetime.now().year))
+            start_month = int(request.GET.get('start_month', datetime.now().month))
+            end_year = int(request.GET.get('end_year', datetime.now().year))
+            end_month = int(request.GET.get('end_month', datetime.now().month))
 
-        # Get the first and last day of the start month
-        _, last_day_start = monthrange(start_year, start_month)
-        start_date = datetime(start_year, start_month, 1).date()
-        end_date = datetime(end_year, end_month, last_day_start).date()
+            # Validate input values
+            if 1 <= start_month <= 12 and 1 <= end_month <= 12:
+                _, last_day_start = monthrange(start_year, start_month)
+                start_date = datetime(start_year, start_month, 1).date()
+                _, last_day_end = monthrange(end_year, end_month)
+                end_date = datetime(end_year, end_month, last_day_end).date()
 
-        # Query the Payment model to get the total amount for the selected range of months
-        total_amount = Payment.objects.filter(date__range=(start_date, end_date)).aggregate(Sum('amount'))['amount__sum']
+                # Query the Payment model to get the total amount for the selected range of months
+                total_amount = Payment.objects.filter(date__range=(start_date, end_date)).aggregate(Sum('amount'))['amount__sum']
 
-        # Prepare data to pass to the template
-        report_period = f'{start_date.strftime("%B %Y")} - {end_date.strftime("%B %Y")}'
-        monthly_sums = {
-            report_period: total_amount or 0
-        }
+                # Prepare data to pass to the template
+                report_period = f'{start_date.strftime("%B %Y")} - {end_date.strftime("%B %Y")}'
+                monthly_sums = {
+                    report_period: total_amount or 0
+                }
 
-        # Get a list of years for the dropdown
-        years = [start_year, end_year]  # You can customize this based on your data
+                # Get a list of years for the dropdown
+                years = [start_year, end_year]  # You can customize this based on your data
 
-        # Get a list of months for the dropdowns
-        months = [(str(i), datetime(2000, i, 1).strftime('%B')) for i in range(1, 13)]
+                # Get a list of months for the dropdowns
+                months = [(str(i), datetime(2000, i, 1).strftime('%B')) for i in range(1, 13)]
 
-        return render(request, 'ad_rep.html', {
-            'monthly_sums': monthly_sums,
-            'start_year': start_year,
-            'start_month': start_month,
-            'end_year': end_year,
-            'end_month': end_month,
-            'report_period': report_period,
-            'years': years,
-            'months': months
-        })
+                return render(request, 'ad_rep.html', {
+                    'monthly_sums': monthly_sums,
+                    'start_year': start_year,
+                    'start_month': start_month,
+                    'end_year': end_year,
+                    'end_month': end_month,
+                    'report_period': report_period,
+                    'years': years,
+                    'months': months
+                })
+            else:
+                return HttpResponse("Invalid month value. Please select a month between 1 and 12.")
+        except ValueError:
+            return HttpResponse("Invalid input. Please provide valid year and month values.")
     else:
         # Handle other HTTP methods if necessary
         pass
-    
+
+
 @login_required(login_url='home')  
 def admins(request):  
     return render(request, 'admins.html')

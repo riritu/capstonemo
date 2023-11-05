@@ -38,13 +38,14 @@
 					<input type="tel" placeholder="Phone Number" class="form-control" id="" name= "{{ form.pnum.name }}" required>
 				</div>
 				<div class="mb-2">
-					<select class="form-select" id="inputGroupSelect01" name= "{{ form.unit.name }}" required>
+					<select class="form-select" id="inputGroupSelect01" name= "{{ form.unit.name }}" required value>
 					  <option value="" {% if form.unit.value is None %}selected{% endif %}>Model</option>
 					  <option value="Model 1" {% if form.unit.value == 'Model 1' %}selected{% endif %}>Model 1</option>
 					  <option value="Model 2" {% if form.unit.value == 'Model 2' %}selected{% endif %}>Model 2</option>
 					  <option value="Model 3" {% if form.unit.value == 'Model 3' %}selected{% endif %}>Model 3</option>
 					  <option value="Model 4" {% if form.unit.value == 'Model 4' %}selected{% endif %}>Model 4</option>
 					</select>
+					<input class="form-select" id="inputGroupSelect01" value="" name= "{{ form.unit.name }}" required>
 				</div>
 				<div class="mb-2">
 					<select class="form-select" id="inputGroupSelect01" name= "{{ form.bookt.name }}" required>

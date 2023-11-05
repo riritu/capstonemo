@@ -26,7 +26,7 @@
                     <img src="{% static 'coreapp/images/image 14-1.png' %}" alt="" class="reqimg">
                     <div class="rounded-content">{{ item.name }}</div>
                     <div><span>{{ item.unit }}</span> <span>{{ item.date }}</span></div>
-                    <button class="btnmodal" id="myBtn" data-name="{{ item.name }}" data-unit="{{ item.unit }}" data-date="{{ item.date }}" data-email="{{ item.emel }}" data-pnum="{{ item.pnum }}">View</button>
+                    <button class="btnmodal" id="myBtn" data-id="{{ item.id }}" data-name="{{ item.name }}" data-unit="{{ item.unit }}" data-date="{{ item.date }}" data-email="{{ item.emel }}" data-pnum="{{ item.pnum }}">View</button>
                 </div>
             </div>
             {% endfor %}
@@ -38,6 +38,8 @@
         <div class="modal-content">
             <span class="close"></span>
             <div class="modal-row" id="mdt">
+                <input type="hidden" id="emel" name="emel" value="">
+                <input type="hidden" id="custom_id" name="custom_id" value="some_value">
                 <div class="label">Name:</div>
                 <div class="value" id="name"></div>
             </div>
@@ -82,6 +84,7 @@
                 var unit = this.getAttribute("data-unit");
                 var date = this.getAttribute("data-date");
                 var emel = this.getAttribute("data-email");
+                var id = this.getAttribute("data-id");
                 var pnum = this.getAttribute("data-pnum");
     
                 // Set modal content using the data attributes
@@ -90,6 +93,8 @@
                 document.getElementById("date").innerHTML = date;
                 document.getElementById("email").innerHTML = emel;
                 document.getElementById("pnum").innerHTML = pnum;
+                document.getElementById("custom_id").value = id;
+                document.getElementById("emel").value = emel; // Set the value of the hidden input for emel
                 modal.style.display = "block";
             };
         });
