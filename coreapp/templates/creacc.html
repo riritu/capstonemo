@@ -51,7 +51,7 @@
             <select name="{{ form.unit_type.name }}" id="{{ form.unit_type.id_for_label }}" class="form-control">
                 {% for unit in form.unit_type.field.queryset %}
                     {% if unit.unt_availability %}
-                        <option value="{{ unit.id }}">{{ unit.unit_type }} {{ unit.unit_blt }}</option>
+                        <option value="{{ unit.id }}"> {{ unit.unit_blt }}</option>
                     {% endif %}
                 {% endfor %}
             </select>

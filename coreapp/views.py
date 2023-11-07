@@ -77,7 +77,6 @@ def creacc(request):
                 unit_type=unit_type,
                 tent_pnum=tent_pnum,
                 tent_emel=tent_emel,
-                assigned_unit=assigned_unit,
                 password=tent_pword
             )
             messages.success(request, "Account Created.")
