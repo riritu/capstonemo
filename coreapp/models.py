@@ -66,36 +66,35 @@ class Tenants(AbstractUser):
     @transaction.atomic
     def save(self, *args, **kwargs):
         if not self.pk:  # Check if the instance is being created (not updated)
-            # Check if the chosen unit is available
-            try:
-                booked_unit = Units.objects.get(unit_type=self.unit_type, unt_availability=True)  # Get the matching unit
+            # Check if there is an available unit of the specified type
+            booked_unit = Units.objects.filter(unit_type=self.unit_type, unt_availability=True).first()
+            if booked_unit:
                 # Check if the unit is not already assigned to another tenant
                 if not Tenants.objects.filter(assigned_unit=booked_unit).exists():
+                    # If the tenant already has an assigned unit, reset its availability to 'True'
+                    if self.assigned_unit and self.assigned_unit.unt_availability == False:
+                        self.assigned_unit.unt_availability = True
+                        self.assigned_unit.save()
                     booked_unit.unt_availability = False
                     booked_unit.save()
                     self.assigned_unit = booked_unit
                 else:
                     # Handle the case where the unit is already assigned to another tenant
                     raise Exception("Selected unit is already assigned to another tenant.")
-            except Units.DoesNotExist:
-                # Handle the case where no matching unit is found
+            else:
+                # Handle the case where no available unit is found
                 raise Exception("No available unit found with the specified type.")
-            except Exception as e:
-                # Handle other exceptions if necessary
-                raise Exception("Error occurred while processing the request: {}".format(str(e)))
 
             self.password = make_password(self.password)
         super().save(*args, **kwargs)
 
-    # ... other methods ...
-
     def delete(self, *args, **kwargs):
-        # Check if the tenant has an associated booked unit
-        if Units.objects.filter(unit_type=self.unit_type, unt_availability=True).exists():                # If the unit is available, set its approval status to 'unavailable'
-            booked_unit = Units.objects.get(unit_type=self.unit_type, unt_availability=True)
-            booked_unit.unt_availability = False
-            booked_unit.save()
+        if self.assigned_unit and self.assigned_unit.unt_availability == False:
+            # If the unit is not available, set its availability to 'True'
+            self.assigned_unit.unt_availability = True
+            self.assigned_unit.save()
         super().delete(*args, **kwargs)
+
 
     def __str__(self):
         return self.tent_name
