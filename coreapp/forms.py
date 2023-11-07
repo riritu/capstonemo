@@ -14,7 +14,7 @@ class Tenantform(forms.ModelForm):
     def save(self, commit=True):
         tenant = super(Tenantform, self).save(commit=False)
         unit_type = self.cleaned_data['unit_type']
-        available_units = Units.objects.filter(unit_type=unit_type, unt_availability=True)
+        available_units = Units.objects.filter(unt_availability=True)
         try:
             booked_unit = available_units.first()  # Get the first available unit
             if booked_unit:
