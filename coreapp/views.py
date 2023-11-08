@@ -231,8 +231,8 @@ def pay(request):
     return render(request, 'payment.html')
 
 def pay(request):
-    username = request.GET.get('username', '')
-    tenant = Tenants.objects.get(username=username)
+    username = request.GET.get('username', '') 
+    tenant  = Tenants.objects.get(username=username)
     context = {'username': username, 'tenant_id': tenant.id}
     if request.method == 'POST':
         form = Paymentform(request.POST)
@@ -349,6 +349,11 @@ def admins(request):
 
 @login_required(login_url='home') 
 def tnt_hom(request): 
+    username = "username"  # Replace this with the actual username
+
+    context = {
+        'username': username,
+    }
     username = request.GET.get('username', '') 
     print("Received username:", username)  # Add this line for debugging 
     tenant_data = Tenants.objects.filter(username=username).first() 
@@ -380,7 +385,7 @@ def tnt_hom(request):
     else:
         form = Compform()
 
-    return render(request, 'tnt_hom.html', {'form': form, **context})
+    return render(request, 'tnt_hom.html', {'form': form, **context, 'username': username})
 
 
 def foot(request):  
