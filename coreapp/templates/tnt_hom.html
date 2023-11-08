@@ -91,6 +91,55 @@
             const successfulPaymentSection = document.getElementById('colpay');
             successfulPaymentSection.style.display = 'none';
         });
+        
+
+    window.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const issueParam = urlParams.get('issue');
+
+    if (issueParam === 'true') {
+        // Activate the ISSUES functionality here
+        const headerText = document.getElementById('headerText');
+        const payContent = document.getElementById('payContent');
+
+        headerText.innerHTML =
+            `
+              <div class="comptel">COMPLAINTS</div>
+              <div class="compsub">Please tell us what it is, and we’ll address the issue.</div>
+              <hr class="chr">
+            `;
+
+        payContent.innerHTML = `
+            <div class="latest-message">
+                {% for message in messages %}
+                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
+
+            <form method="POST" action="{% url 'tnt_hom' %}">
+              {% csrf_token %}
+              <div class="form__group field">
+                  <input type="input" class="form__field" name="name" value="{{ username }}" readonly>
+                  <label for="" class="form__label">Name</label>
+              </div>
+              <div class="form__group field">
+                  <input type="input" class="form__field" name="issue" required>
+                  <label for="" class="form__label">Tell us about your issue</label>
+              </div>
+              <div class="form__group field">
+                  <input type="input" class="form__field" name="solution" required>
+                  <label for="" class="form__label">How can we make things right?</label>
+              </div>
+              
+              <button type="submit" class="comps">Submit</button>
+            </form>
+        `;
+
+        const successfulPaymentSection = document.getElementById('colpay');
+        successfulPaymentSection.style.display = 'none';
+    }
+});
+
 </script>
 </body>
 </html>
