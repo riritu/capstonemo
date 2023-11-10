@@ -1,28 +1,59 @@
 {% extends "admins.html" %}
 {% load static %}
     {% block content %}
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .table-container table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 40%;
+        }
+        .table-container th, .table-container td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        .table-container th {
+            background-color: #f2f2f2;
+        }
+        .table-container tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
     <div class="tntcon">
         <div class="tntlist">All Complaints <span>Sort by <i class="fa fa-caret-down" aria-hidden="true"></i></span></div>
         <hr>
-        <table class="tnt">
-            <div class="action-button">
-                <a href="{% url 'creacc' %}" class="add-button">
-                    <img src="{% static 'coreapp/images/add-to-queue 1.png' %}" alt="" class= "adtimg"> Add Account
-                </a>
-            </div>
-            <tr>
-                <th><div class="rounded-content">Name</div></th>
-                <th>Issue</th>   
-                <th>Date</th>
-            </tr>
-            {% for item in Tenants %}
-            <tr>
-                <td><div class="rounded-content">{{ item.tent_name }}</div></td>
-                <td><p>{{ item.tent_pnum }}</p></td>   
-                <td><div class="rounded-content">{{ item.unit_type }}</div></td>
-            </tr>
-            {% endfor %}
-        </table>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>MOP</th>
+                    <th>Reference</th>
+                </tr>
+                <tr>
+                    <td>John</td>
+                    <td>30</td>
+                    <td>New York</td>
+                </tr>
+               
+            </table>
+    
+            <table>
+                <tr>
+                    <th>Complaint</th>
+                    <th>Price</th>
+                </tr>
+                <tr>
+                    <td>Tablet</td>
+                    <td>$300</td>
+                </tr>
+            </table>
+        </div>
     </div>
 {% endblock %}
 

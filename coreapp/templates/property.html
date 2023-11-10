@@ -114,32 +114,7 @@
         });
     });
 });
-function sortUnitsByPrice() {
-    var table, rows, switching, i, x, y, shouldSwitch;
-    table = document.querySelector('.tnt'); // Select the table
-    switching = true;
-    
-    while (switching) {
-        switching = false;
-        rows = table.rows;
 
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
-            x = parseFloat(rows[i].querySelector('td:nth-child(3)').textContent); // Get price from the third column
-            y = parseFloat(rows[i + 1].querySelector('td:nth-child(3)').textContent);
-
-            if (x > y) {
-                shouldSwitch = true;
-                break;
-            }
-        }
-
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-        }
-    }
-}
 
 
 

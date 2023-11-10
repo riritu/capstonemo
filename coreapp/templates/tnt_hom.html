@@ -22,7 +22,7 @@
         <h4>{{ username }}</h4>
         </div>        
         <ul class ="tntli">
-          <li><span><img src="{% static 'coreapp/images/image 20.png' %}" alt="" class="tntimg"></span><a href="{% url 'pay' %}?username={{ username }}"> PAYMENTS</a></li>
+          <li><span><img src="{% static 'coreapp/images/image 20.png' %}" alt="" class="tntimg"></span><a href="{% url 'pay' username=username %}">PAYMENTS</a></li>
           <li><span><img src="{% static 'coreapp/images/isyu.png' %}" alt="" class="tntimg"></span><a href="{% url 'tnt_hom' %}?username={{ username }}"> ISSUES</a></li>
         </ul>
       </div>   
@@ -93,11 +93,11 @@
         });
         
 
-    window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const issueParam = urlParams.get('issue');
+    const issuesParam = urlParams.get('issues'); // Change 'issueParam' to 'issuesParam'
 
-    if (issueParam === 'true') {
+    if (issuesParam === 'true') {
         // Activate the ISSUES functionality here
         const headerText = document.getElementById('headerText');
         const payContent = document.getElementById('payContent');
@@ -139,6 +139,7 @@
         successfulPaymentSection.style.display = 'none';
     }
 });
+
 
 </script>
 </body>

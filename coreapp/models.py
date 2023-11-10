@@ -89,10 +89,12 @@ class Tenants(AbstractUser):
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        if self.assigned_unit and self.assigned_unit.unt_availability == False:
-            # If the unit is not available, set its availability to 'True'
+        if self.assigned_unit and not self.assigned_unit.unt_availability:
+            # Set the availability of the unit to 'True'
             self.assigned_unit.unt_availability = True
             self.assigned_unit.save()
+
+        # Call the superclass delete method to delete the tenant
         super().delete(*args, **kwargs)
 
 
