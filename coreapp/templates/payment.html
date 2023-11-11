@@ -30,11 +30,11 @@
                         {% endfor %}
                     {% endif %}
                   </div>	
-                  <div class="mb-2" id="inpo">
+                  <div class="mt-4 mb-2" id="inpo">
                     <input type="text" placeholder="Name" class="form-control" name="name" value="{{ username }}" readonly>
                 </div>
                 <div class="mb-2" id="inpo">
-                    <input type="number" placeholder="Tenant ID" class="form-control" name="tenant" value="{{ tenant_id }}" required>
+                    <input type="hidden" placeholder="Tenant ID" class="form-control" name="tenant" value="{{ tenant_id }}" required>
                 </div>
                 <div class="mb-2">
                     <select class="form-select" id="inputGroupSelect01" name="unit" required>

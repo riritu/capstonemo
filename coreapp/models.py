@@ -52,8 +52,9 @@ class Payment(models.Model):
     mop = models.CharField(max_length=255)  
     unit = models.CharField(max_length=255)
     date = models.DateField(max_length=255, default='date')
-    tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)  # Foreign key relationship
-
+    tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)  
+    status = models.CharField(max_length=20, choices=[('pending', 'Pending'), ('successful', 'Successful'), ('decline', 'Decline')] , default='Pending')
+    
 class Tenants(AbstractUser):
     tent_name = models.CharField(max_length=255)
     tent_uname = models.CharField(max_length=255)

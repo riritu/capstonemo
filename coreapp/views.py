@@ -41,11 +41,20 @@ def delete_tent(request, tenant_id):
         unit = tenant.assigned_unit
         tenant.delete()
 
-        # Check if the associated unit exists and its availability is False
         if unit and not unit.unt_availability:
-            unit.unt_availability = True  # Set the availability to True
-            unit.save()  # Save the unit to update the availability status
+            unit.unt_availability = True 
+            unit.save()  
 
+        return JsonResponse({'success': True})
+    except Tenants.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Tenant not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+def comp_solv(request, issue_id):
+    try:
+        comp = Issues.objects.get(pk=issue_id)
+        comp.delete()    
         return JsonResponse({'success': True})
     except Tenants.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Tenant not found'}, status=404)
@@ -54,6 +63,7 @@ def delete_tent(request, tenant_id):
     
 
 def home(request):
+    
     if request.method == 'POST':
         uname = request.POST.get('username')
         pword = request.POST.get('pass')
@@ -209,7 +219,29 @@ def book(request):
     return render(request, 'booking.html', {'form': form})
 
 def comp(request):  
-    return render(request, 'comp.html')
+    comp = Issues.objects.all()
+    payment = Payment.objects.filter(status='Pending').order_by('date')
+    context = {
+        'comp': comp,
+        'pay': payment
+    }
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        custom_id_value = request.POST.get('custom_id')
+        if action == 'approve':
+            payment = Payment.objects.get(pk=custom_id_value)
+            payment.status = 'Successful'
+            payment.save()
+
+        elif action == 'decline':
+            payment = Payment.objects.get(pk=custom_id_value)
+            payment.status = 'Decline'
+            payment.save()
+
+            messages.error(request, "Invalid Input.")
+
+    return render(request, 'comp.html' ,{ **context })
 
 
 def req(request):  
@@ -249,16 +281,14 @@ def nav(request):
 
 
 def pay(request, username):
-    print(request.POST)  # Add this line to inspect the POST data in the console
     try:
         tenant = Tenants.objects.get(username=username)
-        print('ytehey')
     except ObjectDoesNotExist:
-        # Handle the case when no tenant is found
         messages.error(request, "Tenant not found.")
         return redirect('book')
 
     context = {'username': username, 'tenant_id': tenant.id}
+    
     if request.method == 'POST':
         form = Paymentform(request.POST)
         if form.is_valid():
@@ -375,17 +405,20 @@ def admins(request):
 @login_required(login_url='home') 
 def tnt_hom(request): 
     username = request.GET.get('username', '') 
-    tenant_data = Tenants.objects.filter(username=username).first() 
-    
     try:
         tenant_data = Tenants.objects.get(username=username)
         tenant_name = tenant_data.tent_name
-    except ObjectDoesNotExist:
+    except Tenants.DoesNotExist:
         tenant_name = None
+
+    paypend = Payment.objects.filter(name=username, status='Pending')
+    paypsucc = Payment.objects.filter(name=username, status='Successful')
 
     context = {
         'username': username,
         'tenant_name': tenant_name,
+        'paypend': paypend,
+        'paypsucc': paypsucc,
     }
 
     if request.method == 'POST':
@@ -397,8 +430,6 @@ def tnt_hom(request):
             try:
                 issue_obj = Issues.objects.create(name=name, issue=issue, solution=solution)
                 messages.success(request, "Complaint submitted successfully.")
-                return redirect('tnt_hom')  
-
             except IntegrityError:
                 messages.error(request, "Invalid Input.")
         else:
@@ -411,6 +442,8 @@ def tnt_hom(request):
 
 def foot(request):  
     return render(request, 'footer.html')
+
+
 
 
 
