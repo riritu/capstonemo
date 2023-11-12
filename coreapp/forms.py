@@ -42,6 +42,7 @@ class Paymentform(forms.ModelForm):
     class Meta:
         model = Payment
         fields = ['name', 'unit', 'mop', 'date', 'amount', 'ref', 'tenant']
+        exclude = ['status']
 
 class Compform(forms.ModelForm):
     class Meta:

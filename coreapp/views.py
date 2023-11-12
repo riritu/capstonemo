@@ -18,7 +18,7 @@ import locale
 from django.core.serializers import serialize
 from django.http import JsonResponse
 import json
-
+from django.core.exceptions import ObjectDoesNotExist
 
 def user_logout(request):
     logout(request)
@@ -33,8 +33,37 @@ def delete_unit(request, unit_id):
         return JsonResponse({'success': False, 'error': 'Unit not found'}, status=404)
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+
+def delete_tent(request, tenant_id):
+    try:
+        tenant = Tenants.objects.get(pk=tenant_id)
+        unit = tenant.assigned_unit
+        tenant.delete()
+
+        if unit and not unit.unt_availability:
+            unit.unt_availability = True 
+            unit.save()  
+
+        return JsonResponse({'success': True})
+    except Tenants.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Tenant not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+def comp_solv(request, issue_id):
+    try:
+        comp = Issues.objects.get(pk=issue_id)
+        comp.delete()    
+        return JsonResponse({'success': True})
+    except Tenants.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Tenant not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
     
+
 def home(request):
+    
     if request.method == 'POST':
         uname = request.POST.get('username')
         pword = request.POST.get('pass')
@@ -190,7 +219,29 @@ def book(request):
     return render(request, 'booking.html', {'form': form})
 
 def comp(request):  
-    return render(request, 'comp.html')
+    comp = Issues.objects.all()
+    payment = Payment.objects.filter(status='Pending').order_by('date')
+    context = {
+        'comp': comp,
+        'pay': payment
+    }
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        custom_id_value = request.POST.get('custom_id')
+        if action == 'approve':
+            payment = Payment.objects.get(pk=custom_id_value)
+            payment.status = 'Successful'
+            payment.save()
+
+        elif action == 'decline':
+            payment = Payment.objects.get(pk=custom_id_value)
+            payment.status = 'Decline'
+            payment.save()
+
+            messages.error(request, "Invalid Input.")
+
+    return render(request, 'comp.html' ,{ **context })
 
 
 def req(request):  
@@ -227,13 +278,16 @@ def req(request):
 def nav(request):  
     return render(request, 'navbar.html')
 
-def pay(request):  
-    return render(request, 'payment.html')
 
-def pay(request):
-    username = request.GET.get('username', '') 
-    tenant  = Tenants.objects.get(username=username)
+def pay(request, username):
+    try:
+        tenant = Tenants.objects.get(username=username)
+    except ObjectDoesNotExist:
+        messages.error(request, "Tenant not found.")
+        return redirect('book')
+
     context = {'username': username, 'tenant_id': tenant.id}
+    
     if request.method == 'POST':
         form = Paymentform(request.POST)
         if form.is_valid():
@@ -245,7 +299,7 @@ def pay(request):
             amount = form.cleaned_data['amount']
             tenant_id = form.cleaned_data['tenant']
             try:
-                Payment = Payment.objects.create(
+                payment = Payment.objects.create(
                     name=name,
                     date=date,
                     unit=unit,
@@ -349,34 +403,43 @@ def admins(request):
 
 @login_required(login_url='home') 
 def tnt_hom(request): 
-    username = "username"  # Replace this with the actual username
+    username = request.GET.get('username', '') 
+    try:
+        tenant_data = Tenants.objects.get(username=username)
+        tenant_name = tenant_data.tent_name
+    except Tenants.DoesNotExist:
+        tenant_name = None
 
+    paypend = Payment.objects.filter(name=username, status='Pending')
+    paypsucc = Payment.objects.filter(name=username, status='Successful')
+    
+    # Format the amount in the backend
+    paypend = [
+        {   
+            'date': payment.date,
+            'mop': payment.mop,
+            'ref': payment.ref,
+            'amount': locale.currency(payment.amount, grouping=True),
+        }
+        for payment in paypend  # Fix the variable name here
+    ]
     context = {
         'username': username,
+        'tenant_name': tenant_name,
+        'paypend': paypend,
+        'paypsucc': paypsucc,
     }
-    username = request.GET.get('username', '') 
-    print("Received username:", username)  # Add this line for debugging 
-    tenant_data = Tenants.objects.filter(username=username).first() 
-    if tenant_data:
-            tenant_name = tenant_data.tent_name
-    else:
-        tenant_name = None
-    context = {
-          'username': username,
-         'tenant_name': tenant_name,
-    }
+
+  
+
     if request.method == 'POST':
         form = Compform(request.POST)
         if form.is_valid():
-            nem = form.cleaned_data['name']
-            isyu = form.cleaned_data['issue']
-            sagot = form.cleaned_data['solution']
+            name = form.cleaned_data['name']
+            issue = form.cleaned_data['issue']
+            solution = form.cleaned_data['solution']
             try:
-                tissue = Issues.objects.create(
-                    name=nem,
-                    issue=isyu,
-                    solution=sagot
-                )
+                issue_obj = Issues.objects.create(name=name, issue=issue, solution=solution)
                 messages.success(request, "Complaint submitted successfully.")
             except IntegrityError:
                 messages.error(request, "Invalid Input.")
@@ -390,6 +453,7 @@ def tnt_hom(request):
 
 def foot(request):  
     return render(request, 'footer.html')
+
 
 
 

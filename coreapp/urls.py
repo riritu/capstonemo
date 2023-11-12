@@ -17,11 +17,13 @@ urlpatterns = [
     path('comp/', views.comp, name='comp'),
     path('req/', views.req, name='req'),
     path('nav/', views.nav, name='nav'),
-    path('pay/', views.pay, name='pay'),
     path('prop/', views.prop, name='prop'),
     path('rep/', views.rep, name='rep'),
-    path('foot/', views.foot, name='    foot'),
+    path('foot/', views.foot, name='foot'),
+    path('pay/<str:username>/', views.pay, name='pay'),
+    path('delete-tent/<int:tenant_id>/', views.delete_tent, name='delete-tent'),
     path('delete-unit/<int:unit_id>/', views.delete_unit, name='delete_unit'),
-    path('logout/', views.user_logout, name='logout'),
+    path('comp_solv/<int:issue_id>/', views.comp_solv, name='comp_solv'),
 
+    path('logout/', views.user_logout, name='logout'),
 ]

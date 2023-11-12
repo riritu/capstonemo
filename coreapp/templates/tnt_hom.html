@@ -33,24 +33,54 @@
           <h4>{{ username }}</h4>
         </div>        
         <ul class ="tntli">
-          <li><span><img src="{% static 'coreapp/images/image 20.png' %}" alt="" class="tntimg"></span><a href="{% url 'pay' %}?username={{ username }}"> PAYMENTS</a></li>
-          <li><span><img src="{% static 'coreapp/images/isyu.png' %}" alt="" class="tntimg"></span><a href=""> ISSUES</a></li>
+          <li><span><img src="{% static 'coreapp/images/image 20.png' %}" alt="" class="tntimg"></span><a href="{% url 'pay' username=username %}">PAYMENTS</a></li>
+          <li><span><img src="{% static 'coreapp/images/isyu.png' %}" alt="" class="tntimg"></span><a href="{% url 'tnt_hom' %}?username={{ username }}"> ISSUES</a></li>
         </ul>
       </div>   
     </div>
     <div class="col" id="thcol">
-      <h4 id="headerText">PENDING PAYMENTS</h4>
-      <div class="large-card" id="payContent">
-          <p class="text-large">This is a big 'ole hero unit, you can use this for calling extra attention to
-              featured content or information.dasdsadasdsadas</p>
-      </div>
-      <div id="colpay">
-        <h4>SUCCESSFUL PAYMENT</h4>
-        <div class="large-card" id="successPayContent">
-            <p class="text-large">This is a big 'ole hero unit, you can use this for calling extra attention to
-                featured content or information.dasdsadasdsadas</p>
+        <h4 class="pend">PENDING PAYMENTS</h4>
+        <div class="large-card" id="payContent">
+            {% for payment in paypend %}
+                <div class="totmount">
+                    <div><strong>Date: </strong> {{ payment.date }}</div>
+                    <div class="total-amount"><strong class="tot">Total</strong> 
+                        <br>
+                        {{ payment.amount }}
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <strong>Mode of Payment:</strong> {{ payment.mop }}
+                </div>
+                <hr>
+                <div>
+                    <strong>Reference Number:</strong> {{ payment.ref }}
+                </div>
+    
+                
+            {% endfor %}
         </div>
-      </div>
+        <h4 class="sucfl" style="color: #301B09;">SUCCESSFUL PAYMENTS</h4>
+        <div class="large-card" id="successPayContent">
+            {% for payment in paypsucc %}
+            <div>
+                <strong>Date: </strong> {{ payment.date }}
+            </div>
+            <hr>
+            <div>
+                <strong>Mode of Payment:</strong> {{ payment.mop }}
+            </div>
+            <hr>
+            <div>
+                <strong>Reference Number:</strong> {{ payment.ref }}
+            </div>
+            <hr>
+            <div>
+                <strong>Total Amount:</strong> {{ payment.amount }}
+            </div>
+            {% endfor %}
+        </div>        
     </div>
   </div>
   
@@ -59,6 +89,7 @@
     const issuesLink = document.querySelector('.tntli li:nth-child(2) a');
         const headerText = document.getElementById('headerText');
         const payContent = document.getElementById('payContent');
+        const successfulPaymentSection = document.getElementById('successPayContent');
         issuesLink.addEventListener('click', function(event) {
             event.preventDefault();
 
@@ -103,12 +134,67 @@
             const successfulPaymentSection = document.getElementById('colpay');
             successfulPaymentSection.style.display = 'none';
         });
+
+        
+
+        window.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const issuesParam = urlParams.get('issues');
+        const usernameParam = urlParams.get('username');
+
+        if (issuesParam === 'true' && usernameParam) {
+                // Activate the ISSUES functionality here
+        const headerText = document.getElementById('headerText');
+        const payContent = document.getElementById('payContent');
+
+        headerText.innerHTML =
+            `
+              <div class="comptel">COMPLAINTS</div>
+              <div class="compsub">Please tell us what it is, and we’ll address the issue.</div>
+              <hr class="chr">
+            `;
+
+        payContent.innerHTML = `
+            <div class="latest-message">
+                {% for message in messages %}
+                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
+
+            <form method="POST" action="{% url 'tnt_hom' %}">
+              {% csrf_token %}
+              <input type="hidden" name="username" value="{{ username }}">
+              <div class="form__group field">
+                  <input type="input" class="form__field" name="name" value="{{ username }}" readonly>
+                  <label for="" class="form__label">Name</label>
+              </div>
+              <div class="form__group field">
+                  <input type="input" class="form__field" name="issue" required>
+                  <label for="" class="form__label">Tell us about your issue</label>
+              </div>
+              <div class="form__group field">
+                  <input type="input" class="form__field" name="solution" required>
+                  <label for="" class="form__label">How can we make things right?</label>
+              </div>
+              
+              <button type="submit" class="comps">Submit</button>
+            </form>
+        `;
+
+        const successfulPaymentSection = document.getElementById('colpay');
+        successfulPaymentSection.style.display = 'none';
+    }
+});
+
+
+
           function confirmLogout() {
             var logoutConfirmed = confirm("Are you sure you want to log out?");
             if (logoutConfirmed) {
                 window.location.href = "{% url 'logout' %}";
             }
         }
+
 </script>
 </body>
 </html>
