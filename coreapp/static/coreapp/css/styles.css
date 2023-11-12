@@ -1671,6 +1671,31 @@ hr {
   display: block;
 }
 
+
+#payContent {
+  background-color: #f6f6f6 !important;
+  border: 2px solid #266A06;
+  border-radius: 7px;
+}
+
+#payContent hr {
+  margin: 2% 0px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+#successPayContent {
+  background-color: #f6f6f6 !important;
+  border: 2px solid #266A06;
+  border-radius: 7px;
+}
+
+.sucfl {
+  margin-top: 2%;
+}
+
+.sucfl, .pend {
+  font-family: 'Inter', sans-serif;
+}
 @media (max-width: 640px) {
 
   #rowd h1{

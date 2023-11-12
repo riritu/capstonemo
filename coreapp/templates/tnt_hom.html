@@ -28,21 +28,45 @@
       </div>   
     </div>
     <div class="col" id="thcol">
-        <h4>PENDING PAYMENTS</h4>
+        <h4 class="pend">PENDING PAYMENTS</h4>
         <div class="large-card" id="payContent">
             {% for payment in paypend %}
-                <p>{{ payment.name }}  {{ payment.amount }}  {{ payment.mop }}  {{ payment.ref }}</p>
-                <div>{{ payment.name }} </div>
-                <div>{{ payment.mop }}</div>
-                <div>{{ payment.mop }}</div>
-                <div>{{ payment.amount }}</div>
+                <div>
+                    <strong>Date: </strong> {{ payment.date }}
+                </div>
+                <hr>
+                <div>
+                    <strong>Mode of Payment:</strong> {{ payment.mop }}
+                </div>
+                <hr>
+                <div>
+                    <strong>Reference Number:</strong> {{ payment.ref }}
+                </div>
+                <hr>
+                <div>
+                    <strong>Total Amount:</strong> {{ payment.amount }}
+                </div>
+                
             {% endfor %}
         </div>
-        
-        <h4>SUCCESSFUL PAYMENTS</h4>
+        <h4 class="sucfl" style="color: #301B09;">SUCCESSFUL PAYMENTS</h4>
         <div class="large-card" id="successPayContent">
             {% for payment in paypsucc %}
-                <p>{{ payment.name }}  {{ payment.amount }}  {{ payment.mop }}  {{ payment.ref }}</p>
+            <div>
+                <strong>Date: </strong> {{ payment.date }}
+            </div>
+            <hr>
+            <div>
+                <strong>Mode of Payment:</strong> {{ payment.mop }}
+            </div>
+            <hr>
+            <div>
+                <strong>Reference Number:</strong> {{ payment.ref }}
+            </div>
+            <hr>
+            <div>
+                <strong>Total Amount:</strong> {{ payment.amount }}
+            </div>
             {% endfor %}
         </div>        
     </div>

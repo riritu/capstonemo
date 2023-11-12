@@ -404,6 +404,7 @@ def admins(request):
 
 @login_required(login_url='home') 
 def tnt_hom(request): 
+    locale.setlocale(locale.LC_ALL, 'en_PH.UTF-8')
     username = request.GET.get('username', '') 
     try:
         tenant_data = Tenants.objects.get(username=username)
@@ -413,13 +414,25 @@ def tnt_hom(request):
 
     paypend = Payment.objects.filter(name=username, status='Pending')
     paypsucc = Payment.objects.filter(name=username, status='Successful')
-
+    
+    # Format the amount in the backend
+    paypend = [
+        {   
+            'date': payment.date,
+            'mop': payment.mop,
+            'ref': payment.ref,
+            'amount': locale.currency(payment.amount, grouping=True),
+        }
+        for payment in paypend  # Fix the variable name here
+    ]
     context = {
         'username': username,
         'tenant_name': tenant_name,
         'paypend': paypend,
         'paypsucc': paypsucc,
     }
+
+  
 
     if request.method == 'POST':
         form = Compform(request.POST)
