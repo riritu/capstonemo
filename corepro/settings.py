@@ -80,7 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'admins',
-        'USER': 'fonti',
+        'USER': 'postgres',
         'PASSWORD': 'renaf',
         'HOST':  '127.0.0.1',
         'PORT': '5432',
@@ -97,7 +97,6 @@ EMAIL_HOST_PASSWORD = 'skrv uyei hiwz aisg '  # Your email password
 DEFAULT_FROM_EMAIL = 'renafjunior@gmail.com'  
 
 # settings.py
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

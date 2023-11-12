@@ -117,7 +117,7 @@ def creacc(request):
     return render(request, 'creacc.html', {'form': form})
 
 def ad_hom(request):  
-    locale.setlocale(locale.LC_ALL, 'en_PH.UTF-8')
+    locale.setlocale(locale.LC_ALL, 'fil_PH.UTF-8')
     book = Booked.objects.filter(approval_status='pending').order_by('date')
     tent = Tenants.objects.all().order_by('tent_name')
     prop = Units.objects.all()
@@ -279,7 +279,6 @@ def nav(request):
     return render(request, 'navbar.html')
 
 
-
 def pay(request, username):
     try:
         tenant = Tenants.objects.get(username=username)
@@ -404,7 +403,6 @@ def admins(request):
 
 @login_required(login_url='home') 
 def tnt_hom(request): 
-    locale.setlocale(locale.LC_ALL, 'en_PH.UTF-8')
     username = request.GET.get('username', '') 
     try:
         tenant_data = Tenants.objects.get(username=username)
@@ -450,7 +448,7 @@ def tnt_hom(request):
     else:
         form = Compform()
 
-    return render(request, 'tnt_hom.html', {'form': form, **context})
+    return render(request, 'tnt_hom.html', {'form': form, **context, 'username': username})
 
 
 def foot(request):  
