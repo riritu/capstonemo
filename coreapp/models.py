@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import EmailValidator
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import make_password
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
-from django.core.exceptions import MultipleObjectsReturned
 from django.db import transaction
+from django.utils import timezone
 
 class Admin(models.Model):
     uname = models.CharField(max_length=255)
@@ -43,7 +43,7 @@ class Booked(models.Model):
     pnum = models.CharField(max_length=20)  
     date = models.DateField(max_length=255)
     emel = models.CharField(max_length=255, validators=[EmailValidator()], default='custom@example.com')    
-    approval_status = models.CharField(max_length=20, choices=APPROVAL_CHOICES, default='pending')
+    approval_status = models.CharField(max_length=20, choices=APPROVAL_CHOICES, default='Pending')
 
 class Payment(models.Model):
     name = models.CharField(max_length=255)
@@ -51,9 +51,17 @@ class Payment(models.Model):
     ref = models.IntegerField()
     mop = models.CharField(max_length=255)  
     unit = models.CharField(max_length=255)
-    date = models.DateField(max_length=255, default='date')
+    date = models.DateField(default=timezone.now)
     tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)  
-    status = models.CharField(max_length=20, choices=[('pending', 'Pending'), ('successful', 'Successful'), ('decline', 'Decline')] , default='Pending')
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('pending', 'Pending'),
+            ('successful', 'Successful'),
+            ('decline', 'Decline')
+        ],
+        default='Pending'
+    )
     
 class Tenants(AbstractUser):
     tent_name = models.CharField(max_length=255)
