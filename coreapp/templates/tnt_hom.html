@@ -31,8 +31,12 @@
         <h4 class="pend">PENDING PAYMENTS</h4>
         <div class="large-card" id="payContent">
             {% for payment in paypend %}
-                <div>
-                    <strong>Date: </strong> {{ payment.date }}
+                <div class="totmount">
+                    <div><strong>Date: </strong> {{ payment.date }}</div>
+                    <div class="total-amount"><strong class="tot">Total</strong> 
+                        <br>
+                        {{ payment.amount }}
+                    </div>
                 </div>
                 <hr>
                 <div>
@@ -42,10 +46,7 @@
                 <div>
                     <strong>Reference Number:</strong> {{ payment.ref }}
                 </div>
-                <hr>
-                <div>
-                    <strong>Total Amount:</strong> {{ payment.amount }}
-                </div>
+    
                 
             {% endfor %}
         </div>

@@ -1679,7 +1679,9 @@ hr {
 }
 
 #payContent hr {
+  color: #301B09; 
   margin: 2% 0px;
+  margin-right:28%;
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
@@ -1695,6 +1697,20 @@ hr {
 
 .sucfl, .pend {
   font-family: 'Inter', sans-serif;
+}
+
+.totmount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tot {
+  font-size: 2rem;
+}
+.total-amount {
+  font-size: 2rem;
+  margin-right: 5%;
 }
 @media (max-width: 640px) {
 
