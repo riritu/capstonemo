@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jmy@lf@4y5kzqf0gu=h2jyy70xj(8x$b9i3%qu)g7%!m!v!&eb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['trilcenterprisesonline.com', 'www.trilcenterprisesonline.com']
 
 # Application definition
 
@@ -88,12 +88,12 @@ DATABASES = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Your SMTP server address
-EMAIL_PORT = 587  # Port for TLS/SSL (587 for TLS, 465 for SSL)
-EMAIL_USE_SSL = False  # Use TLS (True/False)
-EMAIL_USE_TLS = True  # Use SSL (True/False)
-EMAIL_HOST_USER = 'renafjunior@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'skrv uyei hiwz aisg '  # Your email password
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_PORT = 587  
+EMAIL_USE_SSL = False  
+EMAIL_USE_TLS = True  
+EMAIL_HOST_USER = 'renafjunior@gmail.com' 
+EMAIL_HOST_PASSWORD = 'skrv uyei hiwz aisg '  
 DEFAULT_FROM_EMAIL = 'renafjunior@gmail.com'  
 
 # settings.py
@@ -135,7 +135,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'coreapp/static')]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
