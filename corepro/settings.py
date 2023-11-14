@@ -25,6 +25,8 @@ SECRET_KEY = 'django-insecure-jmy@lf@4y5kzqf0gu=h2jyy70xj(8x$b9i3%qu)g7%!m!v!&eb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+SECURE_SSL_REDIRECT = True
+
 ALLOWED_HOSTS = ['trilcenterprisesonline.com', 'trilcenterprises.trilcenterprisesonline.com', '112.198.173.182']
 
 # Application definition
