@@ -21,18 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-jmy@lf@4y5kzqf0gu=h2jyy70xj(8x$b9i3%qu)g7%!m!v!&eb'
 
-<<<<<<< HEAD
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 SECURE_SSL_REDIRECT = True
 
 ALLOWED_HOSTS = ['trilcenterprisesonline.com', 'trilcenterprises.trilcenterprisesonline.com', '112.198.173.182']
-=======
-DEBUG = False
-WHITENOISE_DEBUG = True
-ALLOWED_HOSTS = []
->>>>>>> b8d52ed097f1488b57af094d62332e586cd33510
 
 # Application definition
 
