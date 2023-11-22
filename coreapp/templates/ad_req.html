@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'coreapp/css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'coreapp/css/milligram.min.css' %}"> 
     <link rel="stylesheet" href="{% static 'coreapp/css/styles.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse 2-1.png' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse2-1.png' %}">
 
     <title>TRILC</title>
 </head>
@@ -23,7 +23,7 @@
             {% for item in Booked %}
             <div class="column page-heading" id="reqcol">
                 <div class="large-card" id="reqcard">
-                    <img src="{% static 'coreapp/images/image%14-1.png' %}" alt="" class="reqimg">
+                    <img src="{% static 'coreapp/images/image14-1.png' %}" alt="" class="reqimg">
                     <div class="rounded-content">{{ item.name }}</div>
                     <div><span>{{ item.unit }}</span> <span>{{ item.date }}</span></div>
                     <button class="btnmodal" id="myBtn" data-id="{{ item.id }}" data-name="{{ item.name }}" data-unit="{{ item.unit }}" data-date="{{ item.date }}" data-email="{{ item.emel }}" data-pnum="{{ item.pnum }}">View</button>

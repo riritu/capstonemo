@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{% static 'coreapp/css/normalize.css' %}">
   <link rel="stylesheet" href="{% static 'coreapp/css/milligram.min.css' %}"> 
   <link rel="stylesheet" href="{% static 'coreapp/css/styles.css' %}">
-  <link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse 2-1.png' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse2-1.png' %}">
 </head>
 <body>
   <div class="row" id="cont">
@@ -39,7 +39,7 @@
             <div class="mb-2">
               <select class="form-select" id="inputGroupSelect01" name="unit" required>
                 <option value="none">Unit</option>
-                <option value="Unit1" {% if form.unit_type.value == 'Unit1' %}selected{% endif %}>Unit1</option>
+                <option value="Unit 1" {% if form.unit_type.value == 'Unit 1' %}selected{% endif %}>Unit1</option>
                 <option value="Unit 2" {% if form.unit_type.value == 'Unit 2' %}selected{% endif %}>Unit 2</option>
                 <option value="Unit 3" {% if form.unit_type.value == 'Unit 3' %}selected{% endif %}>Unit 3</option>
                 <option value="Unit 4" {% if form.unit_type.value == 'Unit 4' %}selected{% endif %}>Unit 4</option>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'coreapp/css/milligram.min.css' %}"> 
     <link rel="stylesheet" href="{% static 'coreapp/css/styles.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse 2-1.png' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'coreapp/images/Ellipse2-1.png' %}">
     <title>TRI-LC</title>
 </head>
 <body class="tntbod">
@@ -33,7 +33,7 @@
           <h4>{{ username }}</h4>
         </div>        
         <ul class ="tntli">
-          <li><span><img src="{% static 'coreapp/images/image%20.png' %}" alt="" class="tntimg"></span><a href="{% url 'pay' username=username %}">PAYMENTS</a></li>
+          <li><span><img src="{% static 'coreapp/images/image20.png' %}" alt="" class="tntimg"></span><a href="{% url 'pay' username=username %}">PAYMENTS</a></li>
           <li><span><img src="{% static 'coreapp/images/isyu.png' %}" alt="" class="tntimg"></span><a href="{% url 'tnt_hom' %}?username={{ username }}"> ISSUES</a></li>
         </ul>
       </div>   

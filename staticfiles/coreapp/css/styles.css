@@ -681,7 +681,7 @@ th {
 }
 
 #landingPage {
-  background-image: url("../images/image 1(1).png");
+  background-image: url("../images/image1(1).png");
   background-size: cover; /* Set to cover the entire container */
   background-repeat: no-repeat;
   min-height: 100vh; 
@@ -692,7 +692,7 @@ th {
 }
 
 #cont {
-    background-image: url("../images/Rectangle\ 9-1.png");
+    background-image: url("../images/Rectangle9-1.png");
     background-size: cover; /* Set to cover the entire container */
     background-repeat: no-repeat;
     min-height: 100vh; 
@@ -883,19 +883,19 @@ footer a:hover {
 }
 
 #untp1 {
-  background-image: url("../images/Model\ 1/IMG_20231004_133241_541.jpg");
+  background-image: url("../images/Model1/IMG_20231004_133241_541.jpg");
 }
 
 #untp2 {
-  background-image: url("../images/Model\ 2/IMG_20231004_133857_401.jpg");
+  background-image: url("../images/Model2/IMG_20231004_133857_401.jpg");
 }
 
 #untp3 {
-  background-image: url("../images/Model\ 3/IMG_20231004_134200_770.jpg");
+  background-image: url("../images/Model3/IMG_20231004_134200_770.jpg");
 
 }
 #untp4 {
-  background-image: url("../images/Model\ 4/IMG_20231004_135416_002.jpg");
+  background-image: url("../images/Model4/IMG_20231004_135416_002.jpg");
 
 }
 
@@ -918,7 +918,7 @@ footer a:hover {
 }
 
 .ampic {
-  background-image: url("../images/image\ 2.png");
+  background-image: url("../images/image2.png");
   background-position: center bottom; /* Center the image */
   background-size: 100% 100%; /* Set to 90% of the container's width and height */
   background-repeat: no-repeat;
