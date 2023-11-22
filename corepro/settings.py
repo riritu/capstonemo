@@ -85,16 +85,14 @@ DATABASES = {
         'NAME': 'admins',
         'USER': 'fonti',
         'PASSWORD': 'renaf',
-        'HOST':  '127.0.0.1',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
 
-
-
-database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse("postgres://fonti:c25M8LedW0XnREgyVA1IkVGswfJJt6Ie@dpg-clepcvg8ffis73crhel0-a.singapore-postgres.render.com/admins_d44o")
-
+# Heroku (or other production environment) Database Configuration
+if "DATABASE_URL" in os.environ:
+    DATABASES["default"] = dj_database_url.parse(os.environ.get("DATABASE_URL"))
 
 
 STATICFILES_FINDERS = [
