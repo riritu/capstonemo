@@ -245,7 +245,7 @@ def comp(request):
 
 
 def req(request):  
-    book = Booked.objects.filter(approval_status='pending').order_by('date')
+    book = Booked.objects.filter(approval_status='Pending').order_by('date')
     reqy = {
         'Booked': book
     }

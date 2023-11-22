@@ -45,7 +45,8 @@
 
     {% if monthly_sums %}
     <h2>Monthly Report for {{ report_period }}</h2>
-    <table border="0">
+    <button onclick="printTable()" style="background-color: #95c967; color: black;">Print Report</button>
+    <table id="reportTable" border="0">
         <tr>
             <th>Month</th>
             <th>Total Amount</th>
@@ -63,4 +64,14 @@
     </table>
     {% endif %}
 </div>
+
+<script>
+    function printTable() {
+        var printContents = document.getElementById("reportTable").outerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+    </script>
 {% endblock %}
