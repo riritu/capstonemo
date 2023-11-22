@@ -69,18 +69,12 @@
     </div>
     <div class="aframe-container">
         <a-scene>
-            <a-assets>
-                <img id="img0" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133241_541.jpg' %}">
-                <img id="img1" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133309_813.jpg' %}">
-                <img id="img2" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133334_364.jpg' %}">
-                <img id="img3" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133404_210.jpg' %}">
-                <img id="img4" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133431_983.jpg' %}">                
-                <img id="img5" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133453_969.jpg' %}">
-                <img id="img6" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133516_358.jpg' %}">
-                <img id="img7" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133541_511.jpg' %}">
-                <img id="img8" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133624_108.jpg' %}">
-                <img id="img9" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133804_467.jpg' %}">
-            </a-assets>
+          <a-assets>
+            {% for i in "0123456789" %}
+                <img id="img{{ i }}" crossorigin="anonymous" src="{% static 'coreapp/images/Model 1/IMG_20231004_133{{ i }}' ~ '_241_541.jpg' if i == '0' else '_309_813.jpg' if i == '1' else '_334_364.jpg' if i == '2' else '_404_210.jpg' if i == '3' else '_431_983.jpg' if i == '4' else '_453_969.jpg' if i == '5' else '_516_358.jpg' if i == '6' else '_541_511.jpg' if i == '7' else '_624_108.jpg' if i == '8' else '_804_467.jpg' if i == '9' %}|urlize:'_' %}">
+            {% endfor %}
+          </a-assets>
+        
             <a-sky id="room0" radius="10" src="#img0" visible="true"></a-sky>
             <a-sky id="room1" radius="10" src="#img1" visible="false"></a-sky>
             <a-sky id="room2" radius="10" src="#img2" visible="false"></a-sky>

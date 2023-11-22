@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -87,6 +90,10 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+
+DATABASES["default"] = dj_database_url.parse("postgres://fonti:c25M8LedW0XnREgyVA1IkVGswfJJt6Ie@dpg-clepcvg8ffis73crhel0-a/admins_d44o")
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Your SMTP server address
