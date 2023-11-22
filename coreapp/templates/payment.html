@@ -18,7 +18,8 @@
         <div id="rowd" class="columnd">
             <h1 class="mt-6">PAYMENT</h1>
             <div class="formp" id="formbook">
-            <form method="POST" action="{% url 'pay' %}" id="fom">
+                <form method="post" action="{% if username %}{% url 'pay' username=username %}{% endif %}" id="fom">
+
                 {% csrf_token %}	  
                 <div class="latest-message">
                     {% if messages %}
@@ -29,14 +30,14 @@
                         {% endfor %}
                     {% endif %}
                   </div>	
-                <div class="mt-4 mb-2" id="inpo">
-                    <input type="text" placeholder="Name" class="form-control" name="{{ form.name.name }}" value="{{ username }}" readonly>
+                  <div class="mt-4 mb-2" id="inpo">
+                    <input type="text" placeholder="Name" class="form-control" name="name" value="{{ username }}" readonly>
                 </div>
                 <div class="mb-2" id="inpo">
-                    <input type="hidden" placeholder="Name" class="form-control" name="{{ form.tenant.name }}"  value="{{ tenant_id }}" required>
+                    <input type="hidden" placeholder="Tenant ID" class="form-control" name="tenant" value="{{ tenant_id }}" required>
                 </div>
                 <div class="mb-2">
-                    <select class="form-select" id="inputGroupSelect01" name= "{{ form.unit.name }}" required>
+                    <select class="form-select" id="inputGroupSelect01" name="unit" required>
                         <option value="" {% if form.unit.value is None %}selected{% endif %}>Model</option>
                         <option value="Model 1" {% if form.unit.value == 'Model 1' %}selected{% endif %}>Model 1</option>
                         <option value="Model 2" {% if form.unit.value == 'Model 2' %}selected{% endif %}>Model 2</option>
@@ -45,33 +46,29 @@
                     </select>
                 </div>
                 <div class="mb-2">
-                    <input type="number" name= "{{ form.ref.name }}" id="" placeholder="Reference Number" required>
+                    <input type="number" id="" placeholder="Reference Number" name="ref" required>
                 </div>
-                <div class="mb-2"> <select class="form-select" id="inputGroupSelect01" name= "{{ form.mop.name }}" required>
-                        <option value="Mode of Payment" {% if form.mop.value is None %}selected{% endif %}>Mode of Payment</option>
+                <div class="mb-2">
+                    <select class="form-select" id="inputGroupSelect01" name="mop" required>
+                        <option value="" {% if form.mop.value is None %}selected{% endif %}>Mode of Payment</option>
                         <option value="Gcash" {% if form.mop.value == 'Gcash' %}selected{% endif %}>Gcash</option>
                         <option value="Bank Transfer" {% if form.mop.value == 'Bank Transfer' %}selected{% endif %}>Bank Transfer</option>
                     </select>
                 </div>
                 <div class="mb-2">
-                    <input type="number" min="0" placeholder="0.00" name= "{{ form.amount.name }}" required>
+                    <input type="number" min="0" placeholder="0.00" name="amount" required>
                 </div>
                 <div class="mb-2">
-                    <input
-                    placeholder="Date"
-                    type="text" name= "{{ form.date.name }}"
-                    onfocus="(this.type='date')"
-                    onblur="(this.type='text')"
-                    required>				
+                    <input placeholder="Date" type="text" name="date" onfocus="(this.type='date')" onblur="(this.type='text')" required>				
                 </div>
-                <button type="submit" class="boksub">SUBMIT</button>
+                <button type="submit" class="boksub">SUBMIT</button>                
 			</form>
             </div>
         </div>
         <div class="columnd" id="lhs">
           <div class="hnav">
             <a href="{% url 'tnt_hom' %}?username={{ username }}">HOME</a>
-            <a href="{% url 'tnt_hom' %}?username={{ username }}">ISSUES</a>
+            <a href="{% url 'tnt_hom' %}?username={{ username }}&issues=true">ISSUES</a>
           </div>     
         </div>  
       </div>  
