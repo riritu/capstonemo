@@ -92,9 +92,6 @@ DATABASES = {
 }
 
 
-DATABASES["default"] = dj_database_url.parse("postgres://fonti:c25M8LedW0XnREgyVA1IkVGswfJJt6Ie@dpg-clepcvg8ffis73crhel0-a/admins_d44o")
-
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Your SMTP server address
 EMAIL_PORT = 587  # Port for TLS/SSL (587 for TLS, 465 for SSL)
