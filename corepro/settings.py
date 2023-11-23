@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jmy@lf@4y5kzqf0gu=h2jyy70xj(8x$b9i3%qu)g7%!m!v!&eb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['trilcenterprises.onrender.com']
 
 # Application definition
 
@@ -77,20 +78,21 @@ WSGI_APPLICATION = 'corepro.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+database_url = os.environ.get("DATABASE_URL")
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'admins',
-        'USER': 'fonti',
-        'PASSWORD': 'renaf',
-        'HOST':  '127.0.0.1',
-        'PORT': '5432',
+if database_url:
+    DATABASES = {'default': dj_database_url.parse(database_url)}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'admins',
+            'USER': 'postgres',
+            'PASSWORD': 'renaf',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
     }
-}
-
-
-
 
 
 STATICFILES_FINDERS = [
