@@ -108,6 +108,17 @@ def creacc(request):
                 tent_emel=tent_emel,
                 password=tent_pword
             )
+            
+            subject = 'Account Creation'
+            message = f'''
+                        Your Account Information are the following:
+                        - Username: {uname}
+                        - Password: {tent_pword}
+                    '''
+            from_email = 'renafjunior@gmail.com'
+            recipient_list = [ tent_emel]
+            send_mail(subject, message, from_email, recipient_list)
+
             messages.success(request, "Account Created.")
             return redirect('creacc')  # Redirect after successful submission
         except IntegrityError as e:
@@ -211,7 +222,9 @@ def book(request):
                     date = date,
                     bookt = bookt
                 )
-                messages.success(request, "Booking Submit.")
+                messages.success(request,'''Booking Submitted
+                Thank you for submitting your booking. 
+                                 Please wait for confirmation. ''')
             except IntegrityError:
                 messages.error(request, "Invalid Input.")
     else:
@@ -260,7 +273,7 @@ def req(request):
 
             subject = 'Booking Approved'
             message = 'Your booking has been approved.'
-            from_email = 'admin@example.com'
+            from_email = 'renafjunior@gmail.com'
             recipient_list = [emel]
             send_mail(subject, message, from_email, recipient_list)
 
@@ -268,6 +281,12 @@ def req(request):
             booking = Booked.objects.get(pk=custom_id_value)
             booking.approval_status = 'declined'
             booking.save()
+
+            subject = 'Booking Declined'
+            message = 'Your booking has been declined.'
+            from_email = 'renafjunior@gmail.com'
+            recipient_list = [emel]
+            send_mail(subject, message, from_email, recipient_list)
 
             messages.error(request, "Invalid Input.")
 

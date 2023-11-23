@@ -917,6 +917,11 @@ footer a:hover {
   font-family: 'Inter', sans-serif;  
 }
 
+.success-message {
+  background-color: #4CAF50 !important;
+  color: white;
+}
+
 .ampic {
   background-image: url("../images/image2.png");
   background-position: center bottom; /* Center the image */

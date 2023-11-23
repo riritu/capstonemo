@@ -17,11 +17,14 @@
             display: none; /* Center the container horizontally */
         }
       </style>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@5/dist/aframe-event-set-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
+    <script src="{% static 'coreapp/js/aframe-event-set-component.min' %}"></script>
+    <script src="{% static 'coreapp/js/aframe-layout-component.min.js' %}"></script>
+    <script src="{% static 'coreapp/js/aframe-proxy-event-component.min.js' %}"></script>
+    <script src="{% static 'coreapp/js/aframe-template-component.min.js' %}"></script>
+    <script src="{% static 'coreapp/js/aframe.min.js' %}"></script>
+
+    
+
     <script id="link" type="text/html">
       <a-entity class="link"
         geometry="primitive: plane; height: 1; width: 1"

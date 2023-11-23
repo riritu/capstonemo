@@ -58,15 +58,15 @@
 				</div>
                 <button type="submit" class="boksub">SUBMIT</button>
 			</form>
-			<div class="latest-message">.
-				{% if messages %}
+			{% if messages %}
+				<ul class="messages">
 					{% for message in messages %}
-						{% if forloop.last %}
-							<p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-						{% endif %}
+						<li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="background-color: #4CAF50; color: white;">
+							{{ message }}
+						</li>
 					{% endfor %}
-				{% endif %}
-			  </div>		
+				</ul>
+			{% endif %}		
             </div>
         </div>
         <div class="columnd" id="lhs">
