@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.db import transaction
 from django.utils import timezone
 
-class Admin(AbstractUser):
+class Admin(models.Model):
     uname = models.CharField(max_length=255, default='admin_username')
     pword = models.CharField(max_length=255, default='admin_password')
 
@@ -50,6 +50,7 @@ class Booked(models.Model):
     unit = models.CharField(max_length=255)
     pnum = models.CharField(max_length=20)  
     date = models.DateField(max_length=255)
+    image = models.ImageField(upload_to='images/',default='image')
     emel = models.CharField(max_length=255, validators=[EmailValidator()], default='custom@example.com')    
     approval_status = models.CharField(max_length=20, choices=APPROVAL_CHOICES, default='Pending')
 

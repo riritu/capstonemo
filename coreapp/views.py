@@ -222,6 +222,7 @@ def book(request):
             pnum = form.cleaned_data['pnum']
             date = form.cleaned_data['date']
             bookt = form.cleaned_data['bookt']
+            image = form.cleaned_data['image']
             try:
                 book = Booked.objects.create(
                     name = nem,
@@ -229,7 +230,8 @@ def book(request):
                     unit= unit,
                     pnum = pnum,
                     date = date,
-                    bookt = bookt
+                    bookt = bookt,
+                    image = image
                 )
                 messages.success(request,'''Booking Submitted
                 Thank you for submitting your booking. 
