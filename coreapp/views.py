@@ -4,10 +4,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import Paymentform, Propform, Requestform, Tenantform,Compform
 from django.views.decorators.csrf import csrf_protect
-from .models import Tenants, Booked, Payment, Units, Issues
+from .models import Tenants, Booked, Payment, Units, Issues, Admin
 from django.core.mail import send_mail
 from django.db import IntegrityError
-from django.core.exceptions import MultipleObjectsReturned
 from django.db.models import Sum
 from datetime import datetime
 from calendar import monthrange
@@ -19,6 +18,8 @@ from django.core.serializers import serialize
 from django.http import JsonResponse
 import json
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
 
 def user_logout(request):
     logout(request)
@@ -63,25 +64,33 @@ def comp_solv(request, issue_id):
     
 
 def home(request):
-    
     if request.method == 'POST':
         uname = request.POST.get('username')
         pword = request.POST.get('pass')
+
+        # Check if the user is a Tenant
         try:
             tenant = Tenants.objects.get(username=uname)
-        except MultipleObjectsReturned:  
-            messages.error(request, "Authentication failed. Please check your credentials.")
+            if tenant.check_password(pword):
+                login(request, tenant, backend='coreapp.backend.TenantBackend')
+                return redirect(f'/tnt_hom/?username={uname}')
+            else:
+                messages.error(request, "Authentication failed. Please check your credentials.")
         except Tenants.DoesNotExist:
-            tenant = None
-        if tenant is not None and tenant.check_password(pword):
-            login(request, tenant, backend='coreapp.backend.TenantBackend')
-            return redirect(f'/tnt_hom/?username={uname}', )  # Include the username in the URL   return redirect('tnt_hom', username=uname)  
-        user = authenticate(request, username=uname, password=pword)
-        if user is not None:
-            login(request, user)
-            return redirect('admins')
+            pass  # Continue to check if the user is an Admin
 
-        messages.error(request, "Authentication failed. Please check your credentials.")
+        # Check if the user is an Admin
+        try:
+            admin_user = Admin.objects.get(uname=uname)
+            print(f"Found admin user: {admin_user}")
+            if admin_user.check_password(pword):
+                login(request, admin_user)
+                return redirect('admins')
+            else:
+                messages.error(request, "Authentication failed. Incorrect password.")
+        except Admin.DoesNotExist:
+            messages.error(request, f"User with username '{uname}' not found.")
+
     return render(request, 'home.html')
 
 def unit(request):  
@@ -190,7 +199,7 @@ def contact(request):
         subject = 'New Contact Form Submission'
         message = f'Name: {name}\nEmail: {email}\nPhone: {phone}\nUnit Type: {unit_type}\nComment: {comment}\nMove-in Date: {move_in_date}'
         from_email = settings.EMAIL_HOST_USER 
-        recipient_list = ['robertofaner55@gmail.com']
+        recipient_list = ['renafjunior@gmail.com']
 
         send_mail(subject, message, from_email, recipient_list)
 

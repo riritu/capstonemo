@@ -7,9 +7,17 @@ from django.contrib.auth.models import User
 from django.db import transaction
 from django.utils import timezone
 
-class Admin(models.Model):
-    uname = models.CharField(max_length=255)
-    pword = models.CharField(max_length=255)
+class Admin(AbstractUser):
+    uname = models.CharField(max_length=255, default='admin_username')
+    pword = models.CharField(max_length=255, default='admin_password')
+
+    def save(self, *args, **kwargs):
+        # Set a default password if none is provided
+        if not self.pword:
+            self.pword = make_password('admin_password')
+        
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.uname
     

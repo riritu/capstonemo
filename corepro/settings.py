@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-jmy@lf@4y5kzqf0gu=h2jyy70xj(8x$b9i3%qu)g7%!m!v!&eb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['trilcenterprises.onrender.com']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -79,21 +79,6 @@ WSGI_APPLICATION = 'corepro.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 database_url = os.environ.get("DATABASE_URL")
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'admins',
-        'USER': 'postgres',
-        'PASSWORD': 'renaf',
-        'HOST':  '127.0.0.1',
-        'PORT': '5432',
-    }
-}
-
-
-
 
 if database_url:
     DATABASES = {'default': dj_database_url.parse(database_url)}
@@ -165,7 +150,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'coreapp/static')]
 
 # Default primary key field type
