@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.core.validators import EmailValidator
 from django.contrib.auth.hashers import make_password
 from django.utils.translation import gettext as _

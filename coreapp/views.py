@@ -18,8 +18,7 @@ from django.core.serializers import serialize
 from django.http import JsonResponse
 import json
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth.hashers import check_password
+from django.core.exceptions import MultipleObjectsReturned
 
 def user_logout(request):
     logout(request)
@@ -67,30 +66,21 @@ def home(request):
     if request.method == 'POST':
         uname = request.POST.get('username')
         pword = request.POST.get('pass')
-
-        # Check if the user is a Tenant
         try:
             tenant = Tenants.objects.get(username=uname)
-            if tenant.check_password(pword):
-                login(request, tenant, backend='coreapp.backend.TenantBackend')
-                return redirect(f'/tnt_hom/?username={uname}')
-            else:
-                messages.error(request, "Authentication failed. Please check your credentials.")
+        except MultipleObjectsReturned:  
+            messages.error(request, "Authentication failed. Please check your credentials.")
         except Tenants.DoesNotExist:
-            pass  # Continue to check if the user is an Admin
+            tenant = None
+        if tenant is not None and tenant.check_password(pword):
+            login(request, tenant, backend='coreapp.backend.TenantBackend')
+            return redirect(f'/tnt_hom/?username={uname}', )  # Include the username in the URL   return redirect('tnt_hom', username=uname)  
+        user = authenticate(request, username=uname, password=pword)
+        if user is not None:
+            login(request, user)
+            return redirect('admins')
 
-        # Check if the user is an Admin
-        try:
-            admin_user = Admin.objects.get(uname=uname)
-            print(f"Found admin user: {admin_user}")
-            if admin_user.check_password(pword):
-                login(request, admin_user)
-                return redirect('admins')
-            else:
-                messages.error(request, "Authentication failed. Incorrect password.")
-        except Admin.DoesNotExist:
-            messages.error(request, f"User with username '{uname}' not found.")
-
+        messages.error(request, "Authentication failed. Please check your credentials.")
     return render(request, 'home.html')
 
 def unit(request):  
