@@ -24,6 +24,6 @@ urlpatterns = [
     path('delete-tent/<int:tenant_id>/', views.delete_tent, name='delete-tent'),
     path('delete-unit/<int:unit_id>/', views.delete_unit, name='delete_unit'),
     path('comp_solv/<int:issue_id>/', views.comp_solv, name='comp_solv'),
-
+    path('', views.index, name='index'),
     path('logout/', views.user_logout, name='logout'),
 ]

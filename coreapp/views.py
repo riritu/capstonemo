@@ -20,6 +20,9 @@ import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
 
+def index(request):
+    return render(request, 'render/index.html', {})
+
 def user_logout(request):
     logout(request)
     return redirect('home')  
@@ -273,7 +276,24 @@ def req(request):
             booking.save()
 
             subject = 'Booking Approved'
-            message = 'Your booking has been approved.'
+            message = ''' Your Booking is Approved
+                        
+                        To complete your payment, please use the following details:
+
+                        Payment Method: Bank Transfer
+
+                        Account Number: 001920196925
+                        Account Holder: Rozaida Perio
+
+                        Or you can make the payment via Gcash:
+
+                        Gcash Number: 0917-533-0418
+                        Account Holder: Rozaida Perio
+
+                        Please ensure to include the unique transaction reference [XYZ123] when making the payment.
+
+                        Thank you for choosing our services!
+                      '''
             from_email = 'renafjunior@gmail.com'
             recipient_list = [emel]
             send_mail(subject, message, from_email, recipient_list)
