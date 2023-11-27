@@ -7,7 +7,7 @@ services:
   - type: web
     name: trilcenterprises
     runtime: python
-    buildCommand: "build.bat"
+    buildCommand: "build.sh"
     startCommand: "waitress-serve corepro.wsgi:application"
     envVars:
       - key: DATABASE_URL
