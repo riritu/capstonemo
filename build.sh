@@ -2,8 +2,6 @@
 # exit on error
 set -o errexit
 
-source "./povenv/scripts/activate"
-
 poetry install
 
 
