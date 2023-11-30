@@ -5,10 +5,10 @@ databases:
 
 services:
   - type: web
-    name: trilcenterprises
+    name: trilc
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "waitress-serve corepro.wsgi:application"
+    startCommand: "gunicorn mysite.wsgi:application"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
