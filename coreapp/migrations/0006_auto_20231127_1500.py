@@ -6,7 +6,6 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('auth', '0013_auto_20231127_1500'),
         ('coreapp', '0005_alter_admin_pword_alter_admin_uname'),
     ]
 
