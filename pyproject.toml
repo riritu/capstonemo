@@ -22,8 +22,8 @@ tzdata = "2023.3"
 waitress = "2.1.2"
 whitenoise = "==6.*"
 gunicorn = "21.2.0"
-brotli = "^1.1.0"
+brotli = "^1.1.0
 
 [build-system]
-requires = ["poetry-core>=1.7.1"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
