@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'corepro.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(       
-        default='postgres://pontefino_user:A3PDTbadseNE9a0gwC7U0hMyt5wtnYaN@dpg-clkven4jtl8s73f3tifg-a/pontefino',
+        default='postgresql://postgres:postgres@localhost:5432/pontefino', 
         conn_max_age=600    )}
 
 
