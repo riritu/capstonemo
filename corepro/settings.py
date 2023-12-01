@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'corepro.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(       
-        default='postgres://fonti:c25M8LedW0XnREgyVA1IkVGswfJJt6Ie@dpg-clepcvg8ffis73crhel0-a.singapore-postgres.render.com/admins_d44o',
+        default='postgres://fonti:c25M8LedW0XnREgyVA1IkVGswfJJt6Ie@dpg-clepcvg8ffis73crhel0-a/admins_d44o',
         conn_max_age=600    )}
 
 
