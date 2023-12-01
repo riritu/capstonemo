@@ -82,12 +82,27 @@ WSGI_APPLICATION = 'corepro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(       
-        default='postgres://pontefino_user:A3PDTbadseNE9a0gwC7U0hMyt5wtnYaN@dpg-clkven4jtl8s73f3tifg-a/pontefino',
-        conn_max_age=600    
+
+if DEBUG:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'admins',
+            'USER': 'postgres',
+            'PASSWORD': 'renaf',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
+
+if not DEBUG:
+
+    DATABASES = {
+    'default': dj_database_url.config(
+    default=os.environ.get('DATABASE_URL'),
     )
-}
+  }
 
 
 

@@ -7,6 +7,7 @@ services:
   - type: web
     name: trilc
     runtime: python
+    region: singapore
     buildCommand: "./build.sh"
     startCommand: "gunicorn corepro.wsgi:application"
     envVars:
