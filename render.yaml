@@ -8,7 +8,7 @@ services:
     name: trilc
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn coreapp.wsgi:application"
+    startCommand: "gunicorn corepro.wsgi:application"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
