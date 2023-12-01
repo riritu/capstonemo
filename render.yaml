@@ -1,7 +1,7 @@
 databases:
-  - name: trilcenterprises
-    databaseName: admins_d44o
-    user: fonti
+  - name: pontefino
+    databaseName: pontefino
+    user: pontefino_user
 
 services:
   - type: web
@@ -12,7 +12,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: trilcenterprises
+          name: pontefino
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
