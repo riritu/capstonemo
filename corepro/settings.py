@@ -25,12 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if 'RENDER' in os.environ:
-    # If RENDER is present, set DEBUG to False
-    DEBUG = False
-else:
-    # If RENDER is not present, set DEBUG to True
-    DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
@@ -148,9 +143,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-WHITENOISE_STATIC_PREFIX = '/static/'
-WHITENOISE_MANIFEST_STRICT = False
-WHITENOISE_DEBUG = True
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'coreapp', 'static')]
 
@@ -161,6 +154,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'coreapp', 'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'home'  # Replace 'login' with the URL name of your login view
+WHITENOISE_DEBUG = True
 
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
