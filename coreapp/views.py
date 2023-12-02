@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.shortcuts import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -77,7 +78,8 @@ def home(request):
             tenant = None
         if tenant is not None and tenant.check_password(pword):
             login(request, tenant, backend='coreapp.backend.TenantBackend')
-            return redirect(f'/tnt_hom/?username={uname}', )  # Include the username in the URL   return redirect('tnt_hom', username=uname)  
+            return redirect(reverse('tnt_hom') + f'?username={uname}')
+
         user = authenticate(request, username=uname, password=pword)
         if user is not None:
             login(request, user)
