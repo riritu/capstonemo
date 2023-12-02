@@ -78,11 +78,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Handle click events and keyboard navigation for the first A-Frame scene
     handleRoomClick(rooms1, 'Room 1');
     handleKeyboardNavigation(rooms1, 'Room 1');
 
-    // Handle click events and keyboard navigation for the second A-Frame scene
     handleRoomClick(rooms2, 'Model 2 Room ');
     handleKeyboardNavigation(rooms2, 'Model 2 Room ');
 

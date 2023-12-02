@@ -85,12 +85,29 @@ WSGI_APPLICATION = 'corepro.wsgi.application'
 
 
 
-DATABASES = {
+
+
+
+
+
+database_url = os.environ.get("DATABASE_URL")
+
+if database_url:
+    DATABASES = {
     'default': dj_database_url.config(             
         default='postgres://trilc_user:wXg84p06oDW57bRaKddqXHPIVrBeOIqS@dpg-cll0h66aov6s73f0v1h0-a/trilc',        
         conn_max_age=600    )}
-
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'admins',
+            'USER': 'postgres',
+            'PASSWORD': 'renaf',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
