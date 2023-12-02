@@ -442,9 +442,10 @@ def admins(request):
     return render(request, 'admins.html')
 
 @login_required(login_url='home') 
-def tnt_hom(request): 
+def tnt_hom(request):
     locale.setlocale(locale.LC_ALL, 'fil_PH.UTF-8')
-    username = request.GET.get('username', '') 
+    username = request.GET.get('username', '')
+
     try:
         tenant_data = Tenants.objects.get(username=username)
         tenant_name = tenant_data.tent_name
@@ -453,25 +454,13 @@ def tnt_hom(request):
 
     paypend = Payment.objects.filter(name=username, status='Pending')
     paypsucc = Payment.objects.filter(name=username, status='Successful')
-    
-    # Format the amount in the backend
-    paypend = [
-        {   
-            'date': payment.date,
-            'mop': payment.mop,
-            'ref': payment.ref,
-            'amount': locale.currency(payment.amount, grouping=True),
-        }
-        for payment in paypend  # Fix the variable name here
-    ]
+
     context = {
         'username': username,
         'tenant_name': tenant_name,
         'paypend': paypend,
         'paypsucc': paypsucc,
     }
-
-  
 
     if request.method == 'POST':
         form = Compform(request.POST)
@@ -489,8 +478,9 @@ def tnt_hom(request):
     else:
         form = Compform()
 
-    return render(request, 'tnt_hom.html', {'form': form, **context, 'username': username})
+    context['form'] = form  # Add the form to the context
 
+    return render(request, 'tnt_hom.html', context)
 
 def foot(request):  
     return render(request, 'footer.html')

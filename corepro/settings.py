@@ -83,13 +83,6 @@ WSGI_APPLICATION = 'corepro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-
-
-
-
-
-
-
 database_url = os.environ.get("DATABASE_URL")
 
 if database_url:
