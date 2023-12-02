@@ -56,7 +56,7 @@ class Booked(models.Model):
 
 class Payment(models.Model):
     name = models.CharField(max_length=255)
-    amount = models.IntegerField()
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     ref = models.IntegerField()
     mop = models.CharField(max_length=255)  
     unit = models.CharField(max_length=255)
