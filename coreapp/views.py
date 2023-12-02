@@ -155,10 +155,16 @@ def ad_hom(request):
     return render(request, 'ad_hom.html', reqs)
 
 def calculate_total_profit():
-    total_profit = Payment.objects.aggregate(Sum('amount'))['amount__sum']
-    if total_profit is not None:
-        total_profit = abs(total_profit)
-    return total_profit
+    try:
+        total_profit = Payment.objects.aggregate(Sum('amount'))['amount__sum']
+        if total_profit is not None:
+            total_profit = abs(total_profit)
+        return total_profit
+    except Exception as e:
+        # Log the exception for debugging
+        print(f"Error in calculate_total_profit: {e}")
+        return None
+
 
 
 
