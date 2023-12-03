@@ -1469,6 +1469,15 @@ hr {
   width: 70% !important;
 }
 
+.bokp {
+  margin-top: 20%;
+  margin-bottom: 3%;
+}
+
+#img {
+  width: 63% !important;
+}
+
 .compsub {
   font-weight: light;
   font-size: large;
@@ -1739,6 +1748,11 @@ hr {
 .total-amount {
   font-size: 2rem;
   margin-right: 5%;
+}
+
+
+#refb {
+  margin-bottom: 16% !important;
 }
 @media (max-width: 640px) {
 
