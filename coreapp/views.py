@@ -218,24 +218,65 @@ def amnts(request):
 
 def comp(request):  
     comp = Issues.objects.all()
+    bpay = Booked.objects.all()
     payment = Payment.objects.filter(status='Pending').order_by('date')
     context = {
         'comp': comp,
-        'pay': payment
+        'pay': payment,
+        'bookpay': bpay
     }
 
     if request.method == 'POST':
         action = request.POST.get('action')
         custom_id_value = request.POST.get('custom_id')
-        if action == 'approve':
-            payment = Payment.objects.get(pk=custom_id_value)
-            payment.status = 'Successful'
-            payment.save()
+        emel = request.POST.get('emel')
 
-        elif action == 'decline':
+        try:
             payment = Payment.objects.get(pk=custom_id_value)
-            payment.status = 'Decline'
-            payment.save()
+        except Payment.DoesNotExist:
+            payment = None
+        try:
+            booked_payment = Booked.objects.get(pk=custom_id_value)
+        except Booked.DoesNotExist:
+            booked_payment = None
+
+        if action == 'approve':
+            if payment:
+                # Handle 'approve' for Payment
+                payment.status = 'Successful'
+                payment.save()
+                
+            elif booked_payment:
+                booked_payment.delete()
+                subject = 'Payment Confirmed'
+                message = 'Dear user,\n\nYour payment has been confirmed. Please wait for an email regarding your user account.\n\nThank you for choosing our services!\n\nBest regards,\nThe Payment Confirmation Team'
+                from_email = settings.EMAIL_HOST_USER 
+                recipient_list = [emel]
+                try:
+                    send_mail(subject, message, from_email, recipient_list)
+                    print('Email sent successfully!')
+                except Exception as e:
+                    print(f'Error sending email: {e}')
+                pass
+            else:
+                # Handle the case where neither Payment nor Booked is found
+                messages.error(request, "Invalid Input.")
+        elif action == 'decline':
+            if payment:
+                payment.status = 'Decline'
+                payment.save()
+            elif booked_payment:
+                subject = 'Payment Declined'
+                message = 'Dear user,\n\nWe regret to inform you that your payment has been declined. If you have any questions or concerns, please contact our support team.\n\nThank you for considering our services.\n\nBest regards,\nThe Support Team'
+                from_email = settings.EMAIL_HOST_USER 
+                recipient_list = [emel]
+
+                try:
+                    send_mail(subject, message, from_email, recipient_list)
+                    print('Email sent successfully!')
+                except Exception as e:
+                    print(f'Error sending email: {e}')
+                pass
 
             messages.error(request, "Invalid Input.")
 
