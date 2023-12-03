@@ -204,7 +204,8 @@ def contact(request):
 
         send_mail(subject, message, from_email, recipient_list)
 
-        return HttpResponse('Form submitted successfully. Thank you!')
+        messages.success(request, "Email Submitted Successfully. Thank you!")
+
     return render(request, 'contact.html')
 
 def vtour(request):  
