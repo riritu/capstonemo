@@ -52,14 +52,14 @@ class Booked(models.Model):
     date = models.DateField(max_length=255)
     emel = models.CharField(max_length=255, validators=[EmailValidator()], default='custom@example.com')  
     image = models.ImageField(upload_to='images/',default='image')
-    ref = models.IntegerField(default=1)
+    ref = models.CharField(max_length=255, default='rfn123')
     mop = models.CharField(max_length=255, default='CASH')  
     approval_status = models.CharField(max_length=20, choices=APPROVAL_CHOICES, default='Pending')
 
 class Payment(models.Model):
     name = models.CharField(max_length=255)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    ref = models.IntegerField()
+    ref = models.CharField(max_length=255, default='rfn123')
     mop = models.CharField(max_length=255)  
     unit = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/',default='image')
