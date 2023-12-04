@@ -41,7 +41,7 @@ class Requestform(forms.ModelForm):
 class Payform(forms.ModelForm):
     class Meta:
         model = Booked
-        fields = ['ref', 'image', 'mop']
+        fields = ['ref', 'image', 'mop','amount']
 
 class Paymentform(forms.ModelForm):
     class Meta:
