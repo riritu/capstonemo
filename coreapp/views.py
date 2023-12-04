@@ -14,7 +14,6 @@ from calendar import monthrange
 from django.http import HttpResponse
 from django.conf import settings
 from django.http import JsonResponse
-import locale
 from django.core.serializers import serialize
 from django.http import JsonResponse
 import json
@@ -104,45 +103,45 @@ def creacc(request):
             tent_pnum = form.cleaned_data['tent_pnum']
             tent_emel = form.cleaned_data['tent_emel']
             tent_pword = form.cleaned_data['tent_pword']
-        try:
-            tenant = Tenants.objects.create(
-                tent_name=tent_name,
-                username=uname,
-                unit_type=unit_type,
-                tent_pnum=tent_pnum,
-                tent_emel=tent_emel,
-                password=tent_pword
-            )
-            
-            subject = 'Account Creation'
-            message = f'''
-                        Your Account Information are the following:
-                        - Username: {uname}
-                        - Password: {tent_pword}
-                    '''
-            from_email = 'renafjunior@gmail.com'
-            recipient_list = [ tent_emel]
-            send_mail(subject, message, from_email, recipient_list)
 
-            messages.success(request, "Account Created.")
-            return redirect('creacc')  # Redirect after successful submission
-        except IntegrityError as e:
-            messages.error(request, f"Error creating account: {e}")
+            try:
+                tenant = Tenants.objects.create(
+                    tent_name=tent_name,
+                    username=uname,
+                    unit_type=unit_type,
+                    tent_pnum=tent_pnum,
+                    tent_emel=tent_emel,
+                    password=tent_pword
+                )
+            
+                subject = 'Account Creation'
+                message = f'''
+                            Your Account Information are the following:
+                            - Username: {uname}
+                            - Password: {tent_pword}
+                        '''
+                from_email = 'renafjunior@gmail.com'
+                recipient_list = [ tent_emel]
+                send_mail(subject, message, from_email, recipient_list)
+
+                messages.success(request, "Account Created.")
+                return redirect('creacc')  # Redirect after successful submission
+            except IntegrityError as e:
+                messages.error(request, f"Error creating account: {e}")
+        else:
+            messages.error(request, "Form is not valid. Please check the form data.")
     else:
         form = Tenantform()
     return render(request, 'creacc.html', {'form': form})
 
 def ad_hom(request):  
-    locale.setlocale(locale.LC_ALL, 'fil_PH.UTF-8')
     book = Booked.objects.filter(approval_status='pending').order_by('date')
     tent = Tenants.objects.all().order_by('tent_name')
     prop = Units.objects.all()
 
     total_profit = calculate_total_profit()
-    if total_profit is not None:
-        formatted_total_profit = locale.currency(total_profit, grouping=True)
-    else:
-        formatted_total_profit = '0'  # or any default value you want to set
+
+    formatted_total_profit = '{:.2f}'.format(total_profit) if total_profit is not None else '0.00'
 
     num_tenants = tent.count()
     num_unit = prop.count()
@@ -468,7 +467,6 @@ def admins(request):
 
 @login_required(login_url='home') 
 def tnt_hom(request):
-    locale.setlocale(locale.LC_ALL, 'fil_PH.UTF-8')
     username = request.GET.get('username', '')
 
     try:
