@@ -50,6 +50,7 @@ class Booked(models.Model):
     unit = models.CharField(max_length=255)
     pnum = models.CharField(max_length=20)  
     date = models.DateField(max_length=255)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     emel = models.CharField(max_length=255, validators=[EmailValidator()], default='custom@example.com')  
     image = models.ImageField(upload_to='images/',default='image')
     ref = models.CharField(max_length=255, default='rfn123')
