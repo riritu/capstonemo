@@ -552,11 +552,14 @@ def bookpay(request):
             mop = form.cleaned_data['mop']
             image = form.cleaned_data['image']
             ref = form.cleaned_data['ref']
+            amount = form.cleaned_data['amount']
+
             try:
                 if booking:
                     booking.mop = mop
                     booking.image = image
                     booking.ref = ref
+                    booking.amount = amount
                     booking.save()
                     del request.session['booking_id']  # Remove the session variable after payment
 
