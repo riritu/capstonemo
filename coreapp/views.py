@@ -362,7 +362,6 @@ def pay(request, username):
             mop = form.cleaned_data['mop']
             amount = form.cleaned_data['amount']
             tenant_id = form.cleaned_data['tenant']
-            image = form.cleaned_data['image']
 
             try:
                 payment = Payment.objects.create(
@@ -372,7 +371,6 @@ def pay(request, username):
                     ref=ref,
                     mop=mop,
                     amount=amount,
-                    image=image,
                     tenant=tenant_id  
                                                     )
                 messages.success(request, "Payment Submitted.")

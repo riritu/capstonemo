@@ -61,7 +61,6 @@ class Payment(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     ref = models.CharField(max_length=255, default='rfn123')
     mop = models.CharField(max_length=255)  
-    image = models.ImageField(upload_to='images/',default='image')
     unit = models.CharField(max_length=255)
     date = models.DateField(default=timezone.now)
     tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)  
