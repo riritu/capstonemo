@@ -50,7 +50,6 @@ class Booked(models.Model):
     unit = models.CharField(max_length=255)
     pnum = models.CharField(max_length=20)  
     date = models.DateField(max_length=255)
-    amount = models.DecimalField(max_digits=10, decimal_places=2, default=1000)
     emel = models.CharField(max_length=255, validators=[EmailValidator()], default='custom@example.com')  
     image = models.ImageField(upload_to='images/',default='image')
     ref = models.CharField(max_length=255, default='rfn123')
@@ -63,7 +62,6 @@ class Payment(models.Model):
     ref = models.CharField(max_length=255, default='rfn123')
     mop = models.CharField(max_length=255)  
     unit = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='images/',default='image')
     date = models.DateField(default=timezone.now)
     tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)  
     status = models.CharField(
