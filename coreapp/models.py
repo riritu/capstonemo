@@ -62,6 +62,7 @@ class Payment(models.Model):
     ref = models.IntegerField()
     mop = models.CharField(max_length=255)  
     unit = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='images/',default='image')
     date = models.DateField(default=timezone.now)
     tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)  
     status = models.CharField(
