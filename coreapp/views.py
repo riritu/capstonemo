@@ -342,16 +342,15 @@ def req(request):
 def nav(request):  
     return render(request, 'navbar.html')
 
-
 def pay(request, username):
     try:
         tenant = Tenants.objects.get(username=username)
-    except ObjectDoesNotExist:
+    except Tenants.DoesNotExist:
         messages.error(request, "Tenant not found.")
         return redirect('book')
 
     context = {'username': username, 'tenant_id': tenant.id}
-    
+
     if request.method == 'POST':
         form = Paymentform(request.POST)
         if form.is_valid():
@@ -361,7 +360,6 @@ def pay(request, username):
             ref = form.cleaned_data['ref']
             mop = form.cleaned_data['mop']
             amount = form.cleaned_data['amount']
-            tenant_id = form.cleaned_data['tenant']
 
             try:
                 payment = Payment.objects.create(
@@ -371,8 +369,8 @@ def pay(request, username):
                     ref=ref,
                     mop=mop,
                     amount=amount,
-                    tenant=tenant_id  
-                                                    )
+                    tenant=tenant
+                )
                 messages.success(request, "Payment Submitted.")
 
             except IntegrityError:
@@ -382,8 +380,8 @@ def pay(request, username):
     else:
         form = Paymentform()
 
-    return render(request, 'payment.html', {'form': form, **context})
-
+    return render(request, 'payment.html', {'form': form, 'context': context})
+    
 def prop(request):  
     queryset = Units.objects.all()
     context = {
