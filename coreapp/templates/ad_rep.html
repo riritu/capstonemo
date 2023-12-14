@@ -5,11 +5,6 @@
 <div class="tntcon">
     <div class="tntlist">All Reports <span>Sort by <i class="fa fa-caret-down" aria-hidden="true"></i></span></div>
     <hr>
-    <div class="action-button">
-        <a href="{% url 'creacc' %}" class="add-button">
-        </a>
-    </div>
-
     <form method="get" action="{% url 'rep' %}" style="display: flex; align-items: center; justify-content: start;">
         <label for="start_year" style="margin-right: 10px; margin-left: 5%;">Start Year:</label>
         <select id="start_year" name="start_year" style="margin-right: 10px; width: 7%;">
@@ -36,6 +31,13 @@
         <select id="end_month" name="end_month" style="margin-right: 10px; width: 7%;">
             {% for m in months %}
             <option value="{{ m.0 }}" {% if m.0 == end_month %}selected{% endif %}>{{ m.1 }}</option>
+            {% endfor %}
+        </select>
+        <label for="selected_unit" style="margin-right: 10px;">Select Unit:</label>
+        <select id="selected_unit" name="selected_unit" style="margin-right: 10px; width: 15%;">
+            <option value="" {% if not selected_unit %}selected{% endif %}>All Units</option>
+            {% for unit in units %}
+                <option value="{{ unit.id }}" {% if unit.id == selected_unit %}selected{% endif %}>{{ unit.unit_blt }}</option>
             {% endfor %}
         </select>
     

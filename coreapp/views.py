@@ -14,13 +14,14 @@ from calendar import monthrange
 from django.http import HttpResponse
 from django.conf import settings
 from django.http import JsonResponse
-import locale
 from django.core.serializers import serialize
 from django.http import JsonResponse
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
 from django.shortcuts import render, get_object_or_404
+
+
 
 def index(request):
     return render(request, 'render/index.html', {})
@@ -133,16 +134,13 @@ def creacc(request):
     return render(request, 'creacc.html', {'form': form})
 
 def ad_hom(request):  
-    locale.setlocale(locale.LC_ALL, 'fil_PH.UTF-8')
-    book = Booked.objects.filter(approval_status='pending').order_by('date')
+    book = Booked.objects.filter(approval_status='pending')
     tent = Tenants.objects.all().order_by('tent_name')
     prop = Units.objects.all()
 
     total_profit = calculate_total_profit()
-    if total_profit is not None:
-        formatted_total_profit = locale.currency(total_profit, grouping=True)
-    else:
-        formatted_total_profit = '0'  # or any default value you want to set
+
+    formatted_total_profit = '{:.2f}'.format(total_profit) if total_profit is not None else '0.00'
 
     num_tenants = tent.count()
     num_unit = prop.count()
@@ -284,7 +282,7 @@ def comp(request):
 
 
 def req(request):  
-    book = Booked.objects.filter(approval_status='Pending').order_by('date')
+    book = Booked.objects.filter(approval_status='Pending')
     reqy = {
         'Booked': book
     }
@@ -351,7 +349,7 @@ def pay(request, username):
         messages.error(request, "Tenant not found.")
         return redirect('book')
 
-    context = {'username': username, 'tenant_id': tenant.id}
+    context = {'username': username, 'tenant_id': tenant.id, 'unit_id': tenant.assigned_unit}
     
     if request.method == 'POST':
         form = Paymentform(request.POST)
@@ -413,7 +411,10 @@ def prop(request):
 
     return render(request, 'property.html', {'form': form, **context})
 
-def rep(request):  
+def rep(request):
+    units = Units.objects.all()
+    selected_unit = request.GET.get('selected_unit')
+
     if request.method == 'GET':
         try:
             start_year = int(request.GET.get('start_year', datetime.now().year))
@@ -428,8 +429,11 @@ def rep(request):
                 _, last_day_end = monthrange(end_year, end_month)
                 end_date = datetime(end_year, end_month, last_day_end).date()
 
-                # Query the Payment model to get the total amount for the selected range of months
-                total_amount = Payment.objects.filter(date__range=(start_date, end_date)).aggregate(Sum('amount'))['amount__sum']
+                # Query the Payment model to get the total amount for the selected range of months and unit
+                if selected_unit:
+                    total_amount = Payment.objects.filter(date__range=(start_date, end_date), units_id=selected_unit).aggregate(Sum('amount'))['amount__sum']
+                else:
+                    total_amount = Payment.objects.filter(date__range=(start_date, end_date)).aggregate(Sum('amount'))['amount__sum']
 
                 # Prepare data to pass to the template
                 report_period = f'{start_date.strftime("%B %Y")} - {end_date.strftime("%B %Y")}'
@@ -451,15 +455,17 @@ def rep(request):
                     'end_month': end_month,
                     'report_period': report_period,
                     'years': years,
-                    'months': months
+                    'months': months,
+                    'units': units,
+                    'selected_unit': selected_unit,
                 })
             else:
                 return HttpResponse("Invalid month value. Please select a month between 1 and 12.")
         except ValueError:
             return HttpResponse("Invalid input. Please provide valid year and month values.")
     else:
-        # Handle other HTTP methods if necessary
         pass
+
 
 
 @login_required(login_url='home')  
@@ -468,9 +474,7 @@ def admins(request):
 
 @login_required(login_url='home') 
 def tnt_hom(request):
-    locale.setlocale(locale.LC_ALL, 'fil_PH.UTF-8')
     username = request.GET.get('username', '')
-
     try:
         tenant_data = Tenants.objects.get(username=username)
         tenant_name = tenant_data.tent_name
@@ -512,6 +516,8 @@ def foot(request):
 
 
 def book(request):  
+    bookings = Units.objects.all()
+    num_unit = bookings.count()
     if request.method == 'POST':
         form = Requestform(request.POST)
         if form.is_valid():
@@ -519,15 +525,17 @@ def book(request):
             emel= form.cleaned_data['emel']
             unit = form.cleaned_data['unit']
             pnum = form.cleaned_data['pnum']
-            date = form.cleaned_data['date']
+            check_in = form.cleaned_data['check_in']  # Corrected field name
+            check_out = form.cleaned_data['check_out'] 
             bookt = form.cleaned_data['bookt']
             try:
                 book = Booked.objects.create(
                     name = nem,
                     emel = emel,
-                    unit= unit,
+                    unit = unit,
                     pnum = pnum,
-                    date = date,
+                    check_in=check_in,
+                    check_out=check_out,
                     bookt = bookt,
                 )
                 request.session['booking_id'] = book.id
@@ -538,7 +546,7 @@ def book(request):
                 messages.error(request, "Invalid Input.")
     else:
         form = Requestform()
-    return render(request, 'booking.html', {'form': form})
+    return render(request, 'booking.html', {'form': form, 'bookings': num_unit})
 
 def bookpay(request):  
     booking_id = request.session.get('booking_id')

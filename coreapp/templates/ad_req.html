@@ -25,8 +25,8 @@
                 <div class="large-card" id="reqcard">
                     <img src="{% static 'coreapp/images/image14-1.png' %}" alt="" class="reqimg">
                     <div class="rounded-content">{{ item.name }}</div>
-                    <div><span>{{ item.unit }}</span> <span>{{ item.date }}</span></div>
-                    <button class="btnmodal" id="myBtn" data-id="{{ item.id }}" data-name="{{ item.name }}" data-unit="{{ item.unit }}" data-date="{{ item.date }}" data-email="{{ item.emel }}" data-pnum="{{ item.pnum }}">View</button>
+                    <div><span>{{ item.unit }}</span> <span>{{ item.check_in }}</span></div>
+                    <button class="btnmodal" id="myBtn" data-id="{{ item.id }}" data-name="{{ item.name }}" data-unit="{{ item.unit }}" data-date="{{ item.check_in }}" data-email="{{ item.emel }}" data-pnum="{{ item.pnum }}">View</button>
                 </div>
             </div>
             {% endfor %}
@@ -77,7 +77,6 @@
         var btns = document.querySelectorAll(".btnmodal");
         var span = document.getElementsByClassName("close")[0];
     
-        // Attach click event to all buttons with class .btnmodal
         btns.forEach(function(btn) {
             btn.onclick = function() {
                 var name = this.getAttribute("data-name");
@@ -87,14 +86,13 @@
                 var id = this.getAttribute("data-id");
                 var pnum = this.getAttribute("data-pnum");
     
-                // Set modal content using the data attributes
                 document.getElementById("name").innerHTML = name;
                 document.getElementById("unit").innerHTML = unit;
                 document.getElementById("date").innerHTML = date;
                 document.getElementById("email").innerHTML = emel;
                 document.getElementById("pnum").innerHTML = pnum;
                 document.getElementById("custom_id").value = id;
-                document.getElementById("emel").value = emel; // Set the value of the hidden input for emel
+                document.getElementById("emel").value = emel;
                 modal.style.display = "block";
             };
         });

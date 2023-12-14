@@ -10,7 +10,13 @@ class Tenantform(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(Tenantform, self).__init__(*args, **kwargs)
         self.fields['unit_type'].queryset = Units.objects.filter(unt_availability=True)
-
+    
+    def clean_email(self):
+        tent_emel = self.cleaned_data.get('tent_emel')
+        if Tenants.objects.filter(tent_emel=tent_emel).exists():
+            raise forms.ValidationError('This email address is already in use.')
+        return tent_emel
+    
     def save(self, commit=True):
         tenant = super(Tenantform, self).save(commit=False)
         unit_type = self.cleaned_data['unit_type']
@@ -36,7 +42,12 @@ class Tenantform(forms.ModelForm):
 class Requestform(forms.ModelForm):
     class Meta:
         model = Booked
-        fields = ['name', 'unit', 'pnum', 'date', 'emel', 'bookt']
+        fields = ['name', 'unit', 'pnum', 'emel', 'check_in', 'check_out', 'bookt']
+
+    def __init__(self, *args, **kwargs):
+        super(Requestform, self).__init__(*args, **kwargs)
+        for field_name in self.fields:
+            self.fields[field_name].required = False
         
 class Payform(forms.ModelForm):
     class Meta:
@@ -46,7 +57,7 @@ class Payform(forms.ModelForm):
 class Paymentform(forms.ModelForm):
     class Meta:
         model = Payment
-        fields = ['name', 'unit', 'mop', 'date', 'amount', 'ref', 'tenant']
+        fields = ['name', 'unit', 'mop', 'date', 'amount', 'ref', 'tenant', 'units']
         exclude = ['status']
 
 class Compform(forms.ModelForm):

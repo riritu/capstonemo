@@ -32,12 +32,19 @@ class Units(models.Model):
     unit_blt = models.CharField(max_length=255, default='location')
     unt_price = models.FloatField()
     unt_availability = models.BooleanField(default=True) 
+    total_sales = models.FloatField()
+
 
     def availability_display(self):
         return "Vacant" if self.unt_availability else "Occupied"
     
     def __str__(self):
         return self.unit_type
+    
+    def calculate_total_payment(self):
+        payments = Payment.objects.filter(unit=self)
+        total_payment = sum(payment.amount for payment in payments)
+        return total_payment
 
 class Booked(models.Model):
     APPROVAL_CHOICES = (
@@ -49,13 +56,17 @@ class Booked(models.Model):
     name = models.CharField(max_length=255)
     unit = models.CharField(max_length=255)
     pnum = models.CharField(max_length=20)  
-    date = models.DateField(max_length=255)
+    check_out = models.DateField(max_length=255, null=True, blank=True)
+    check_in = models.DateField(max_length=255, null=True, blank=True)
     emel = models.CharField(max_length=255, validators=[EmailValidator()], default='custom@example.com')  
     image = models.ImageField(upload_to='images/',default='image')
     ref = models.IntegerField(default=1)
     mop = models.CharField(max_length=255, default='CASH')  
     approval_status = models.CharField(max_length=20, choices=APPROVAL_CHOICES, default='Pending')
-
+    
+    def __str__(self):
+        return f"{self.name} - {self.chek_in} to {self.chek_out}"
+    
 class Payment(models.Model):
     name = models.CharField(max_length=255)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -64,6 +75,7 @@ class Payment(models.Model):
     unit = models.CharField(max_length=255)
     date = models.DateField(default=timezone.now)
     tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)  
+    units = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, blank=True)
     status = models.CharField(
         max_length=20,
         choices=[
@@ -79,7 +91,7 @@ class Tenants(AbstractUser):
     tent_uname = models.CharField(max_length=255)
     unit_type = models.CharField(max_length=255)
     tent_pnum = models.CharField(max_length=20)  
-    tent_emel = models.EmailField(max_length=255, validators=[EmailValidator()], default='custom@example.com')
+    tent_emel = models.EmailField(max_length=255, unique=True, validators=[EmailValidator()], default='custom@example.com')
     tent_pword = models.CharField(max_length=255)
     assigned_unit = models.ForeignKey(Units, on_delete=models.SET_NULL, null=True, blank=True)
     
@@ -95,9 +107,9 @@ class Tenants(AbstractUser):
                     if self.assigned_unit and self.assigned_unit.unt_availability == False:
                         self.assigned_unit.unt_availability = True
                         self.assigned_unit.save()
-                    booked_unit.unt_availability = False
-                    booked_unit.save()
-                    self.assigned_unit = booked_unit
+                        booked_unit.unt_availability = False
+                        booked_unit.save()
+                        self.assigned_unit = booked_unit
                 else:
                     # Handle the case where the unit is already assigned to another tenant
                     raise Exception("Selected unit is already assigned to another tenant.")
