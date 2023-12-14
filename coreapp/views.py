@@ -105,36 +105,40 @@ def creacc(request):
             tent_pnum = form.cleaned_data['tent_pnum']
             tent_emel = form.cleaned_data['tent_emel']
             tent_pword = form.cleaned_data['tent_pword']
-        try:
-            tenant = Tenants.objects.create(
-                tent_name=tent_name,
-                username=uname,
-                unit_type=unit_type,
-                tent_pnum=tent_pnum,
-                tent_emel=tent_emel,
-                password=tent_pword
-            )
-            
-            subject = 'Account Creation'
-            message = f'''
-                        Your Account Information are the following:
-                        - Username: {uname}
-                        - Password: {tent_pword}
-                    '''
-            from_email = 'renafjunior@gmail.com'
-            recipient_list = [ tent_emel]
-            send_mail(subject, message, from_email, recipient_list)
 
-            messages.success(request, "Account Created.")
-            return redirect('creacc')  # Redirect after successful submission
-        except IntegrityError as e:
-            messages.error(request, f"Error creating account: {e}")
+            try:
+                tenant = Tenants.objects.create(
+                    tent_name=tent_name,
+                    username=uname,
+                    unit_type=unit_type,
+                    tent_pnum=tent_pnum,
+                    tent_emel=tent_emel,
+                    password=tent_pword
+                )
+            
+                subject = 'Account Creation'
+                message = f'''
+                            Your Account Information are the following:
+                            - Username: {uname}
+                            - Password: {tent_pword}
+                        '''
+                from_email = 'renafjunior@gmail.com'
+                recipient_list = [ tent_emel]
+                send_mail(subject, message, from_email, recipient_list)
+
+                messages.success(request, "Account Created.")
+                return redirect('creacc')  # Redirect after successful submission
+            except IntegrityError as e:
+                messages.error(request, f"Error creating account: {e}")
+        else:
+            messages.error(request, "Form is not valid. Please check the form data.")
     else:
         form = Tenantform()
     return render(request, 'creacc.html', {'form': form})
 
 def ad_hom(request):  
     book = Booked.objects.filter(approval_status='pending')
+
     tent = Tenants.objects.all().order_by('tent_name')
     prop = Units.objects.all()
 
@@ -341,7 +345,6 @@ def req(request):
 def nav(request):  
     return render(request, 'navbar.html')
 
-
 def pay(request, username):
     try:
         tenant = Tenants.objects.get(username=username)
@@ -381,7 +384,7 @@ def pay(request, username):
         form = Paymentform()
 
     return render(request, 'payment.html', {'form': form, **context})
-
+    
 def prop(request):  
     queryset = Units.objects.all()
     context = {
@@ -559,6 +562,7 @@ def bookpay(request):
             mop = form.cleaned_data['mop']
             image = form.cleaned_data['image']
             ref = form.cleaned_data['ref']
+
             try:
                 if booking:
                     booking.mop = mop

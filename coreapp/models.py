@@ -60,7 +60,7 @@ class Booked(models.Model):
     check_in = models.DateField(max_length=255, null=True, blank=True)
     emel = models.CharField(max_length=255, validators=[EmailValidator()], default='custom@example.com')  
     image = models.ImageField(upload_to='images/',default='image')
-    ref = models.IntegerField(default=1)
+    ref = models.IntegerField(default=123)
     mop = models.CharField(max_length=255, default='CASH')  
     approval_status = models.CharField(max_length=20, choices=APPROVAL_CHOICES, default='Pending')
     
@@ -70,7 +70,7 @@ class Booked(models.Model):
 class Payment(models.Model):
     name = models.CharField(max_length=255)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    ref = models.IntegerField()
+    ref = models.IntegerField(default=123)
     mop = models.CharField(max_length=255)  
     unit = models.CharField(max_length=255)
     date = models.DateField(default=timezone.now)
