@@ -139,7 +139,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Default Django backend
-    'coreapp.backend.TenantBackend',  # Replace 'yourapp' with your actual app name
+    'coreapp.backend.TenantBackend',  
 ]
    
 # Internationalization
@@ -166,7 +166,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'coreapp', 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'home'  # Replace 'login' with the URL name of your login view
+LOGIN_URL = 'home'  
 WHITENOISE_DEBUG = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
