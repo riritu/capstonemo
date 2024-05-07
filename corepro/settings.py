@@ -88,7 +88,7 @@ database_url = os.environ.get("DATABASE_URL")
 if database_url:
     DATABASES = {
     'default': dj_database_url.config(             
-        default='postgres://trilc_kc5r_user:EsLBRDc0wUWOkQcPMvYgWZ86EBIhkNvf@dpg-comciaf79t8c738r7lgg-a/trilc_kc5r',
+        default='postgres://trilc_9nwo_user:QqvXN8IGceo4HumcABMI4RMGTVuDNbkH@dpg-cot2s76d3nmc73dqsqi0-a/trilc_9nwo',
         conn_max_age=600    )}
 else:
     DATABASES = {
