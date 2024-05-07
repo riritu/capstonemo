@@ -1,7 +1,7 @@
 databases:
   - name: trilc
-    databaseName: trilc
-    user: trilc_user
+    databaseName: trilc_kc5r
+    user: trilc_kc5r_user
 
 services:
   - type: web
