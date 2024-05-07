@@ -1,7 +1,7 @@
 databases:
-  - name: trilcdb
-    databaseName: trilc_kc5r
-    user: trilc_kc5r_user
+  - name: trilc
+    databaseName: trilc_9nwo
+    user: trilc_9nwo_user
 
 services:
   - type: web
@@ -12,7 +12,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: trilcdb
+          name: trilc
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
