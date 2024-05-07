@@ -88,7 +88,7 @@ database_url = os.environ.get("DATABASE_URL")
 if database_url:
     DATABASES = {
     'default': dj_database_url.config(             
-        default='postgres://trilc_user:wXg84p06oDW57bRaKddqXHPIVrBeOIqS@dpg-cll0h66aov6s73f0v1h0-a/trilc',
+        default='postgres://trilc_kc5r_user:EsLBRDc0wUWOkQcPMvYgWZ86EBIhkNvf@dpg-comciaf79t8c738r7lgg-a/trilc_kc5r',
         conn_max_age=600    )}
 else:
     DATABASES = {
@@ -139,7 +139,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Default Django backend
-    'coreapp.backend.TenantBackend',  
+    'coreapp.backend.TenantBackend',  # Replace 'yourapp' with your actual app name
 ]
    
 # Internationalization
@@ -166,7 +166,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'coreapp', 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'home'  
+LOGIN_URL = 'home'  # Replace 'login' with the URL name of your login view
 WHITENOISE_DEBUG = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
