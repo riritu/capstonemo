@@ -4,7 +4,7 @@ set -o errexit
 
 poetry install
 
-
+python manage.py create_generic_user
 
 python manage.py collectstatic --no-input
 python manage.py makemigrations
