@@ -20,7 +20,8 @@ password = 'trilcenterprises'
 
 TO INSTALL
 visual studio code
-dependencies with its corresponding  versions:
+
+DEPENDENCIES WITH ITS REQUIRED VERSIONS:
 asgiref==3.7.2
 dj-database-url==2.1.0
 Django>=3.0
